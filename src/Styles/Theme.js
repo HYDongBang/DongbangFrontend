@@ -1,11 +1,12 @@
 const BOX_BORDER = "1px solid #e6e6e6";
 const WHITE_BUTTON_BORDER = "1px solid #707070";
-// const BORDER_RADIUS = "4px";
+const BORDER_RADIUS = "4px";
 
 export default {
   //color
   bgColor: "#FAFAFA",
   whiteColor: "#FFFFFF",
+  blackColor: "#262626",
   blueColor: "#2699FB",
   darkblueColor: "1D2475",
 
@@ -15,10 +16,14 @@ export default {
   //box
   popupBox: `${BOX_BORDER};
             background-color:#F9F9F9`,
+  whiteBox: `border:${BOX_BORDER};
+            border-radius:${BORDER_RADIUS};
+            background-color:white;
+           `,
 
   //button
   whiteButton: `background-color:#FFFFFF;
-                ${WHITE_BUTTON_BORDER};
+                border:${WHITE_BUTTON_BORDER};
                 height: 25px;
                 width:80px;  `,
   darkblueButton: `background-color:#1D2475;
