@@ -8,7 +8,13 @@ export default {
   whiteColor: "#FFFFFF",
   blackColor: "#262626",
   blueColor: "#2699FB",
-  darkblueColor: "1D2475",
+  darkBlueColor: "#1D2475",
+  blueGraColor: "#676AA1",
+  grayColor: "#E2E2E2",
+  lightGrayColor: "#F9F9F9",
+
+  //shadow
+  lightGrayShadow: "rgba(15, 15, 15, 0.1) 0px 0px 2px 1px;",
 
   //font
   font: "Jua Regular",
