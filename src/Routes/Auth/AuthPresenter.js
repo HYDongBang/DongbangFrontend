@@ -4,7 +4,7 @@ import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;

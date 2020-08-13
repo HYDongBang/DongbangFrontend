@@ -1,5 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 const Header = styled.header`
     background-color: ${(props) => props.theme.darkBlueColor};
@@ -25,7 +28,7 @@ const Menu = styled.li`
   align-items: center;
 `;
 
-const Link = styled.a`
+const Text = styled.div`
   color: ${(props) => props.theme.whiteColor};
   padding-right: 16px;
 `;
@@ -40,27 +43,27 @@ const UserImg = styled.div`
   margin-right: 4px;
 `;
 
-const UnderIcon = styled.div`
-  background-color: ${(props) => props.theme.whiteColor};
-  height: 10px;
-  width: 10px;
-`;
+const iconColor = `${(props) => props.theme.whiteColor}`
 
 export default ({isLoggedIn}) => (
     <Header>
-        <Icon>ㄷㅂ</Icon>
-          { true ? (
-              <Menu>
-                  <Link href="#">동아리 찾기</Link>
-                  <UserImg></UserImg>
-                  <UnderIcon></UnderIcon>
-              </Menu>
-          ) : (
-              <Menu>
-                  <Link href="#">동아리 찾기</Link>
-                  <Link href="#">회원가입</Link>
-                  <Link href="#">로그인</Link>
-              </Menu>
-          ) }
+        <Link to="/">
+          <Icon>ㄷㅂ</Icon>
+        </Link>
+        { isLoggedIn ? (
+            <Menu>
+                <Text href="#">동아리 찾기</Text>
+                <UserImg></UserImg>
+                <Link to="/profile">
+                  <FontAwesomeIcon icon={faSortDown} size="1x" color="white"/>
+                </Link>
+            </Menu>
+        ) : (
+            <Menu>
+                <Text>동아리 찾기</Text>
+                <Text>회원가입</Text>
+                <Text>로그인</Text>
+            </Menu>
+        ) }
     </Header>
 )
