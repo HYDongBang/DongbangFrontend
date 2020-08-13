@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Theme from "../Styles/Theme";
 import Router from "./Router";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const QUERY = gql`
@@ -26,7 +25,7 @@ export default () => {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
-      <Header isLoggedIn={isLoggedIn} />
+      
       <Router isLoggedIn={isLoggedIn} />
       <Footer />
       <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
