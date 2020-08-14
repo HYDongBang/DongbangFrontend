@@ -9,9 +9,11 @@ import Main from "../Routes/Main";
 import Auth from "../Routes/Auth";
 import Profile from "../Routes/Profile";
 import ClubInfo from "../Routes/ClubInfo";
+import Header from "../Components/Header";
 
 const AppRouter = () => (
   <Router>
+    <Header isLoggedIn={true} />
     <Switch>
       <Route path="/" exact component={Main} />
       <Route path="/auth" exact component={Auth} />

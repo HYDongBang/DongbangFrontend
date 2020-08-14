@@ -3,15 +3,15 @@ import styled from "styled-components";
 import input from "../../Components/Input";
 
 const Wrapper = styled.div`
-  padding-top: 50px;
-  height: 1500px;
+    padding-top: 50px;
+    min-height: 90vh;
 `;
 
 const Search = styled.div`
-  width: 100%;
-  height: 25%;
-  text-align: center;
-  padding: 60px 0px;
+    width: 100%;
+    height: 27%;
+    text-align: center;
+    padding: 60px 0px;
 `;
 
 const Categories = styled.div`
@@ -26,14 +26,15 @@ const Categories = styled.div`
 `;
 
 const Clubs = styled.div`
-  width: 100%;
-  height: 60%;
-  background-color: ${(props) => props.theme.whiteColor};
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-context: space-between;
-  padding: 40px 20%;
+    width: 100%;
+    height: 58%;
+    background-color: ${props => props.theme.whiteColor};
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-context: space-between;
+    padding: 0px 20vw;
+    padding-bottom: 60px;
 `;
 
 const Icon = styled.div`
@@ -56,17 +57,21 @@ const Img = styled.div`
 `;
 
 const Club = styled.div`
-  height: 230px;
-  width: 27%;
-  text-align: center;
-  padding: 0px 20px;
+    height: 230px;
+    width: 15vw;
+    text-align: center;
+    box-shadow: ${props => props.theme.lightGrayShadow};
+    border-radius: 10px;
+    margin: 20px 0px;
+    &:hover {
+        box-shadow: ${props => props.theme.darkGrayShadow};
+        cursor: pointer;
+    }
 `;
 
 const Context = styled.div`
-  padding: 10px;
-  border: 1px solid ${(props) => props.theme.lightGrayColor};
-  box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 0px 0px 10px 10px;
+    padding: 15px;
+    border-top: 1px solid ${props => props.theme.grayColor};
 `;
 
 const ClubName = styled.div`
@@ -78,11 +83,8 @@ const ClubText = styled.div`
 `;
 
 const ClubImg = styled.div`
-  height: 70%;
-  width: 100%;
-  border: 1px solid ${(props) => props.theme.lightGrayColor};
-  box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 10px 10px 0px 0px;
+    height: 72%;
+    width: 100%;
 `;
 
 const Text = styled.div`
