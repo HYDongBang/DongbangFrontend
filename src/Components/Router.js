@@ -8,6 +8,7 @@ import {
 import Main from "../Routes/Main";
 import Auth from "../Routes/Auth";
 import Profile from "../Routes/Profile";
+import ClubInfo from "../Routes/ClubInfo";
 import Header from "../Components/Header";
 
 const AppRouter = () => (
@@ -16,8 +17,9 @@ const AppRouter = () => (
     <Switch>
       <Route path="/" exact component={Main} />
       <Route path="/auth" exact component={Auth} />
-      <Route path={`/profile/`} component={Profile} />
-      {/*<Redirect path="*" to="/" />*/}
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/clubInfo" component={ClubInfo} />
+      <Redirect path="*" to="/" />
     </Switch>
   </Router>
 );
