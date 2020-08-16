@@ -9,7 +9,7 @@ export default createGlobalStyle`
  body {
         background-color:${(props) => props.theme.bgColor};
         color:${(props) => props.theme.blackColor};
-
+        -ms-overflow-style: none;
     }
     a {
         color:${(props) => props.theme.blueColor};

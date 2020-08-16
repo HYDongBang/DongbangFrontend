@@ -15,7 +15,8 @@ const Wrapper = styled.div`
 
 const ClubContainer = styled.div`
   height: 700px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 `;
 
 const ClubImg = styled.div`
@@ -28,20 +29,28 @@ const ClubImg = styled.div`
 const ClubName = styled.div`
   padding-bottom: 5px;
   text-align: center;
+  font-weight: 600;
+  margin: auto 0 auto 10px;
+  font-size: 1.5em;
+  min-width: 100px;
+  max-width: 200px;
 `;
 
 const TopContainer = styled.div`
-  width: 200px;
+  max-width: 300px;
   margin: 50px auto 0 auto;
   display: flex;
   flex-direction: row;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 `;
 
 const ClubText = styled.div`
-  font-size: 0.8em;
+  font-size: 0.9em;
+  width: 80%;
+  min-height: 40px;
+  margin: 0 auto;
+
   text-align: center;
-  padding-bottom: 10px;
 `;
 
 const Context = styled.div`
@@ -49,7 +58,15 @@ const Context = styled.div`
   text-align: center;
   border: 1px solid ${(props) => props.theme.lightGrayColor};
   box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 10px;
+  line-height: 1.4em;
+`;
+
+const ContextClubImg = styled.div`
+  height: 150px;
+  width: 100%;
+  border: 1px solid black;
+  margin-top: 10px;
 `;
 
 const Header = styled.header`
@@ -92,9 +109,13 @@ export default ({ action, setAction }) => (
       <ClubContainer>
         <TopContainer>
           <ClubImg />
+          <ClubName>동아리명</ClubName>
         </TopContainer>
         <ClubText>한줄소개</ClubText>
-        <Context>내용입니다</Context>
+        <Context>
+          내용입니다
+          <ContextClubImg />
+        </Context>
       </ClubContainer>
     )}
 
