@@ -14,13 +14,11 @@ import Header from "../Components/Header";
 const AppRouter = () => (
   <Router>
     <Header isLoggedIn={true} />
-    <Switch>
-      <Route path="/" exact component={Main} />
-      <Route path="/auth" exact component={Auth} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/clubInfo" component={ClubInfo} />
-      <Redirect path="*" to="/" />
-    </Switch>
+    <Route path="/" exact component={Main} />
+    <Route path="/auth" exact component={Auth} />
+    <Route path="/profile" exact component={Profile} />
+    <Route path="/clubInfo/:id" component={ClubInfo} />
+    <Redirect path="*" to="/" />
   </Router>
 );
 

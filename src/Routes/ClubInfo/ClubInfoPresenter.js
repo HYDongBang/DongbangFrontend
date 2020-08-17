@@ -3,14 +3,18 @@ import styled from "styled-components";
 import ClubApply from "./ClupApply";
 import ClubTalk from "./ClubTalk";
 import ClubActivity from "./ClubActivity";
+import Popup from "reactjs-popup";
 
 const Wrapper = styled.div`
-  padding-top: 50px;
   height: 800px;
   width: 800px;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px;
-  z-index: 100;
+  z-index: 9999;
   margin: auto;
+  margin-left: 20%;
+  margin-top: -60%;
+  background: white;
+  position: absolute;
 `;
 
 const ClubContainer = styled.div`
@@ -78,7 +82,6 @@ const Header = styled.header`
   padding: 14px;
   height: 50px;
   width: 800px;
-  position: fixed;
 `;
 
 const Menu = styled.li`
