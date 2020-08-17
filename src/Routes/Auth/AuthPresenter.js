@@ -42,55 +42,46 @@ const Form = styled(Box)`
     }
     button {
       margin-top: 10px;
+      cursor: pointer;
     }
   }
 `;
 
 export default ({
   action,
-  name,
-  phoneNumber,
   email,
+  password,
   setAction,
-  onSubmit,
-  secret,
+  onSubmit
 }) => (
   <Wrapper>
     <Form>
       {action === "logIn" ? (
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
-          <Button text={"Log in"} />
+          <Input placeholder={"Password"} {...password} type="password" />
+          <Button text={"로그인"} />
         </form>
       ) : (
         <form onSubmit={onSubmit}>
-          <Input placeholder={"Name"} {...name} />
-          <Input placeholder={"Phonenumber"} {...phoneNumber} />
           <Input placeholder={"Email"} {...email} type="email" />
-          <Button text={"Sign up"} />
-        </form>
-      )}
-      {action === "confirm" && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder="Paste your secret" required {...secret} />
-          <Button text={"Confirm"} />
+          <Input placeholder={"Password"} {...password} type="password" />
+          <Button text={"회원가입"} />
         </form>
       )}
     </Form>
-    {action !== "confirm" && (
-      <StateChanger>
-        {action === "logIn" ? (
-          <>
-            Don't have an account?{" "}
-            <Link onClick={() => setAction("signUp")}>Sign up</Link>
-          </>
-        ) : (
-          <>
-            Have an account?{" "}
-            <Link onClick={() => setAction("logIn")}>Log in</Link>
-          </>
-        )}
-      </StateChanger>
-    )}
+    <StateChanger>
+      {action === "logIn" ? (
+        <>
+          계정이 없으신가요?{" "}
+          <Link onClick={() => setAction("signUp")}>회원가입</Link>
+        </>
+      ) : (
+        <>
+          계정이 있으신가요?{" "}
+          <Link onClick={() => setAction("logIn")}>로그인</Link>
+        </>
+      )}
+    </StateChanger>
   </Wrapper>
 );

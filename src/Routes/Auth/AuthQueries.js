@@ -1,24 +1,17 @@
 import { gql } from "apollo-boost";
 
 export const LOG_IN = gql`
-  mutation requestSecret($email: String!) {
-    requestSecret(email: $email)
+  mutation signIn($email: String!, $password: String!) {
+    signIn(email: $email, password: $password)
   }
 `;
 
 export const CREATE_ACCOUNT = gql`
   mutation createAccount(
-    $name: String!
     $email: String!
-    $phoneNumber: String
+    $password: String!
   ) {
-    createAccount(name: $name, email: $email, phoneNumber: $phoneNumber)
-  }
-`;
-
-export const CONFIRM_SECRET = gql`
-  mutation confirmSecret($secret: String!, $email: String!) {
-    confirmSecret(secret: $secret, email: $email)
+    createAccount(email: $email, password: $password)
   }
 `;
 

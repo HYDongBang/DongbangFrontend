@@ -1,8 +1,9 @@
 import React from "react";
+import { Route, Link } from "react-router-dom"
 import styled from "styled-components";
-import ManageProfile from "./ManageProfile";
-import ManageClub from "./ManageClub";
-import ManageApplicant from "./ManageApplicant";
+import ManageProfile from "./Manage/ManageProfile";
+import ManageClub from "./Manage/ManageClub";
+import ManageApplicant from "./Manage/ManageApplicant";
 
 const Wrapper = styled.div`
     min-height: 90vh;
@@ -54,13 +55,13 @@ const List = styled.div`
     flex-direction: column;
 `;
 
-const Link = styled.a`
-    text-align: center;
-    padding: 7px;
-    cursor: pointer;
-`;
+const styles = {"color": "#ffffff", "text-align": "center", "padding": "7px"};
 
-export default ({ action, setAction }) => {
+export default ({ 
+    match,
+    profile,
+    onSubmit
+}) => {
     return (
         <Wrapper>
         <Menu>
@@ -68,19 +69,19 @@ export default ({ action, setAction }) => {
             <Text>MY PAGE</Text>
             { true ? (
             <List>
-                <Link onClick={() => setAction("profile")}>프로필 관리</Link>
-                <Link onClick={() => setAction("club")}>동아리 정보 관리</Link>
-                <Link onClick={() => setAction("applicant")}>지원자 관리</Link>
+                <Link style={styles} to={`${match.url}`}>프로필 관리</Link>
+                <Link style={styles} to={`${match.url}/club`}>동아리 정보 관리</Link>
+                <Link style={styles} to={`${match.url}/applicant`}>지원자 관리</Link>
             </List>
             ) : ( 
             <List>
-                <Link onClick={() => setAction("profile")}>프로필 관리</Link>
+                <Link style={styles} to={`${match.url}`}>프로필 관리</Link>
             </List> )}
         </Menu>
         <Contents>
-            {action === "profile" && <ManageProfile/>}
-            {action === "club" && <ManageClub/>}
-            {action === "applicant" && <ManageApplicant/>}
+            <Route exact path={match.path} component={ManageProfile} onSubmit={onSubmit}/>
+            <Route path={`${match.path}/club`} component={ManageClub} />
+            <Route path={`${match.path}/applicant`} component={ManageApplicant} />
         </Contents>
     </Wrapper>
     );
