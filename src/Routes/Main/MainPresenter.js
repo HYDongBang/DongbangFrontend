@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
+// import { GET_CLUB } from "./MainQueries";
+import { ClubFilter } from "./ClubFilter";
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -57,72 +58,58 @@ const Img = styled.div`
   }
 `;
 
-const Club = styled.div`
-  height: 230px;
-  width: 15vw;
-  text-align: center;
-  box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 10px;
-  margin: 20px;
-  &:hover {
-    box-shadow: ${(props) => props.theme.darkGrayShadow};
-    cursor: pointer;
-  }
-`;
-
-const Context = styled.div`
-  padding: 15px;
-  border-top: 1px solid ${(props) => props.theme.grayColor};
-`;
-
-const ClubName = styled.div`
-  padding-bottom: 5px;
-`;
-
-const ClubText = styled.div`
-  font-size: 0.8em;
-`;
-
-const ClubImg = styled.div`
-  height: 72%;
-  width: 100%;
-`;
-
 const Text = styled.div`
   padding: 10px;
   text-align: center;
 `;
 
-export default ({ myType, setType }) => {
+export default ({ myType, setType, word, setWord }) => {
   //const { loading, error, data } = useQuery(GET_CLUBS);
   //const { clubs } = data;
+
   const clubs = [
     {
       id: 1,
-      name: "1",
+      name: "안녕",
       type: "Art",
     },
     {
       id: 2,
-      name: "2",
+      name: "반가워",
       type: "Academic",
     },
     {
       id: 3,
-      name: "3",
+      name: "감자",
       type: "Friendship",
     },
     {
       id: 4,
-      name: "4",
+      name: "고구마",
       type: "Unite",
     },
     {
       id: 5,
-      name: "5",
+      name: "호박",
       type: "Etc",
     },
   ];
+  const [filterDisplay, setFilterDisplay] = useState(clubs);
+
+  const handleChange = (e) => {
+    setWord(e);
+    let oldList = clubs.map((club) => {
+      return { id: club.id, name: club.name, type: club.type };
+    });
+    if (word !== "") {
+      let newList = [];
+      newList = oldList.filter((club) => club.name.includes(word));
+      setFilterDisplay(newList);
+    } else {
+      setFilterDisplay(clubs);
+    }
+  };
+
   return (
     <Wrapper>
       <Search>
@@ -133,14 +120,17 @@ export default ({ myType, setType }) => {
             padding: "7px 15px",
             border: "1px solid #7FC4FD",
           }}
+          value={word}
           placeholder="찾으려는 동아리 명을 입력해주세요."
-        ></input>
-        {/* 위에 input은 레이아웃을 위한 임시
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      </Search>
+      {/* 위에 input은 레이아웃을 위한 임시
             <form onSubmit={onSubmit}>
                <Input placeholder={"Email"} {...email} type="email" />
                <Button div={"Log in"} />
             </form>*/}
-      </Search>
+
       <Categories>
         {myType === "Art" ? (
           <Category onClick={() => setType("")}>
@@ -202,37 +192,12 @@ export default ({ myType, setType }) => {
           </Category>
         )}
       </Categories>
-      {/*error && <p>error!</p>*/}
+
       <Clubs>
-        {clubs.map(({ id, name, type }) => {
-          return (
-            <>
-              {myType === "" && (
-                <Club>
-                  <Link to={`/clubInfo/${id}`}>
-                    //image src 처리
-                    <ClubImg></ClubImg>
-                    <Context>
-                      <ClubName>{name}</ClubName>
-                      <ClubText>{type}</ClubText>
-                    </Context>
-                  </Link>
-                </Club>
-              )}
-              {myType === `${type}` && (
-                <Club>
-                  <Link to={`/clubInfo/${id}`}>
-                    <ClubImg></ClubImg>
-                    <Context>
-                      <ClubName>{name}</ClubName>
-                      <ClubText>{type}</ClubText>
-                    </Context>
-                  </Link>
-                </Club>
-              )}
-            </>
-          );
-        })}
+        <ClubFilter
+          clubs={word.length < 1 ? clubs : filterDisplay}
+          myType={myType}
+        />
       </Clubs>
     </Wrapper>
   );

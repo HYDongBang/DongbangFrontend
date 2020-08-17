@@ -1,4 +1,5 @@
 import React from "react";
+import Input from "../../Components/Input";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,7 +9,6 @@ const Container = styled.div`
 
 const Top = styled.div`
   text-align: center;
-  margin-top: 50px;
   font-size: 1.5em;
   height: 40px;
   padding-top: 7px;
@@ -85,7 +85,8 @@ const Answer = styled.div`
   padding: 10px 0px;
   flex-direction: row;
 `;
-const Button = styled.div`
+
+const Button = styled.button`
   width: 12%;
   border: 0;
   color: white;
@@ -98,71 +99,78 @@ const Button = styled.div`
   margin-top: 5px;
 `;
 
-export default ({}) => (
-  <Container>
-    <Top>000님과의 대화</Top>
-    <TalkContainerNoScroll>
-      <TalkContainer>
-        <MyBubble>
-          <TopContainer>
-            <ClubImg />
-            <Name>동아리명</Name>
-            <Time>00:00</Time>
-          </TopContainer>
-          <Context>
-            내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
-          </Context>
-        </MyBubble>
+export default ({ name, message, onSubmit }) => {
+  return (
+    <Container>
+      <Top>{name}님과의 대화</Top>
+      <TalkContainerNoScroll>
+        <TalkContainer>
+          <MyBubble>
+            <TopContainer>
+              <ClubImg />
+              <Name>동아리명</Name>
+              <Time>00:00</Time>
+            </TopContainer>
+            <Context>
+              내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
+            </Context>
+          </MyBubble>
 
-        <OtherBubble>
-          <TopContainer>
-            <ClubImg />
-            <Name>동아리명</Name>
-            <Time>00:00</Time>
-          </TopContainer>
+          <OtherBubble>
+            <TopContainer>
+              <ClubImg />
+              <Name>동아리명</Name>
+              <Time>00:00</Time>
+            </TopContainer>
 
-          <Context>
-            내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
-          </Context>
-        </OtherBubble>
+            <Context>
+              내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
+            </Context>
+          </OtherBubble>
 
-        <MyBubble>
-          <TopContainer>
-            <ClubImg />
-            <Name>동아리명</Name>
-          </TopContainer>
-          <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
-        </MyBubble>
+          <MyBubble>
+            <TopContainer>
+              <ClubImg />
+              <Name>동아리명</Name>
+            </TopContainer>
+            <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
+          </MyBubble>
 
-        <OtherBubble>
-          <TopContainer>
-            <ClubImg />
-            <Name>동아리명</Name>
-          </TopContainer>
+          <OtherBubble>
+            <TopContainer>
+              <ClubImg />
+              <Name>동아리명</Name>
+            </TopContainer>
 
-          <Context>내가한말</Context>
-        </OtherBubble>
-        <MyBubble>
-          <TopContainer>
-            <ClubImg />
-            <Name>동아리명</Name>
-          </TopContainer>
-          <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
-        </MyBubble>
-      </TalkContainer>
-    </TalkContainerNoScroll>
+            <Context>내가한말</Context>
+          </OtherBubble>
+          <MyBubble>
+            <TopContainer>
+              <ClubImg />
+              <Name>동아리명</Name>
+            </TopContainer>
+            <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
+          </MyBubble>
+        </TalkContainer>
+      </TalkContainerNoScroll>
 
-    <Answer>
-      <input
-        style={{
-          width: "100%",
-          height: "100px",
-          padding: "7px 15px",
-          border: "1px solid ${(props) => props.theme.blueColor",
-        }}
-        placeholder="내 답변"
-      ></input>
-      <Button>보내기</Button>
-    </Answer>
-  </Container>
-);
+      <Answer>
+        <form onSubmit={onSubmit}>
+          {/* <input
+            type="text"
+            value={message}
+            style={{
+              width: "100%",
+              height: "100px",
+              padding: "7px 15px",
+              border: "1px solid ${(props) => props.theme.blueColor",
+            }}
+            placeholder="내 답변"
+          ></input> */}
+          <Input placeholder={"내 답변"} {...message} type="text" />
+          <Button type="submit"> 보내기 </Button>
+        </form>
+      </Answer>
+    </Container>
+  );
+};
