@@ -1,3 +1,3 @@
-import MainPresenter from "./MainPresenter";
+import MainContainer from "./MainContainer";
 
-export default MainPresenter;
+export default MainContainer;

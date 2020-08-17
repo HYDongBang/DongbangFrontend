@@ -19,7 +19,7 @@ const AppRouter = () => (
       <Route path="/" exact component={Main} />
       <Route path="/auth" component={Auth} />
       <Route path="/profile" component={Profile} />
-      <Route path="/clubInfo" component={ClubInfo} />
+      <Route path="/clubInfo:id" component={ClubInfo} />
       <Redirect path="*" to="/" />
     </Switch>
   </Router>
