@@ -5,6 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import { useQuery, useMutation } from "react-apollo-hooks";
 import Main from "../Routes/Main";
 import Auth from "../Routes/Auth";
 import Profile from "../Routes/Profile";
@@ -16,8 +17,8 @@ const AppRouter = () => (
     <Header isLoggedIn={true} />
     <Switch>
       <Route path="/" exact component={Main} />
-      <Route path="/auth" exact component={Auth} />
-      <Route path="/profile" exact component={Profile} />
+      <Route path="/auth" component={Auth} />
+      <Route path="/profile" component={Profile} />
       <Route path="/clubInfo" component={ClubInfo} />
       <Redirect path="*" to="/" />
     </Switch>
