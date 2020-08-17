@@ -62,7 +62,7 @@ const Club = styled.div`
     text-align: center;
     box-shadow: ${props => props.theme.lightGrayShadow};
     border-radius: 10px;
-    margin: 20px 0px;
+    margin: 20px;
     &:hover {
         box-shadow: ${props => props.theme.darkGrayShadow};
         cursor: pointer;
@@ -72,6 +72,7 @@ const Club = styled.div`
 const Context = styled.div`
     padding: 15px;
     border-top: 1px solid ${props => props.theme.grayColor};
+
 `;
 
 const ClubName = styled.div`
