@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link } from "react-router-dom"
+import { Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import ManageProfile from "./Manage/ManageProfile";
 import ManageClub from "./Manage/ManageClub";
@@ -57,11 +57,7 @@ const List = styled.div`
 
 const styles = {"color": "#ffffff", "text-align": "center", "padding": "7px"};
 
-export default ({ 
-    match,
-    profile,
-    onSubmit
-}) => {
+export default ({ match }) => {
     return (
         <Wrapper>
         <Menu>
@@ -79,7 +75,7 @@ export default ({
             </List> )}
         </Menu>
         <Contents>
-            <Route exact path={match.path} component={ManageProfile} onSubmit={onSubmit}/>
+            <Route exact path={match.path} component={ManageProfile}/>
             <Route path={`${match.path}/club`} component={ManageClub} />
             <Route path={`${match.path}/applicant`} component={ManageApplicant} />
         </Contents>
