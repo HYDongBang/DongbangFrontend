@@ -71,16 +71,18 @@ const Club = styled.div`
 `;
 
 const Context = styled.div`
-  padding: 15px;
+  padding: 10px;
   border-top: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const ClubName = styled.div`
   padding-bottom: 5px;
+  color: black;
 `;
 
 const ClubText = styled.div`
   font-size: 0.8em;
+  color: black;
 `;
 
 const ClubImg = styled.div`

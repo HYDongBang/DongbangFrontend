@@ -53,7 +53,7 @@ export default ({isLoggedIn}) => (
         { isLoggedIn ? (
             <Menu>
                 <Text href="#">동아리 찾기</Text>
-                <UserImg></UserImg>
+                <Link to="/auth"><UserImg></UserImg></Link>
                 <Link to="/profile">
                   <FontAwesomeIcon icon={faSortDown} size="1x" color="white"/>
                 </Link>

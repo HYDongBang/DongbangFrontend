@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components";
+import ProfileInput from "../../../../Components/ProfileInput";
 
 const Title = styled.div`
     padding: 20px 0px;
@@ -22,20 +23,14 @@ const Questions = styled.div`
 const Question = styled.div`
     margin: 30px 0px;
     border-bottom: 1px solid ${props => props.theme.grayColor};
-    padding: 15px 0px;
+    padding: 20px 0px;
     display: flex;
     align-items: center;
 `;
 
 const About = styled.div`
     width: 100px;
-`;
-
-const Answer = styled.input`
-    width: 300px;
-    border: none;
-    background-color: ${props => props.theme.bgColor};
-    padding: 5px 10px;
+    font-weight: 600;
 `;
 
 const ButtonContainer = styled.div`
@@ -67,23 +62,23 @@ export default ({
             <Questions>
                     <Question>
                         <About>이름</About>
-                        <Answer placeholder={"ex) 홍길동"} {...name} type="text"></Answer>
+                        <ProfileInput placeholder="ex) 홍길동" {...name} type="text"></ProfileInput>
                     </Question>
                     <Question>
                         <About>이메일</About>
-                        <Answer placeholder={"ex) abc@gmail.com"} {...email} type="email"></Answer>
+                        <ProfileInput placeholder="ex) abc@gmail.com" {...email} type="email"></ProfileInput>
                     </Question>
                     <Question>
                         <About>휴대폰 번호</About>
-                        <Answer placeholder={"ex) 010-1234-1234"} {...phoneNumber} type="text"></Answer>
+                        <ProfileInput placeholder="ex) 010-1234-1234" {...phoneNumber} type="tel"></ProfileInput>
                     </Question>
                     <Question>
                         <About>학번</About>
-                        <Answer placeholder={"ex) 2017xxxx"} {...studentNumber} type="text"></Answer>
+                        <ProfileInput placeholder="ex) 2017xxxx" {...studentNumber} type="number"></ProfileInput>
                     </Question>
                     <Question>
                         <About>대학 / 학과</About>
-                        <Answer placeholder={"ex) 한양대학교 컴퓨터소프트웨어학부"} {...uni} type="text"></Answer>
+                        <ProfileInput placeholder="ex) 한양대학교 컴퓨터소프트웨어학부" {...uni} type="text"></ProfileInput>
                     </Question>
             </Questions>
             <ButtonContainer>
