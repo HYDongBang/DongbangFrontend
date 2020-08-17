@@ -1,3 +1,3 @@
-import ProfilePresenter from "./ProfilePresenter";
+import ProfileContainer from "./ProfileContainer";
 
-export default ProfilePresenter;
+export default ProfileContainer;

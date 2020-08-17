@@ -1,10 +1,8 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import styled from "styled-components";
 import ManageProfile from "./ManageProfile";
 import ManageClub from "./ManageClub";
 import ManageApplicant from "./ManageApplicant";
-import input from "../../Components/Input";
 
 const Wrapper = styled.div`
     min-height: 90vh;
@@ -51,32 +49,39 @@ const Text = styled.div`
     padding: 10px 0px 20px 0px;
 `;
 
-const List = styled.div``;
+const List = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
-const ListItem = styled.div`
+const Link = styled.a`
     text-align: center;
     padding: 7px;
     cursor: pointer;
 `;
 
-export default ({match}) => (
-    <Wrapper>
+export default ({ action, setAction }) => {
+    return (
+        <Wrapper>
         <Menu>
             <UserImg></UserImg>
             <Text>MY PAGE</Text>
             { true ? (
             <List>
-                <ListItem>프로필 관리</ListItem>
-                <ListItem>동아리 정보 관리</ListItem>
-                <ListItem>지원자 관리</ListItem>
+                <Link onClick={() => setAction("profile")}>프로필 관리</Link>
+                <Link onClick={() => setAction("club")}>동아리 정보 관리</Link>
+                <Link onClick={() => setAction("applicant")}>지원자 관리</Link>
             </List>
             ) : ( 
             <List>
-                <ListItem>프로필 관리</ListItem>
+                <Link onClick={() => setAction("profile")}>프로필 관리</Link>
             </List> )}
         </Menu>
         <Contents>
-            <ManageProfile/>
+            {action === "profile" && <ManageProfile/>}
+            {action === "club" && <ManageClub/>}
+            {action === "applicant" && <ManageApplicant/>}
         </Contents>
     </Wrapper>
-);
+    );
+}

@@ -3,5 +3,5 @@ import ClubInfoPresenter from "./ClubInfoPresenter";
 
 export default () => {
   const [action, setAction] = useState("clubInfo");
-  return <ClubInfoPresenter setAction={setAction} action={action} />;
+  return <ClubInfoPresenter action={action} setAction={setAction} />;
 };
