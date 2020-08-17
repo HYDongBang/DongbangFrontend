@@ -3,6 +3,13 @@ import MainPresenter from "./MainPresenter";
 
 export default () => {
   const [myType, setType] = useState("");
-
-  return <MainPresenter myType={myType} setType={setType} />;
+  const [word, setWord] = useState("");
+  return (
+    <MainPresenter
+      myType={myType}
+      setType={setType}
+      word={word}
+      setWord={setWord}
+    />
+  );
 };

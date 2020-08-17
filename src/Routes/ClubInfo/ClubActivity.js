@@ -10,7 +10,6 @@ const NoScroll = styled.div`
 const Container = styled.div`
   height: 700px;
   width: 102%;
-  margin-top: 50px;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
