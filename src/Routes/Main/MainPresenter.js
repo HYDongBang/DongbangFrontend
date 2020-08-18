@@ -74,8 +74,6 @@ export default ({
 }) => {
   const { loading, data } = useQuery(GET_CLUBS);
 
-  console.log(data);
-
   const handleChange = (e) => {
     setWord(e);
 
