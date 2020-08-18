@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { GET_CLUB } from "./MainQueries";
+import { useQuery } from "react-apollo-hooks";
+import { GET_CLUBS } from "./MainQueries";
 import { ClubFilter } from "./ClubFilter";
 
 const Wrapper = styled.div`
@@ -63,50 +64,31 @@ const Text = styled.div`
   text-align: center;
 `;
 
-export default ({ myType, setType, word, setWord }) => {
-  //const { loading, error, data } = useQuery(GET_CLUBS);
-  //const { clubs } = data;
+export default ({
+  myType,
+  setType,
+  word,
+  setWord,
+  filterDisplay,
+  setFilterDisplay,
+}) => {
+  const { loading, data } = useQuery(GET_CLUBS);
 
-  const clubs = [
-    {
-      id: 1,
-      name: "안녕",
-      type: "Art",
-    },
-    {
-      id: 2,
-      name: "반가워",
-      type: "Academic",
-    },
-    {
-      id: 3,
-      name: "감자",
-      type: "Friendship",
-    },
-    {
-      id: 4,
-      name: "고구마",
-      type: "Unite",
-    },
-    {
-      id: 5,
-      name: "호박",
-      type: "Etc",
-    },
-  ];
-  const [filterDisplay, setFilterDisplay] = useState(clubs);
+  console.log(data);
 
   const handleChange = (e) => {
     setWord(e);
-    let oldList = clubs.map((club) => {
+
+    let oldList = data.allClub.map((club) => {
       return { id: club.id, name: club.name, type: club.type };
     });
+
     if (word !== "") {
       let newList = [];
       newList = oldList.filter((club) => club.name.includes(word));
       setFilterDisplay(newList);
     } else {
-      setFilterDisplay(clubs);
+      setFilterDisplay(data.allClu);
     }
   };
 
@@ -125,11 +107,6 @@ export default ({ myType, setType, word, setWord }) => {
           onChange={(e) => handleChange(e.target.value)}
         />
       </Search>
-      {/* 위에 input은 레이아웃을 위한 임시
-            <form onSubmit={onSubmit}>
-               <Input placeholder={"Email"} {...email} type="email" />
-               <Button div={"Log in"} />
-            </form>*/}
 
       <Categories>
         {myType === "Art" ? (
@@ -193,12 +170,24 @@ export default ({ myType, setType, word, setWord }) => {
         )}
       </Categories>
 
-      <Clubs>
-        <ClubFilter
-          clubs={word.length < 1 ? clubs : filterDisplay}
-          myType={myType}
-        />
-      </Clubs>
+      {loading && <p> loading...</p>}
+      {/* {!loading && data.allClub && data.allClub.map((m) => <p>{m.name}</p>)} */}
+      {!loading && data.allClub && (
+        <Clubs>
+          <ClubFilter
+            clubs={word.length < 1 ? data.allClub : filterDisplay}
+            myType={myType}
+          />
+        </Clubs>
+      )}
+      {/* {clubs && filterDisplay && (
+        <Clubs>
+          <ClubFilter
+            clubs={word.length < 1 ? clubs : filterDisplay}
+            myType={myType}
+          />
+        </Clubs>
+      )} */}
     </Wrapper>
   );
 };

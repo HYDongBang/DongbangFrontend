@@ -1,6 +1,5 @@
 import React from "react";
 import { gql } from "apollo-boost";
-// import { ApolloProvider } from "react-apollo-hooks";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "react-apollo-hooks";
 import GlobalStyles from "../Styles/GlobalStyles";
@@ -25,7 +24,7 @@ export default () => {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
-      
+
       <Router isLoggedIn={isLoggedIn} />
       <Footer />
       <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
