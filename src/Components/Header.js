@@ -1,20 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useQuery, useMutation } from "react-apollo-hooks";
+import { gql } from "apollo-boost";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSortDown } from "@fortawesome/free-solid-svg-icons";
+
+const LOG_IN = gql`
+  {
+    isLoggedIn @client
+  }
+`;
+
+const LOG_OUT = gql`
+  mutation logUserOut {
+    logUserOut @client
+  }
+`;
 
 const Header = styled.header`
-  background-color: ${(props) => props.theme.darkBlueColor};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 500;
-  font-size: 12px;
-  padding: 14px;
-  height: 40px;
-  width: 100%;
-  position: fixed;
+    background-color: ${(props) => props.theme.darkBlueColor};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 14px;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    box-shadow: ${props => props.theme.darkGrayShadow};
 `;
 
 const Icon = styled.div`
@@ -29,44 +42,31 @@ const Menu = styled.li`
   margin-right: 35px;
 `;
 
-const Text = styled.div`
+const Text = styled.a`
   color: ${(props) => props.theme.whiteColor};
-  padding-right: 16px;
+  padding-left: 10px;
+  cursor: pointer;
 `;
 
-// 임의로 div로 넣어둠 나중에 img로 변경
-const UserImg = styled.div`
-  border: 1px solid ${(props) => props.theme.blueGrayColor};
-  border-radius: 30px;
-  background-color: ${(props) => props.theme.whiteColor};
-  height: 23px;
-  width: 23px;
-  margin-right: 4px;
-`;
-
-const iconColor = `${(props) => props.theme.whiteColor}`;
-
-export default ({ isLoggedIn }) => (
-  <Header>
-    <Link to="/">
-      <Icon>ㄷㅂ</Icon>
-    </Link>
-    {isLoggedIn ? (
-      <Menu>
-        <Text href="#">동아리 찾기</Text>
-        <Link to="/auth">
-          <UserImg></UserImg>
+export default () => {
+  const { data: { isLoggedIn } } = useQuery(LOG_IN);
+  const [ logOut ] = useMutation(LOG_OUT);
+  return (
+    <Header>
+        <Link to="/">
+          <Icon>ㄷㅂ</Icon>
         </Link>
-        <Link to="/profile">
-          <FontAwesomeIcon icon={faSortDown} size="1x" color="white" />
-        </Link>
-      </Menu>
-    ) : (
-      <Menu>
-        <Text>동아리 찾기</Text>
-        <Text>회원가입</Text>
-        <Text>로그인</Text>
-      </Menu>
-    )}
-  </Header>
-);
+        { isLoggedIn ? (
+            <Menu>
+                <Link to="/profile"><Text>마이페이지</Text></Link>
+                <Text onClick={logOut}>로그아웃</Text>
+            </Menu>
+        ) : (
+            <Menu>
+                <Link to = "/auth"><Text>회원가입</Text></Link>
+                <Link to ="/auth"><Text>로그인</Text></Link>
+            </Menu>
+        ) }
+    </Header>
+  )
+};
