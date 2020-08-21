@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "../../Components/Input";
 import styled from "styled-components";
+import styles from "../../Styles/ClubTalk.css";
 
 const ClubContainer = styled.div`
   height: 700px;
@@ -57,41 +57,47 @@ const QuestionContainer = styled.div`
 `;
 
 const Button = styled.button`
-  width: 12%;
-  border: 0;
-  color: white;
-  font-weight: 600;
-  background-color: ${(props) => props.theme.blueColor};
-  text-align: center;
-  padding: 7px 0px;
-  font-size: 14px;
-  float: right;
-  margin-top: 5px;
+  margin-left: 20px;
 `;
 
-export default ({ name, bio, applications, answer, onSubmit }) => {
-  const questionList = applications.map((question, index) => (
-    <QuestionContainer key={index}>
-      {question}
-      <Answer>
-        <Input placeholder={"내 답변"} {...answer} type="text"></Input>
-      </Answer>
-    </QuestionContainer>
-  ));
+export default ({ club }) => {
+  console.log(club);
+  const questions = club.questions;
+  const questionList = questions.map((question) =>
+    question.type === "ESSAY" || question.type === "essay" ? (
+      <QuestionContainer key={question.id}>
+        {question.subject}
+        <Answer>
+          주관식
+          {/* <Input placeholder={"내 답변"} {...answer} type="text"></Input> */}
+        </Answer>
+      </QuestionContainer>
+    ) : (
+      <QuestionContainer key={question.id}>
+        {question.subject}
+        <Answer>
+          객관식
+          {/* <Input placeholder={"내 답변"} {...answer} type="text"></Input> */}
+        </Answer>
+      </QuestionContainer>
+    )
+  );
 
   return (
     <NoScroll>
-      <form onSubmit={onSubmit}>
+      <form>
         <ClubContainer>
           <ClubImg />
 
           <Context>
-            <ClubName>{name} 동아리 지원서 </ClubName>
-            <ClubText>{bio}</ClubText>
+            <ClubName>{club.name} 동아리 지원서 </ClubName>
+            <ClubText>{club.bio}</ClubText>
           </Context>
           {questionList}
         </ClubContainer>
-        <Button tpye="submit">보내기</Button>
+        <Button tpye="submit" className="mybtn mybtn--primary mybtn--inside">
+          보내기
+        </Button>
       </form>
     </NoScroll>
   );

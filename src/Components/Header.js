@@ -5,27 +5,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 const Header = styled.header`
-    background-color: ${(props) => props.theme.darkBlueColor};
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 500;
-    font-size: 12px;
-    padding: 14px;
-    height: 50px;
-    width: 100%;
-    position: fixed;
+  background-color: ${(props) => props.theme.darkBlueColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 14px;
+  height: 40px;
+  width: 100%;
+  position: fixed;
 `;
 
 const Icon = styled.div`
-    color: ${(props) => props.theme.whiteColor};
-    font-weight: 700;
-    font-size: 18px;
+  color: ${(props) => props.theme.whiteColor};
+  font-weight: 700;
+  font-size: 18px;
 `;
 
 const Menu = styled.li`
   display: flex;
   align-items: center;
+  margin-right: 35px;
 `;
 
 const Text = styled.div`
@@ -43,27 +44,29 @@ const UserImg = styled.div`
   margin-right: 4px;
 `;
 
-const iconColor = `${(props) => props.theme.whiteColor}`
+const iconColor = `${(props) => props.theme.whiteColor}`;
 
-export default ({isLoggedIn}) => (
-    <Header>
-        <Link to="/">
-          <Icon>ㄷㅂ</Icon>
+export default ({ isLoggedIn }) => (
+  <Header>
+    <Link to="/">
+      <Icon>ㄷㅂ</Icon>
+    </Link>
+    {isLoggedIn ? (
+      <Menu>
+        <Text href="#">동아리 찾기</Text>
+        <Link to="/auth">
+          <UserImg></UserImg>
         </Link>
-        { isLoggedIn ? (
-            <Menu>
-                <Text href="#">동아리 찾기</Text>
-                <Link to="/auth"><UserImg></UserImg></Link>
-                <Link to="/profile">
-                  <FontAwesomeIcon icon={faSortDown} size="1x" color="white"/>
-                </Link>
-            </Menu>
-        ) : (
-            <Menu>
-                <Text>동아리 찾기</Text>
-                <Text>회원가입</Text>
-                <Text>로그인</Text>
-            </Menu>
-        ) }
-    </Header>
-)
+        <Link to="/profile">
+          <FontAwesomeIcon icon={faSortDown} size="1x" color="white" />
+        </Link>
+      </Menu>
+    ) : (
+      <Menu>
+        <Text>동아리 찾기</Text>
+        <Text>회원가입</Text>
+        <Text>로그인</Text>
+      </Menu>
+    )}
+  </Header>
+);
