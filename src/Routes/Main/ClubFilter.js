@@ -36,44 +36,47 @@ const ClubImg = styled.div`
 
 export const ClubFilter = ({ clubs, myType }) => {
   {
-    return clubs.map(({ id, name, type }) => {
+    if (!clubs) {
+      clubs = [];
+    }
+    return clubs.map((club) => {
       return (
         <>
           {myType === "" && (
             <Popup
-              key={id}
+              key={club.id}
               trigger={
                 <Club>
                   <ClubImg></ClubImg>
 
                   <Context>
-                    <ClubName>{name}</ClubName>
-                    <ClubText>{type}</ClubText>
+                    <ClubName>{club.name}</ClubName>
+                    <ClubText>{club.type}</ClubText>
                   </Context>
                 </Club>
               }
               modal
             >
-              <ClubInfoContainer id={id} />
+              <ClubInfoContainer club={club} />
             </Popup>
           )}
 
-          {myType === `${type}` && (
+          {myType === `${club.type}` && (
             <Popup
-              key={id}
+              key={club.id}
               trigger={
                 <Club>
                   <ClubImg></ClubImg>
 
                   <Context>
-                    <ClubName>{name}</ClubName>
-                    <ClubText>{type}</ClubText>
+                    <ClubName>{club.name}</ClubName>
+                    <ClubText>{club.type}</ClubText>
                   </Context>
                 </Club>
               }
               modal
             >
-              <ClubInfoContainer id={id} />
+              <ClubInfoContainer club={club} />
             </Popup>
           )}
         </>

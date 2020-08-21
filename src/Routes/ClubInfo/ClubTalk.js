@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "../../Components/Input";
 import styled from "styled-components";
+import styles from "../../Styles/ClubTalk.css";
 
 const Container = styled.div`
   height: 700px;
@@ -12,6 +12,8 @@ const Top = styled.div`
   font-size: 1.5em;
   height: 40px;
   padding-top: 7px;
+  font-weight: bold;
+  margin-bottom: 20px;
 `;
 
 const TalkContainer = styled.div`
@@ -59,24 +61,18 @@ const Context = styled.div`
 `;
 
 const MyBubble = styled.div`
-  max-width: 80%;
-  min-width: 400px;
-  background: white;
-  border-radius: 1em 1em 1em 0;
   margin-left: 5%;
   margin-bottom: 10px;
-  box-shadow: ${(props) => props.theme.grayColor} 4px 4px 3px;
+  background-color: #e6e6e6;
+  color: #000;
 `;
 
 const OtherBubble = styled.div`
-  max-width: 80%;
-  min-width: 400px;
-  background: #9dd9f3;
-  border-radius: 1em 1em 0 1em;
   margin: 0 auto 10px auto;
   margin-right: 5%;
   margin-bottom: 10px;
-  box-shadow: ${(props) => props.theme.grayColor} 4px 4px 3px;
+  background-color: #00b0ff;
+  color: #fff;
 `;
 
 const Answer = styled.div`
@@ -87,7 +83,7 @@ const Answer = styled.div`
 `;
 
 const Button = styled.button`
-  width: 12%;
+  /* width: 12%;
   border: 0;
   color: white;
   font-weight: 600;
@@ -96,7 +92,11 @@ const Button = styled.button`
   padding: 7px 0px;
   font-size: 14px;
   float: right;
-  margin-top: 5px;
+  margin-top: 5px; */
+`;
+
+const Input = styled.input`
+  width: "80%";
 `;
 
 export default ({ name, message, onSubmit }) => {
@@ -105,7 +105,7 @@ export default ({ name, message, onSubmit }) => {
       <Top>{name}님과의 대화</Top>
       <TalkContainerNoScroll>
         <TalkContainer>
-          <MyBubble>
+          <MyBubble className="talk other">
             <TopContainer>
               <ClubImg />
               <Name>동아리명</Name>
@@ -116,59 +116,25 @@ export default ({ name, message, onSubmit }) => {
             </Context>
           </MyBubble>
 
-          <OtherBubble>
+          <OtherBubble className="talk mine">
             <TopContainer>
               <ClubImg />
               <Name>동아리명</Name>
               <Time>00:00</Time>
             </TopContainer>
-
             <Context>
               내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
             </Context>
           </OtherBubble>
-
-          <MyBubble>
-            <TopContainer>
-              <ClubImg />
-              <Name>동아리명</Name>
-            </TopContainer>
-            <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
-          </MyBubble>
-
-          <OtherBubble>
-            <TopContainer>
-              <ClubImg />
-              <Name>동아리명</Name>
-            </TopContainer>
-
-            <Context>내가한말</Context>
-          </OtherBubble>
-          <MyBubble>
-            <TopContainer>
-              <ClubImg />
-              <Name>동아리명</Name>
-            </TopContainer>
-            <Context>남이한말ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</Context>
-          </MyBubble>
         </TalkContainer>
       </TalkContainerNoScroll>
 
       <Answer>
         <form onSubmit={onSubmit}>
-          {/* <input
-            type="text"
-            value={message}
-            style={{
-              width: "100%",
-              height: "100px",
-              padding: "7px 15px",
-              border: "1px solid ${(props) => props.theme.blueColor",
-            }}
-            placeholder="내 답변"
-          ></input> */}
-          <Input placeholder={"내 답변"} {...message} type="text" />
-          <Button type="submit"> 보내기 </Button>
+          <Input type="text" className="form__field" />
+          <Button type="submit" className="mybtn mybtn--primary mybtn--inside">
+            보내기
+          </Button>
         </form>
       </Answer>
     </Container>

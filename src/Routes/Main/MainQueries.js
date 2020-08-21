@@ -1,10 +1,9 @@
-import gql from "apollo-boost";
+import { gql } from "apollo-boost";
 
 export const GET_CLUBS = gql`
-  {
-    query {
+  query {
+    allClub {
       id
-      logo
       name
       type
     }
