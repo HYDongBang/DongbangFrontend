@@ -1,17 +1,18 @@
 import { gql } from "apollo-boost";
 
-export const GET_CLUB = gql`
-  query GetClub($id: Int!) {
-    getClub(id: $id) {
-      id
+export const CLUB_BY_ID = gql`
+  query clubById($id: ID!) {
+    clubById(id: $id) {
       name
       bio
-      descirption
+      description
       logo
-      clubImage
-      applications
-      socialUrl
-      socialDisplay
+      questions {
+        id
+        subject
+        type
+        options
+      }
     }
   }
 `;

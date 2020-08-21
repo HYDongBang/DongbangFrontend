@@ -31,14 +31,15 @@ const Header = styled.header`
 `;
 
 const Icon = styled.div`
-    color: ${(props) => props.theme.whiteColor};
-    font-weight: 700;
-    font-size: 18px;
+  color: ${(props) => props.theme.whiteColor};
+  font-weight: 700;
+  font-size: 18px;
 `;
 
 const Menu = styled.li`
   display: flex;
   align-items: center;
+  margin-right: 35px;
 `;
 
 const Text = styled.a`
@@ -68,5 +69,4 @@ export default () => {
         ) }
     </Header>
   )
-}
- 
+};

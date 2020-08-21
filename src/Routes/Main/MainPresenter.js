@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-apollo-hooks";
 import { GET_CLUBS } from "./MainQueries";
 import { ClubFilter } from "./ClubFilter";
+import Loading from "../../Components/Loading";
+import styles from "../../Styles/Searchbox.css";
 
 const Wrapper = styled.div`
   padding-top: 50px;
   min-height: 90vh;
   z-index: -1;
 `;
-
-const Search = styled.div`
+const Top = styled.div`
+  height: 30%;
+  background-color: white;
   width: 100%;
-  height: 27%;
   text-align: center;
-  padding: 60px 0px;
 `;
 
 const Categories = styled.div`
@@ -26,6 +27,7 @@ const Categories = styled.div`
   justify-content: space-between;
   align-context: space-between;
   padding: 40px 20%;
+  font-family: "NanumGothic";
 `;
 
 const Clubs = styled.div`
@@ -41,9 +43,10 @@ const Clubs = styled.div`
 `;
 
 const Icon = styled.div`
-  font-weight: 700;
   font-size: 3.5em;
-  padding: 20px;
+  padding: 5px;
+  font-family: "Jua";
+  text-align: center;
 `;
 
 const Category = styled.div``;
@@ -86,25 +89,33 @@ export default ({
       newList = oldList.filter((club) => club.name.includes(word));
       setFilterDisplay(newList);
     } else {
-      setFilterDisplay(data.allClu);
+      setFilterDisplay(data.allClub);
     }
   };
 
   return (
     <Wrapper>
-      <Search>
-        <Icon>ㄷㅂ</Icon>
-        <input
+      <Top>
+        <img
+          src="https://opendoodles.s3-us-west-1.amazonaws.com/sprinting.gif"
           style={{
-            width: "400px",
-            padding: "7px 15px",
-            border: "1px solid #7FC4FD",
+            width: "300px",
+            height: "260px",
+            margin: "0 auto",
+          }}
+        />
+        <Icon>동방</Icon>
+        <input
+          className="search__input"
+          style={{
+            width: "40%",
+            overfolow: "hidden",
           }}
           value={word}
           placeholder="찾으려는 동아리 명을 입력해주세요."
           onChange={(e) => handleChange(e.target.value)}
         />
-      </Search>
+      </Top>
 
       <Categories>
         {myType === "Art" ? (
@@ -168,8 +179,7 @@ export default ({
         )}
       </Categories>
 
-      {loading && <p> loading...</p>}
-      {/* {!loading && data.allClub && data.allClub.map((m) => <p>{m.name}</p>)} */}
+      {loading && <Loading />}
       {!loading && data.allClub && (
         <Clubs>
           <ClubFilter
@@ -178,14 +188,6 @@ export default ({
           />
         </Clubs>
       )}
-      {/* {clubs && filterDisplay && (
-        <Clubs>
-          <ClubFilter
-            clubs={word.length < 1 ? clubs : filterDisplay}
-            myType={myType}
-          />
-        </Clubs>
-      )} */}
     </Wrapper>
   );
 };

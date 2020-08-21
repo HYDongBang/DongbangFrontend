@@ -1,0 +1,82 @@
+.menu__list:hover .menu__link:not(:hover) {
+  color: #efefef;
+}
+.menu__link:hover {
+  color: #1d2475;
+}
+
+.menu__list {
+  display: flex;
+  text-align: center;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.menu__group {
+  flex-grow: 1;
+}
+
+.menu__link {
+  display: block;
+}
+
+/* skin */
+
+.menu {
+  background-color: #6c5ce7;
+}
+
+.menu__link {
+  padding: 1rem;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #a3a3a3;
+  text-transform: uppercase;
+}
+
+/* states */
+.menu__link:focus {
+  outline: 2px solid black;
+}
+
+/* hover animation */
+
+.menu__link {
+  position: relative;
+  overflow: hidden;
+
+  will-change: color;
+  transition: color 0.25s ease-out;
+}
+
+.menu__link::before,
+.menu__link::after {
+  content: "";
+  width: 0;
+  height: 3px;
+  background-color: #1d2475;
+
+  will-change: width;
+  transition: width 0.1s ease-out;
+
+  position: absolute;
+  bottom: 0;
+}
+
+.menu__link::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.menu__link::after {
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.menu__link:hover::before,
+.menu__link:hover::after {
+  width: 100%;
+  transition-duration: 0.2s;
+}
