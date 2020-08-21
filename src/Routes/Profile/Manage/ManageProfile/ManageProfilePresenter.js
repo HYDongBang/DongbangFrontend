@@ -3,18 +3,18 @@ import styled from "styled-components";
 import ProfileInput from "../../../../Components/ProfileInput";
 
 const Title = styled.div`
-    padding: 20px 0px;
+    padding: 30px 0px 50px 0px;
     font-size: 1.7em;
     text-align: center;
 `;
 
-const UserImg = styled.div`
-    border: 1px solid ${(props) => props.theme.blueGrayColor};
-    border-radius: 70px;
-    background-color: ${(props) => props.theme.whiteColor};
-    height: 70px;
-    width: 70px;
-    margin: auto;
+const Text = styled.div``;
+
+const Line = styled.div`
+    height: 1px;
+    width: 80px;
+    background-color: black;
+    margin: 15px auto;
 `;
 
 const Questions = styled.div`
@@ -34,17 +34,23 @@ const About = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-    padding: 10px 0px;
+    padding-top: 60px;
     text-align: center;
 `;
 
 const Button = styled.button`
-    border: 1px solid ${props => props.theme.blueColor};
+    border: 1px solid ${props => props.theme.darkGrayColor};
+    color: ${props => props.theme.darkGrayColor};
     border-radius: 5px;
-    padding: 8px 20px;
+    padding: 10px 30px;
     background-color: ${props => props.theme.whiteColor};
     margin: 0px auto;
     cursor: pointer;
+    &:hover {
+        border: 1px solid ${props => props.theme.blueColor};
+        background-color: ${props => props.theme.blueColor};
+        color: ${props => props.theme.whiteColor};
+    }
 `;
 
 export default ({ 
@@ -56,8 +62,10 @@ export default ({
     onSubmit}) => { 
     return ( 
     <>
-        <Title>프로필 관리</Title>
-        <UserImg></UserImg>
+        <Title>
+            <Text>프로필 관리</Text>
+            <Line></Line>
+        </Title>
         <form onSubmit={onSubmit}>
             <Questions>
                     <Question>
@@ -70,11 +78,11 @@ export default ({
                     </Question>
                     <Question>
                         <About>휴대폰 번호</About>
-                        <ProfileInput placeholder="ex) 010-1234-1234" {...phoneNumber} type="tel"></ProfileInput>
+                        <ProfileInput placeholder="ex) 010-1234-1234" {...phoneNumber} type="text"></ProfileInput>
                     </Question>
                     <Question>
                         <About>학번</About>
-                        <ProfileInput placeholder="ex) 2017xxxx" {...studentNumber} type="number"></ProfileInput>
+                        <ProfileInput placeholder="ex) 2017xxxx" {...studentNumber} type="text"></ProfileInput>
                     </Question>
                     <Question>
                         <About>대학 / 학과</About>

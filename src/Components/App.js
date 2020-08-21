@@ -24,8 +24,7 @@ export default () => {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
-
-      <Router isLoggedIn={isLoggedIn} />
+      <Router />
       <Footer />
       <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </ThemeProvider>
