@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import styles from "../../Styles/ClubTalk.css";
+import { useQuery } from "react-apollo-hooks";
+import { SEE_ROOM } from "./ClubInfoQueries";
 
 const Container = styled.div`
   height: 700px;
@@ -82,27 +84,20 @@ const Answer = styled.div`
   flex-direction: row;
 `;
 
-const Button = styled.button`
-  /* width: 12%;
-  border: 0;
-  color: white;
-  font-weight: 600;
-  background-color: ${(props) => props.theme.blueColor};
-  text-align: center;
-  padding: 7px 0px;
-  font-size: 14px;
-  float: right;
-  margin-top: 5px; */
-`;
+const Button = styled.button``;
 
 const Input = styled.input`
   width: "80%";
 `;
 
-export default ({ name, message, onSubmit }) => {
+export default ({ club, message, onSubmit }) => {
+  const { loading, data } = useQuery(SEE_ROOM, {
+    variables: { clubId: club.id },
+  });
+  console.log(data);
   return (
     <Container>
-      <Top>{name}님과의 대화</Top>
+      <Top>{club.name}님과의 대화</Top>
       <TalkContainerNoScroll>
         <TalkContainer>
           <MyBubble className="talk other">
@@ -131,7 +126,7 @@ export default ({ name, message, onSubmit }) => {
 
       <Answer>
         <form onSubmit={onSubmit}>
-          <Input type="text" className="form__field" />
+          <Input className="form__field" {...message} />
           <Button type="submit" className="mybtn mybtn--primary mybtn--inside">
             보내기
           </Button>

@@ -5,36 +5,34 @@ import useInput from "../../Hooks/useInput";
 import { SEND_MESSAGE } from "./ClubInfoQueries";
 import { toast } from "react-toastify";
 
-export default ({ name }) => {
+export default ({ club }) => {
   const message = useInput("");
 
-  const sendMessageMutation = useMutation(SEND_MESSAGE, {
-    variables: {
-      writer: "유저이름",
-      sender: "받는사람이름",
-      message: message.value,
-    },
-  });
+  const [sendMessageMutation] = useMutation(SEND_MESSAGE);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (message.value !== "") {
       try {
         const {
-          data: { sendMessage },
-        } = await sendMessageMutation();
-        if (!sendMessage) {
-          toast.error("없음");
+          data: { sendMessage: id },
+        } = await sendMessageMutation({
+          variables: {
+            toId: club.master.id,
+            message: message.value,
+          },
+        });
+        if (!id || id === "") {
+          toast.error("전송 오류");
+        } else {
+          toast.info("보내짐");
         }
-      } catch (e) {
-        toast.error(e.message);
-        console.log();
+      } catch (err) {
+        console.log(err.message);
+        toast.error("계정을 생성할 수 없습니다. 다시 시도해주세요.");
       }
-    } else {
     }
   };
 
-  return <ClubTalk name={name} message={message} onSubmit={onSubmit} />;
+  return <ClubTalk club={club} message={message} onSubmit={onSubmit} />;
 };
-
-// 수정해야함.. 참고링크 https://medium.com/wasd/graphql%EA%B3%BC-react%EB%A1%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84-client-side-3299e166df6a

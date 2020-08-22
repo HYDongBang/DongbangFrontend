@@ -60,8 +60,7 @@ const Button = styled.button`
   margin-left: 20px;
 `;
 
-export default ({ club }) => {
-  console.log(club);
+export default ({ club, answer }) => {
   const questions = club.questions;
   const questionList = questions.map((question) =>
     question.type === "ESSAY" || question.type === "essay" ? (
@@ -69,7 +68,7 @@ export default ({ club }) => {
         {question.subject}
         <Answer>
           주관식
-          {/* <Input placeholder={"내 답변"} {...answer} type="text"></Input> */}
+          <Input placeholder={"내 답변"} {...answer} type="text"></Input>
         </Answer>
       </QuestionContainer>
     ) : (
@@ -77,7 +76,7 @@ export default ({ club }) => {
         {question.subject}
         <Answer>
           객관식
-          {/* <Input placeholder={"내 답변"} {...answer} type="text"></Input> */}
+          <Input placeholder={"내 답변"} {...answer} type="text"></Input>
         </Answer>
       </QuestionContainer>
     )

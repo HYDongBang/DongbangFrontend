@@ -17,13 +17,11 @@ const ClubContainer = styled.div`
   height: 700px;
   width: 90%;
   margin: 0 auto;
-  display: flex;
-  flex-direction: row;
 `;
 
 const ClubImg = styled.div`
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
   border: 1px solid black;
   border-radius: 100%;
 `;
@@ -33,20 +31,20 @@ const ClubName = styled.div`
   text-align: center;
   font-weight: 600;
   margin: auto 0 auto 10px;
-  font-size: 1.5em;
+  font-size: 2em;
   min-width: 100px;
-  max-width: 200px;
+  max-width: 300px;
 `;
 
 const TopContainer = styled.div`
-  margin: auto;
-`;
-const Clubinfo = styled.div`
+  max-width: 300px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
+  padding-bottom: 10px;
 `;
 
-const ClubBio = styled.div`
+const ClubText = styled.div`
   font-size: 0.9em;
   width: 80%;
   min-height: 40px;
@@ -57,12 +55,15 @@ const ClubBio = styled.div`
 const Context = styled.div`
   padding: 10px;
   text-align: center;
+  border: 1px solid ${(props) => props.theme.lightGrayColor};
+  box-shadow: ${(props) => props.theme.lightGrayShadow};
+  border-radius: 10px;
   line-height: 1.4em;
 `;
 
 const ContextClubImg = styled.div`
-  height: 99%;
-  width: 45%;
+  height: 150px;
+  width: 100%;
   border: 1px solid black;
   margin-top: 10px;
 `;
@@ -112,21 +113,20 @@ export default ({ action, setAction, club }) => {
           {action === "clubInfo" && (
             <>
               <ClubContainer>
-                <ContextClubImg />
                 <TopContainer>
-                  <Clubinfo>
-                    <ClubImg />
-                    <ClubName>{data.clubById.name}</ClubName>
-                  </Clubinfo>
-
-                  <ClubBio>{data.clubById.bio}</ClubBio>
-                  <Context>{data.clubById.description}</Context>
+                  <ClubImg />
+                  <ClubName>{data.clubById.name}</ClubName>
                 </TopContainer>
+                <ClubText>{data.clubById.bio}</ClubText>
+                <Context>
+                  {data.clubById.description}
+                  <ContextClubImg />
+                </Context>
               </ClubContainer>
             </>
           )}
           {action === "activity" && <ClubActivity />}
-          {action === "talk" && <ClubTalkContainer name={data.clubById.name} />}
+          {action === "talk" && <ClubTalkContainer club={data.clubById} />}
           {action === "apply" && <ClubApplyContainer club={data.clubById} />}
         </>
       )}
