@@ -4,15 +4,11 @@ import { toast } from "react-toastify";
 import { useMutation } from "react-apollo-hooks";
 import useInput from "../../Hooks/useInput";
 
-import { SEND_APPLICATION } from "./ClubInfoQueries";
+import { CREATE_APPLICATION } from "./ClubInfoQueries";
 
-export default ({ club }) => {
+export default ({ club, answer }) => {
   const answer = useInput("");
-  // const sendApplicationMutation = useMutation(SEND_APPLICATION, {
-  //   variables: {
-  //     answer: answer.value,
-  //   },
-  // });
+  const [createApplicationMutation] = useMutation(CREATE_APPLICATION);
 
   // const onSubmit = async (e) => {
   //   e.preventDefault();
@@ -29,5 +25,5 @@ export default ({ club }) => {
   //     }
   //   }
   // };
-  return <ClubApply club={club} />;
+  return <ClubApply club={club} answer={answer} />;
 };
