@@ -3,10 +3,14 @@ import { gql } from "apollo-boost";
 export const CLUB_BY_ID = gql`
   query clubById($id: ID!) {
     clubById(id: $id) {
+      id
       name
       bio
       description
       logo
+      master {
+        id
+      }
       questions {
         id
         subject
@@ -17,25 +21,29 @@ export const CLUB_BY_ID = gql`
   }
 `;
 
-export const GET_ROOM = gql`
-  query GetRoom($id: Int!) {
-    getClub(id: $id) {
+export const SEE_ROOM = gql`
+  query SeeRoom($clubId: String!) {
+    seeRoom(clubId: $clubId) {
       id
-      writer
-      sender
-      message
+      messages {
+        text
+      }
     }
   }
 `;
 
 export const SEND_MESSAGE = gql`
-  mutation sendMessage($writer: String!, $sender: String!, $message: String!) {
-    sendMessage(writer: $writer, sender: $sender, message: $message)
+  mutation sendMessage($roomId: String, $message: String!, $toId: String!) {
+    sendMessage(roomId: $roomId, message: $message, toId: $toId) {
+      id
+    }
   }
 `;
 
-export const SEND_APPLICATION = gql`
-  mutation sendApplication($answer: String!) {
-    sendApplication(answer: $answer)
+export const CREATE_APPLICATION = gql`
+  mutation createApplication($cid: ID!, $answers: [String]!) {
+    createApplication(cid: $cid, answers: $answers) {
+      id
+    }
   }
 `;

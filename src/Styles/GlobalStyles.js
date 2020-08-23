@@ -16,6 +16,7 @@ export default createGlobalStyle`
     font-family:'NanumMyeonjo';
     src: url(${require("./Font/Nanum_Myeongjo/NanumMyeongjo-Regular.ttf")});
   }
+  
  *{
      box-sizing: border-box;
  }
