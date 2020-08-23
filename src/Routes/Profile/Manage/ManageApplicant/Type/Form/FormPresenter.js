@@ -69,7 +69,9 @@ const styles = {"cursor": "pointer"};
 export default({
     title,
     about,
-    onSubmit
+    onSubmit,
+    onDelete,
+    onPlus
 }) => (
     <form onSubmit={onSubmit}>
         <Wrapper>
@@ -83,13 +85,13 @@ export default({
                             <Option value="주관식">주관식</Option>
                             <Option value="객관식">객관식</Option>
                         </Select>
-                        <FontAwesomeIcon icon={faTimes} style={styles}/>
+                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={onDelete}/>
                     </Selector>
                 </Question>
                 <Line></Line>
             </Questions>
             <Add>
-                <FontAwesomeIcon icon={faPlus} style={styles}/>
+                <FontAwesomeIcon icon={faPlus} style={styles} onClick={onPlus}/>
             </Add>
         </Wrapper>
         <ButtonContainer>

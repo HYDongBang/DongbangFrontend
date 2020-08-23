@@ -9,10 +9,10 @@ export default () => {
 
     */
    const applicants = [
-       {id: 1, name: "name1", studentNumber: "2017011112", application: [{question: "지원동기를 작성해주세요.", answer: "어쩌구ㅇㄹㅇㄹㅇㄹㅇ"}, {question: "q2", answer:"저ㅇㄹ러"}]},
-       {id: 2, name: "name2", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]},
-       {id: 3, name: "name3", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]},
-       {id: 4, name: "name4", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]}
+       {id: 1, name: "홍길동", studentNumber: "2017011112", application: [{question: "지원동기를 작성해주세요.", answer: "어쩌구ㅇㄹㅇㄹㅇㄹㅇ"}, {question: "q2", answer:"저ㅇㄹ러"}]},
+       {id: 2, name: "홍길동", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]},
+       {id: 3, name: "홍길동", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]},
+       {id: 4, name: "홍길동", studentNumber: "2017011112", application: [{question: "q1", answer: "어쩌구"}, {question: "q2", answer:"저ㅇㄹ러"}]}
    ];
 
    const onAccept = async (e) => {

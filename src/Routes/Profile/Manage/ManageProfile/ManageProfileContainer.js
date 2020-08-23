@@ -6,8 +6,11 @@ import { toast } from "react-toastify";
 import { ME, GET_PROFILE, EDIT_PROFILE } from "./ManageProfileQueries";
 
 export default () => {
-    //const { data }= useQuery(ME);
-    //const { data: userById } = useQuery(GET_PROFILE, { variables: { id: "cke4ab04fuvd40a32wb9wms6f" } });
+    const meQuery= useQuery(ME);
+    if(!meQuery.loading) {
+        //const getProfileQuery = useQuery(GET_PROFILE, { variables: { id: meQuery.data.me.id } });
+        //console.log(getProfileQuery);
+    }
     const [ editProfileMutation ] = useMutation(EDIT_PROFILE);
     const name = useInput("");
     const email = useInput("");
@@ -28,7 +31,7 @@ export default () => {
             if(!data.id) {
                 console.error("fail to edit profile");
             } else {
-                toast.success("프로필을 수정하였습니다.");
+                toast.info("프로필을 수정하였습니다.");
             }
         } catch (e) {
             console.log(e.message);

@@ -11,7 +11,6 @@ const Applicants = styled.div`
     width: 180px;
     overflow-y: auto;
     height: 560px;
-    padding-right: 15px;
     border-right: 1px solid ${props=>props.theme.grayColor};
 `;
 
@@ -30,14 +29,14 @@ const Application = styled.div`
 `;
 
 const Member = styled.div`
-    border: 1px solid ${props=>props.theme.darkGrayColor};
-    margin: 5px;
-    padding: 10px;
+    border-left: 3px solid ${props=>props.theme.darkGrayColor};
+    margin: 10px 0px 10px 10px;
+    padding: 5px 5px 5px 7px;
     display: flex;
     align-items: center;
     cursor: pointer;
     &:hover {
-        border: 1px solid ${props=>props.theme.blueColor};
+        border-left: 3px solid ${props=>props.theme.blueColor};
     }
 `;
 

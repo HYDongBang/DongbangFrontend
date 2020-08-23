@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../../Components/Input";
 import styled from "styled-components";
 import styles from "../../Styles/ClubTalk.css";
-import Input from "../../Components/Input";
 
 const ClubContainer = styled.div`
   height: 700px;
