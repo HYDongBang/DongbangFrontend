@@ -9,12 +9,9 @@ export const ME = gql`
 `;
 
 export const GET_PROFILE = gql`
-  query userById ($id: String!) {
+  query userById ($id: ID!) {
     userById (id: $id) {
-        Name
         email
-        phoneNumber
-        studentNumber
     }
   }
 `;

@@ -61,7 +61,8 @@ export default ({
     phoneNumber,
     studentNumber,
     uni,
-    onSubmit}) => { 
+    onSubmit,
+    loading}) => { 
     return ( 
     <>
         <Title>

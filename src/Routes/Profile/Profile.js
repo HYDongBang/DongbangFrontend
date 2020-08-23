@@ -88,7 +88,11 @@ const Tag = styled.div`
 `;
 
 export default ({ match }) => {
-    const [menu, setMenu] = useState("profile");
+    const href = window.location.href.split("/");
+    if(!href[5]) {
+        href[5] = "profile";
+    }
+    const [menu, setMenu] = useState(href[5]);
     const styles = {"color": "#999999", "padding": "7px"};
     const clickStyle = {"color": "#1D2475", "padding": "11px 7px"};
     return (
@@ -104,21 +108,21 @@ export default ({ match }) => {
                     <>
                     <Link style={clickStyle} onClick={() => setMenu("profile")} to={`${match.url}`}>프로필 관리</Link>
                     <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
-                    <Link style={styles} onClick={() => setMenu("applicant")} to={`${match.url}/applicant`}><Tag>지원자 관리</Tag></Link>
+                    <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
                     </>
                 )} 
                 { menu === "club" && (
                     <>
                     <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
                     <Link style={clickStyle} onClick={() => setMenu("club")} to={`${match.url}/club`}>동아리 정보 관리</Link>
-                    <Link style={styles} onClick={() => setMenu("applicant")} to={`${match.url}/applicant`}><Tag>지원자 관리</Tag></Link>
+                    <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
                     </>
                 )} 
-                { menu === "applicant" && (
+                { menu === "member" && (
                     <>
                     <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
                     <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
-                    <Link style={clickStyle} onClick={() => setMenu("applicant")} to={`${match.url}/applicant`}>지원자 관리</Link>
+                    <Link style={clickStyle} onClick={() => setMenu("member")} to={`${match.url}/member`}>지원자 관리</Link>
                     </>
                 )}
             </List>
@@ -130,7 +134,7 @@ export default ({ match }) => {
         <Contents>
             <Route exact path={match.path} component={ManageProfile}/>
             <Route path={`${match.path}/club`} component={ManageClub} />
-            <Route path={`${match.path}/applicant`} component={ManageApplicant} />
+            <Route path={`${match.path}/member`} component={ManageApplicant} />
         </Contents>
     </Wrapper>
     );
