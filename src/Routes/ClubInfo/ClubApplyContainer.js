@@ -6,7 +6,7 @@ import useInput from "../../Hooks/useInput";
 
 import { CREATE_APPLICATION } from "./ClubInfoQueries";
 
-export default ({ club, answer }) => {
+export default ({ club }) => {
   const answer = useInput("");
   const [createApplicationMutation] = useMutation(CREATE_APPLICATION);
 
