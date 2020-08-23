@@ -3,9 +3,10 @@ import styled from "styled-components";
 import ProfileInput from "../../../../Components/ProfileInput";
 
 const Title = styled.div`
-    padding: 30px 0px 50px 0px;
+    padding: 30px 0px 30px 0px;
     font-size: 1.7em;
     text-align: center;
+    font-family:'NanumGothic';
 `;
 
 const Text = styled.div``;
@@ -50,6 +51,7 @@ const Button = styled.button`
         border: 1px solid ${props => props.theme.blueColor};
         background-color: ${props => props.theme.blueColor};
         color: ${props => props.theme.whiteColor};
+        transition: 0.3s;
     }
 `;
 

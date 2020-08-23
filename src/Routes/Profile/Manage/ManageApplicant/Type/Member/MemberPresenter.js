@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
     margin: 20px 0px;
-    padding: 25px;
-    background-color: ${props => props.theme.whiteColor};
     height: 560px;
     overflow-y: auto;
 `;
@@ -12,15 +10,15 @@ const Wrapper = styled.div`
 const Members = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 const Member = styled.div`
     display: flex;
-    border: 1px solid ${props => props.theme.lightGrayColor};
-    margin: 10px 20px;
-    padding: 10px 20px;
+    border: 1px solid ${props => props.theme.grayColor};
+    margin: 10px 30px;
+    padding: 12px 20px;
     border-radius: 10px;
-    box-shadow: ${props => props.theme.lightGrayShadow};
 `;
 
 const Contents = styled.div`
@@ -39,7 +37,7 @@ const Number = styled.div`
 const Button = styled.button`
     cursor: pointer;
     border: none;
-    background-color: ${props => props.theme.whiteColor};
+    background-color: ${props => props.theme.bgColor};
     &:hover {
         color: ${props => props.theme.blueColor};
     }
@@ -59,7 +57,7 @@ export default ({ members, onSubmit }) => (
                                 <Name>{name}</Name>
                                 <Number>{studentNumber}</Number>
                             </Contents>
-                            <Button>탈퇴</Button>
+                            <Button onClick={() => alert("탈퇴 시키겠습니까?")}>탈퇴</Button>
                         </Member>
                     </form>
                 );

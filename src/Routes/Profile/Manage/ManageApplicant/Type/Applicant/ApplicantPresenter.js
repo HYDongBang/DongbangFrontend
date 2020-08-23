@@ -8,22 +8,21 @@ const Wrapper = styled.div`
 `;
 
 const Applicants = styled.div`
-    background-color: ${props => props.theme.whiteColor};
-    width: 150px;
+    width: 180px;
     overflow-y: auto;
     height: 560px;
-    margin-right: 20px;
+    padding-right: 15px;
+    border-right: 1px solid ${props=>props.theme.grayColor};
 `;
 
 const Title = styled.div`
-    padding: 5px;
+    padding-bottom: 8px;
     text-align: center;
-    color: ${props => props.theme.blueColor};
+    color: ${props => props.theme.darkGrayColor};
     font-size: 0.8em;
 `;
 
 const Application = styled.div`
-    background-color: ${props => props.theme.whiteColor};
     height: 560px;
     flex: 1;
     overflow-y: auto;
@@ -33,6 +32,7 @@ const Application = styled.div`
 const Member = styled.div`
     border: 1px solid ${props=>props.theme.darkGrayColor};
     margin: 5px;
+    padding: 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -41,14 +41,15 @@ const Member = styled.div`
     }
 `;
 
-const Img = styled.div`
-    background-color: ${props=>props.theme.grayColor};
-    width: 36px;
-    height: 36px;
+const Name = styled.div`
+    font-size: 0.9em;
+    font-weight: 600;
+    padding-right: 3px;
 `;
 
-const Name = styled.div`
-    padding-left: 10px;
+const Number = styled.div`
+    padding: 3px 0px 3px 10px;
+    font-size: 0.8em;
 `;
 
 const None = styled.div`
@@ -76,6 +77,7 @@ const Accept = styled.button`
     &:hover {
         color: ${props => props.theme.blueColor};
         border: 1px solid ${props => props.theme.blueColor};
+        transition: all .3s;
     }
     $:focus {
         border: none;
@@ -92,6 +94,7 @@ const Reject = styled.button`
     &:hover {
         color: ${props => props.theme.blueColor};
         border: 1px solid ${props => props.theme.blueColor};
+        transition: all .3s;
     }
     $:focus {
         border: none;
@@ -123,11 +126,11 @@ export default ({ applicants, onAccept, onReject, id, setId }) => (
     <Wrapper>
         <Applicants>
             <Title>지원자</Title>
-            {applicants.map(({ id, name }) => {
+            {applicants.map(({ id, name, studentNumber }) => {
                 return (
                     <Member onClick={() => { setId(id) }}>
-                        <Img></Img>
                         <Name>{name}</Name>
+                        <Number>{studentNumber}</Number>
                     </Member>
                 )
             })}

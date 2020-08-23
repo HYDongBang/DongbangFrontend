@@ -64,8 +64,6 @@ export default () => {
    const description = useInput(clubData.description);
    const logo = useInput("");
    const clubImg = useInput("");
-   const facebookURL = useInput(clubData.facebookURL);
-   const instagramURL = useInput(clubData.instagramURL);
 
    const onSubmit = async (e) => {
        e.preventDefault();
@@ -79,8 +77,6 @@ export default () => {
       description={description}
       logo={logo}
       clubImg={clubImg}
-      facebookURL={facebookURL}
-      instagramURL={instagramURL}
       onSubmit={onSubmit}
     />
    );
