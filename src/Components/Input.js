@@ -38,4 +38,3 @@ Input.propTypes = {
 
 export default Input;
 
-//5.3에서 복붙

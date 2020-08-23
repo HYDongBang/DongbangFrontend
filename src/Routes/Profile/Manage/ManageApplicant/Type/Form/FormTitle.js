@@ -5,11 +5,14 @@ import styled from "styled-components";
 const Container = styled.input`
     width: 300px;
     border: none;
+    border-bottom: 1px solid ${props => props.theme.darkGrayColor};
     background-color: ${props => props.theme.bgColor};
-    padding: 5px 10px;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 1.2em;
 `;
 
-const ProfileInput = ({
+const FormTitle = ({
   placeholder,
   required = true,
   value,
@@ -27,14 +30,14 @@ const ProfileInput = ({
   />
 );
 
-ProfileInput.propTypes = {
-  placeholder: PropTypes.string.isRequired,
+FormTitle.propTypes = {
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   name: PropTypes.string,
   type: PropTypes.string,
 };
 
-export default ProfileInput;
+export default FormTitle;
 

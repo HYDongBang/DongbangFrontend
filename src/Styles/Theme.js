@@ -10,7 +10,7 @@ export default {
   blueColor: "#2699FB",
   darkBlueColor: "#1D2475",
   blueGrayColor: "#676AA1",
-  grayColor: "#EFEFEF",
+  grayColor: "#dddddd",
   lightGrayColor: "#F9F9F9",
   darkGrayColor: "#A3A3A3",
 

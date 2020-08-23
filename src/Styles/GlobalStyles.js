@@ -4,7 +4,7 @@ import reset from "styled-reset";
 export default createGlobalStyle`
  ${reset};
  
-@font-face {
+  @font-face {
     font-family:'Jua';
     src: url(${require("./Font/Jua/Jua-Regular.ttf")});
   }
