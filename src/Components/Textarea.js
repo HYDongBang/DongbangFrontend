@@ -2,39 +2,35 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Container = styled.input`
-    width: 300px;
-    border: none;
+const Container = styled.textarea`
+    width: 750px;
+    height: 100px;
+    border: 1px solid ${props => props.theme.grayColor};
     background-color: ${props => props.theme.bgColor};
-    padding: 5px 10px;
+    padding: 5px;
+    margin-left: 13px;
 `;
 
-const ProfileInput = ({
+const Textarea = ({
   placeholder,
   required = true,
   value,
-  onChange,
-  name = "",
-  type = "text",
+  onChange
 }) => (
   <Container
     placeholder={placeholder}
     required={required}
     value={value}
     onChange={onChange}
-    name={name}
-    type={type}
   />
 );
 
-ProfileInput.propTypes = {
+Textarea.propTypes = {
   placeholder: PropTypes.string.isRequired,
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  type: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 };
 
-export default ProfileInput;
+export default Textarea;
 

@@ -3,62 +3,40 @@ import ManageProfilePresenter from "./ManageProfilePresenter";
 import useInput from "../../../../Hooks/useInput";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { toast } from "react-toastify";
-import { GET_PROFILE, EDIT_PROFILE } from "./ManageProfileQueries";
+import { ME, GET_PROFILE, EDIT_PROFILE } from "./ManageProfileQueries";
 
 export default () => {
-    /*
-    const { profile } = useQuery(GET_PROFILE, {
-        variables: {
-            id: 
-        }
-    });
-    const name = useInput(profile.user.name);
-    const email = useInput(profile.user.email);
-    const phoneNumber = useInput(profile.user.phoneNumber);
-    const studentNumber = useInput(profile.user.studentNumber);
-    const uni = useInput(profile.user.uni);
-    const editProfileMutation = useMutation(EDIT_PROFILE, {
-        variables: {
-            name: name.value,
-            email: email.value,
-            phoneNumber: phoneNumber.value,
-            studentNumber: studentNumber.value,
-            uni: uni.value
-        }
-    });
+    const meQuery= useQuery(ME);
+    if(!meQuery.loading) {
+        //const getProfileQuery = useQuery(GET_PROFILE, { variables: { id: meQuery.data.me.id } });
+        //console.log(getProfileQuery);
+    }
+    const [ editProfileMutation ] = useMutation(EDIT_PROFILE);
+    const name = useInput("");
+    const email = useInput("");
+    const phoneNumber = useInput("");
+    const studentNumber = useInput("");
+    const uni = useInput("한양대학교 컴퓨터소프트웨어학부");
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (name.value !== "" && email.value !== "" && phoneNumber.value !== "" && studentNumber.value !== "" && uni.value !== "") {
-            try {
-                const {
-                    data: { editUser: User }
-                } = await editProfileMutation();
-                if(!User) {
-                    console.log("fail to edit profile");
-                } else {
-                    toast.success("프로필을 수정하였습니다.");
+        try {
+            const { data } = await editProfileMutation({
+                variables: {
+                    Name: name.value,
+                    phoneNumber: phoneNumber.value,
+                    studentNumber: studentNumber.value,
                 }
+            });
+            if(!data.id) {
+                console.error("fail to edit profile");
+            } else {
+                toast.info("프로필을 수정하였습니다.");
             }
+        } catch (e) {
+            console.log(e.message);
+            toast.error("다시 시도해 주세요");
         }
-    }
-    */
-    const profileData = {
-        name: "name",
-        email: "email@email",
-        phoneNumber: "010-1234-1234",
-        studentNumber: "201702020202",
-        uni: "한양대학교 학부"
-    }
-    const name = useInput(profileData.name);
-    const email = useInput(profileData.email);
-    const phoneNumber = useInput(profileData.phoneNumber);
-    const studentNumber = useInput(profileData.studentNumber);
-    const uni = useInput(profileData.uni);
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        toast.success("test: 수정완료");
     }
     return (
     <ManageProfilePresenter 

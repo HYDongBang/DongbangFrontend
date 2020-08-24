@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import Member from "./Type/Member";
@@ -6,21 +6,29 @@ import Applicant from "./Type/Applicant";
 import Form from "./Type/Form";
 
 const Title = styled.div`
-    padding: 20px 0px 40px 0px;
+    padding: 30px 0px 30px 0px;
     font-size: 1.7em;
     text-align: center;
+    font-family:'NanumGothic';
+`;
+
+const Text = styled.div``;
+
+const Line = styled.div`
+    height: 1px;
+    width: 80px;
+    background-color: black;
+    margin: 15px auto;
 `;
 
 const Contents = styled.div`
-    background-color: ${props => props.theme.grayColor};
     width: 100%;
     height: 700px;
-    padding: 25px;
 `;
 
 const Menu = styled.div`
-    background-color: ${props => props.theme.whiteColor};
-    padding: 25px 80px;
+    border-bottom: 1px solid ${props => props.theme.grayColor};
+    padding: 10px 80px 20px 80px;
     display: flex;
     justify-content: space-between;
 `;
@@ -29,15 +37,42 @@ const Wrapper = styled.div``;
 
 const styles = {"color": "black"};
 
-export default ({ match }) => ( 
+const clickstyles = {"color": "#2699FB"};
+
+const Tag = styled.div`
+    &:hover {
+        color: ${props => props.theme.blueColor};
+        transition: all .3s;
+    }
+`;
+
+export default ({ match }) => {
+    const [ state, setState ] = useState("member");
+    return ( 
     <>
-        <Title>지원자 관리</Title>
+        <Title>
+            <Text>지원자 관리</Text>
+            <Line></Line>
+        </Title>
         <Contents>
+            { state === "member" && (
             <Menu>
-                <Link style={styles} to={`${match.url}`}>멤버 관리</Link>
-                <Link style={styles} to={`${match.url}/applicant`}>지원자 관리</Link>
-                <Link style={styles} to={`${match.url}/form`}>가입신청 양식</Link>
-            </Menu> 
+                <Link style={clickstyles} onClick={() => setState("member")}to={`${match.url}`}><Tag>멤버 관리</Tag></Link>
+                <Link style={styles} onClick={() => setState("applicant")}to={`${match.url}/applicant`}><Tag>지원자 관리</Tag></Link>
+                <Link style={styles} onClick={() => setState("application")}to={`${match.url}/form`}><Tag>가입신청 양식</Tag></Link>
+            </Menu> )}
+            { state === "applicant" && (
+            <Menu>
+                <Link style={styles} onClick={() => setState("member")}to={`${match.url}`}><Tag>멤버 관리</Tag></Link>
+                <Link style={clickstyles} onClick={() => setState("applicant")}to={`${match.url}/applicant`}><Tag>지원자 관리</Tag></Link>
+                <Link style={styles} onClick={() => setState("application")}to={`${match.url}/form`}><Tag>가입신청 양식</Tag></Link>
+            </Menu> )}
+            { state === "application" && (
+            <Menu>
+                <Link style={styles} onClick={() => setState("member")}to={`${match.url}`}><Tag>멤버 관리</Tag></Link>
+                <Link style={styles} onClick={() => setState("applicant")}to={`${match.url}/applicant`}><Tag>지원자 관리</Tag></Link>
+                <Link style={clickstyles} onClick={() => setState("application")}to={`${match.url}/form`}><Tag>가입신청 양식</Tag></Link>
+            </Menu> )}
             <Wrapper>
                 <Route exact path={match.path} component={Member} />
                 <Route path={`${match.path}/applicant`} component={Applicant} />
@@ -46,3 +81,4 @@ export default ({ match }) => (
         </Contents>
     </>
 )
+}

@@ -42,7 +42,7 @@ const Menu = styled.li`
   margin-right: 35px;
 `;
 
-const Text = styled.a`
+const Text = styled.div`
   color: ${(props) => props.theme.whiteColor};
   padding-left: 10px;
   cursor: pointer;

@@ -7,8 +7,10 @@ import useInput from "../../Hooks/useInput";
 import { CREATE_APPLICATION } from "./ClubInfoQueries";
 
 export default ({ club }) => {
+
   const [myanswers, setMyAnswers] = useState([]);
   const [answer, setAnswer] = useState("");
+
 
   const [createApplicationMutation] = useMutation(CREATE_APPLICATION);
 

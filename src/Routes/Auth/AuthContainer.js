@@ -5,16 +5,14 @@ import { useMutation } from "react-apollo-hooks";
 import { toast } from "react-toastify";
 import { LOG_IN, CREATE_ACCOUNT, LOCAL_LOG_IN } from "./AuthQueries";
 
-export default ({ state }) => {
-  const [action, setAction] = state ? useState(state) : useState("logIn");
+export default () => {
+  const [action, setAction] = useState("logIn");
   const email = useInput("");
   const password = useInput("");
 
-  const [requestLoginMutation] = useMutation(LOG_IN);
-
-  const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
-
-  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
+  const [ requestLoginMutation ] = useMutation(LOG_IN);
+  const [ createAccountMutation] = useMutation(CREATE_ACCOUNT);
+  const [ localLogInMutation ] = useMutation(LOCAL_LOG_IN);
 
   const onSubmit = async (e) => {
     e.preventDefault();

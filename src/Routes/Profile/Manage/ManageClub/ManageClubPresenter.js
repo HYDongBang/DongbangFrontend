@@ -1,11 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import ProfileInput from "../../../../Components/ProfileInput";
+import Textarea from "../../../../Components/Textarea";
 
 const Title = styled.div`
-    padding: 25px 0px;
+    padding: 30px 0px 30px 0px;
     font-size: 1.7em;
     text-align: center;
+    font-family:'NanumGothic';
+`;
+
+const Text = styled.div``;
+
+const Line = styled.div`
+    height: 1px;
+    width: 80px;
+    background-color: black;
+    margin: 15px auto;
 `;
 
 const Questions = styled.div`
@@ -25,17 +36,24 @@ const About = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-    padding: 10px 0px;
+    padding-top: 30px;
     text-align: center;
 `;
 
 const Button = styled.button`
-    border: 1px solid ${props => props.theme.blueColor};
+    border: 1px solid ${props => props.theme.darkGrayColor};
+    color: ${props => props.theme.darkGrayColor};
     border-radius: 5px;
-    padding: 8px 20px;
+    padding: 10px 30px;
     background-color: ${props => props.theme.whiteColor};
     margin: 0px auto;
     cursor: pointer;
+    &:hover {
+        border: 1px solid ${props => props.theme.blueColor};
+        background-color: ${props => props.theme.blueColor};
+        color: ${props => props.theme.whiteColor};
+        transition: 0.3s;
+    }
 `;
 
 export default ({
@@ -45,12 +63,13 @@ export default ({
     description,
     logo,
     clubImg,
-    facebookURL,
-    instagramURL,
     onSubmit
 }) => (
     <>
-        <Title>동아리 정보 관리</Title>
+        <Title>
+            <Text>동아리 정보 관리</Text>
+            <Line></Line>
+        </Title>
         <form onSubmit={onSubmit}>
             <Questions>
                 <Question>
@@ -67,7 +86,7 @@ export default ({
                 </Question>
                 <Question>
                     <About>동아리 설명글</About>
-                    <ProfileInput placeholder={"500자 이내로 입력하세요."} {...description}></ProfileInput>
+                    <Textarea placeholder={"500자 이내로 입력하세요."} {...description}></Textarea>
                 </Question>
                 <Question>
                     <About>동아리 로고</About>
@@ -76,14 +95,6 @@ export default ({
                 <Question>
                     <About>동아리 대표 이미지</About>
                     <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...clubImg} type={"file"}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>페이스북 주소</About>
-                    <ProfileInput placeholder={"동아리 페이스북 주소를 입력해주세요."} {...facebookURL} type={"url"}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>인스타그램 주소</About>
-                    <ProfileInput placeholder={"동아리 인스타그램 주소를 입력해주세요."} {...instagramURL} type={"url"}></ProfileInput>
                 </Question>
             </Questions>
             <ButtonContainer>
