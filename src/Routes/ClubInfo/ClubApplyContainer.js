@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ClubApply from "./ClubApply";
 import { toast } from "react-toastify";
 import { useMutation } from "react-apollo-hooks";
@@ -6,24 +6,20 @@ import useInput from "../../Hooks/useInput";
 
 import { CREATE_APPLICATION } from "./ClubInfoQueries";
 
-export default ({ club, answer }) => {
-  const answer = useInput("");
+export default ({ club }) => {
+  const [myanswers, setMyAnswers] = useState([]);
+  const [answer, setAnswer] = useState("");
+
   const [createApplicationMutation] = useMutation(CREATE_APPLICATION);
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (answer.value !== "") {
-  //     try {
-  //       const {
-  //         data: { sendApplication },
-  //       } = await sendApplicationMutation();
-  //       if (!sendApplication) {
-  //         toast.error("신청서 전송 중 에러가 발생했습니다.");
-  //       }
-  //     } catch {
-  //       toast.error("신청서를 보낼 수 없습니다.");
-  //     }
-  //   }
-  // };
-  return <ClubApply club={club} answer={answer} />;
+  const onSubmit = async (e) => {};
+  return (
+    <ClubApply
+      club={club}
+      myanswers={myanswers}
+      answer={answer}
+      setMyAnswers={setMyAnswers}
+      setAnswer={setAnswer}
+    />
+  );
 };

@@ -60,31 +60,71 @@ const Button = styled.button`
   margin-left: 20px;
 `;
 
-export default ({ club, answer }) => {
+export default ({
+  club,
+  myanswers,
+  setAnswer,
+  answer,
+  setMyAnswers,
+  onSubmit,
+}) => {
   const questions = club.questions;
-  const questionList = questions.map((question) =>
-    question.type === "ESSAY" || question.type === "essay" ? (
-      <QuestionContainer key={question.id}>
-        {question.subject}
-        <Answer>
-          주관식
-          <Input placeholder={"내 답변"} {...answer} type="text"></Input>
-        </Answer>
-      </QuestionContainer>
-    ) : (
-      <QuestionContainer key={question.id}>
-        {question.subject}
-        <Answer>
-          객관식
-          <Input placeholder={"내 답변"} {...answer} type="text"></Input>
-        </Answer>
-      </QuestionContainer>
-    )
-  );
+  let tmpList = [];
+  let num = 0;
+
+  const questionList = questions.map((question, idx) => {
+    const optionList = question.options.map((option) => (
+      <option value={option}>{option}</option>
+    ));
+    let oldAns = [];
+
+    const handleInput = (e) => {
+      setAnswer(e);
+      if (e !== "") {
+        oldAns = oldAns.concat({ answers: answer });
+        setMyAnswers(myanswers.concat(oldAns));
+        console.log(myanswers);
+      }
+    };
+
+    return (
+      <>
+        {question.type === "ESSAY" || question.type === "essay" ? (
+          <QuestionContainer key={question.id}>
+            {question.subject}
+            <Answer>
+              주관식
+              <input
+                placeholder={"내 답변"}
+                type="text"
+                // value={answer[idx]}
+                key={question.id}
+                onChange={(e) => handleInput(e.target.value)}
+              ></input>
+            </Answer>
+          </QuestionContainer>
+        ) : (
+          <QuestionContainer key={question.id}>
+            {question.subject}
+            <Answer>
+              객관식
+              <select
+                id={question.id}
+                // value={answer[idx]}
+                onChange={(e) => handleInput(e.target.value)}
+              >
+                {optionList}{" "}
+              </select>
+            </Answer>
+          </QuestionContainer>
+        )}
+      </>
+    );
+  });
 
   return (
     <NoScroll>
-      <form>
+      <form onSubmit={onSubmit}>
         <ClubContainer>
           <ClubImg />
 
