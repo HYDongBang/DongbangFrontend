@@ -25,8 +25,18 @@ export const SEE_ROOM = gql`
   query SeeRoom($clubId: String!) {
     seeRoom(clubId: $clubId) {
       id
+
       messages {
         text
+        created
+
+        from {
+          id
+          Name
+        }
+        to {
+          id
+        }
       }
     }
   }
@@ -44,6 +54,22 @@ export const CREATE_APPLICATION = gql`
   mutation createApplication($cid: ID!, $answers: [String]!) {
     createApplication(cid: $cid, answers: $answers) {
       id
+    }
+  }
+`;
+
+export const NEW_MESSAGE = gql`
+  subscription newMessage($roomId: String!) {
+    newMessage(roomId: $roomId) {
+      text
+      created
+
+      from {
+        id
+      }
+      to {
+        id
+      }
     }
   }
 `;

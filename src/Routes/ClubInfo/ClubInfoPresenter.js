@@ -22,32 +22,37 @@ const ClubContainer = styled.div`
 const ClubImg = styled.div`
   height: 50px;
   width: 50px;
+  margin: auto 0;
   border: 1px solid black;
   border-radius: 100%;
 `;
 
 const ClubName = styled.div`
-  padding-bottom: 5px;
   text-align: center;
   font-weight: 600;
-  margin: auto 0 auto 10px;
+  word-break: keep-all;
   font-size: 2em;
+  padding-top: 5px;
+  padding-left: 10px;
   min-width: 100px;
   max-width: 300px;
 `;
 
 const TopContainer = styled.div`
-  max-width: 300px;
+  max-width: 200px;
+  overflow: visible;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   padding-bottom: 10px;
+  padding-top: 10px;
 `;
 
 const ClubText = styled.div`
   font-size: 0.9em;
+  line-height: 1.3em;
   width: 80%;
-  min-height: 40px;
+  min-height: 30px;
   margin: 0 auto;
   text-align: center;
 `;
@@ -55,17 +60,14 @@ const ClubText = styled.div`
 const Context = styled.div`
   padding: 10px;
   text-align: center;
-  border: 1px solid ${(props) => props.theme.lightGrayColor};
-  box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 10px;
   line-height: 1.4em;
 `;
 
 const ContextClubImg = styled.div`
-  height: 150px;
+  height: 250px;
   width: 100%;
   border: 1px solid black;
-  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const Header = styled.header`
@@ -83,6 +85,13 @@ const Menu = styled.li`
 `;
 
 const Link = styled.a``;
+
+const Line = styled.div`
+  height: 1px;
+  width: 80px;
+  background-color: black;
+  margin: 10px auto;
+`;
 
 export default ({ action, setAction, club }) => {
   const { loading, data } = useQuery(CLUB_BY_ID, {
@@ -118,9 +127,11 @@ export default ({ action, setAction, club }) => {
                   <ClubName>{data.clubById.name}</ClubName>
                 </TopContainer>
                 <ClubText>{data.clubById.bio}</ClubText>
+                <Line />
+
                 <Context>
-                  {data.clubById.description}
                   <ContextClubImg />
+                  {data.clubById.description}
                 </Context>
               </ClubContainer>
             </>

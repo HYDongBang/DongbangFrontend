@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../../Styles/ClubTalk.css";
-import { useQuery } from "react-apollo-hooks";
-import { SEE_ROOM } from "./ClubInfoQueries";
+import { useSubscription, useQuery } from "react-apollo-hooks";
+import { NEW_MESSAGE, SEE_ROOM } from "./ClubInfoQueries";
 
 const Container = styled.div`
   height: 700px;
@@ -89,41 +89,88 @@ const Button = styled.button``;
 const Input = styled.input`
   width: "80%";
 `;
+const Line = styled.div`
+  height: 1px;
+  width: 150px;
+  background-color: black;
+  margin: 5px auto 15px auto;
+`;
 
-export default ({ club, message, onSubmit }) => {
-  const { loading, data } = useQuery(SEE_ROOM, {
-    variables: { clubId: club.id },
-  });
-  console.log(data);
+export default ({
+  club,
+  message,
+  onSubmit,
+  myRoomId,
+  myChats,
+  chatloading,
+}) => {
+  // subscription 하다 만 거..
+
+  // const { loading, data: oldChats } = useQuery(SEE_ROOM, {
+  //   variables: { clubId: club.master.id },
+  //   suspend:true
+  // });
+
+  // const { data } = useSubscription(NEW_MESSAGE, {
+  //   variables: { roomId: myRoomId },
+  // });
+
+  // const [myChats, setMyChats] = useState(oldChats||);
+
+  // const handleNewChats = () => {
+  //   if (data !== undefined) {
+  //     const { newChats } = data;
+  //     setMyChats((previous) => [...previous, newChats]);
+  //     console.log("lalala");
+  //     console.log(myChats);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleNewChats();
+  // }, [data]);
+
+  // if (!loading) {
+  //   console.log("11");
+
+  //   console.log(chats);
+  //   console.log(myChats);
+  //   console.log(data);
+  // }
+
   return (
     <Container>
       <Top>{club.name}님과의 대화</Top>
+      <Line />
       <TalkContainerNoScroll>
         <TalkContainer>
-          <MyBubble className="talk other">
-            <TopContainer>
-              <ClubImg />
-              <Name>동아리명</Name>
-              <Time>00:00</Time>
-            </TopContainer>
-            <Context>
-              내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
-            </Context>
-          </MyBubble>
+          {chatloading && <p>loading</p>}
 
-          <OtherBubble className="talk mine">
-            <TopContainer>
-              <ClubImg />
-              <Name>동아리명</Name>
-              <Time>00:00</Time>
-            </TopContainer>
-            <Context>
-              내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말내가한말
-            </Context>
-          </OtherBubble>
+          {!chatloading &&
+            myChats &&
+            myChats.map((chat) => {
+              return chat.from.id === club.master.id ? (
+                <MyBubble className="talk other">
+                  <TopContainer>
+                    <ClubImg />
+                    <Name>{club.name}</Name>
+                    <Time>00:00</Time>
+                  </TopContainer>
+                  <Context>{chat.text}</Context>
+                </MyBubble>
+              ) : (
+                <OtherBubble className="talk mine">
+                  <TopContainer>
+                    <ClubImg />
+                    <Name>{chat.from.Name}</Name>
+                    <Time>00:00</Time>
+                  </TopContainer>
+                  <Context>{chat.text}</Context>
+                </OtherBubble>
+              );
+            })}
         </TalkContainer>
       </TalkContainerNoScroll>
-
       <Answer>
         <form onSubmit={onSubmit}>
           <Input className="form__field" {...message} />
