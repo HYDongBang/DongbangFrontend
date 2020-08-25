@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ProfileInput from "../../../../Components/ProfileInput";
 import Textarea from "../../../../Components/Textarea";
+import Loading from "../../../../Components/Loading";
 
 const Title = styled.div`
     padding: 30px 0px 30px 0px;
@@ -63,43 +64,47 @@ export default ({
     description,
     logo,
     clubImg,
-    onSubmit
+    onSubmit,
+    loading
 }) => (
     <>
         <Title>
             <Text>동아리 정보 관리</Text>
             <Line></Line>
         </Title>
-        <form onSubmit={onSubmit}>
-            <Questions>
-                <Question>
-                    <About>동아리 이름</About>
-                    <ProfileInput placeholder={"ex) 사랑한대"} {...name}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>동아리 타입</About>
-                    <ProfileInput placeholder={"40자 이내로 입력하세요."} {...type}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>동아리 한줄 소개</About>
-                    <ProfileInput placeholder={"40자 이내로 입력하세요."} {...bio}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>동아리 설명글</About>
-                    <Textarea placeholder={"500자 이내로 입력하세요."} {...description}></Textarea>
-                </Question>
-                <Question>
-                    <About>동아리 로고</About>
-                    <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...logo} type={"file"}></ProfileInput>
-                </Question>
-                <Question>
-                    <About>동아리 대표 이미지</About>
-                    <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...clubImg} type={"file"}></ProfileInput>
-                </Question>
-            </Questions>
-            <ButtonContainer>
-                <Button>저장하기</Button>
-            </ButtonContainer>
-        </form>
+        {loading && <Loading></Loading>}
+        {!loading && (
+            <form onSubmit={onSubmit}>
+                <Questions>
+                    <Question>
+                        <About>동아리 이름</About>
+                        <ProfileInput placeholder={"ex) 사랑한대"} {...name}></ProfileInput>
+                    </Question>
+                    <Question>
+                        <About>동아리 타입</About>
+                        <ProfileInput placeholder={"40자 이내로 입력하세요."} {...type}></ProfileInput>
+                    </Question>
+                    <Question>
+                        <About>동아리 한줄 소개</About>
+                        <ProfileInput placeholder={"40자 이내로 입력하세요."} {...bio}></ProfileInput>
+                    </Question>
+                    <Question>
+                        <About>동아리 설명글</About>
+                        <Textarea placeholder={"500자 이내로 입력하세요."} {...description}></Textarea>
+                    </Question>
+                    <Question>
+                        <About>동아리 로고</About>
+                        <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...logo} type={"file"}></ProfileInput>
+                    </Question>
+                    <Question>
+                        <About>동아리 대표 이미지</About>
+                        <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...clubImg} type={"file"}></ProfileInput>
+                    </Question>
+                </Questions>
+                <ButtonContainer>
+                    <Button>저장하기</Button>
+                </ButtonContainer>
+            </form>
+        )}
     </>
  )

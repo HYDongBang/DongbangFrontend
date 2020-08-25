@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ManageProfilePresenter from "./ManageProfilePresenter";
 import useInput from "../../../../Hooks/useInput";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { toast } from "react-toastify";
-import { ME, GET_PROFILE, EDIT_PROFILE } from "./ManageProfileQueries";
+import { ME, EDIT_PROFILE } from "./ManageProfileQueries";
 
 export default () => {
-    const meQuery= useQuery(ME);
-    if(!meQuery.loading) {
-        //const getProfileQuery = useQuery(GET_PROFILE, { variables: { id: meQuery.data.me.id } });
-        //console.log(getProfileQuery);
-    }
+    const meQuery = useQuery(ME);
     const [ editProfileMutation ] = useMutation(EDIT_PROFILE);
     const name = useInput("");
     const email = useInput("");
     const phoneNumber = useInput("");
     const studentNumber = useInput("");
-    const uni = useInput("한양대학교 컴퓨터소프트웨어학부");
+    const uni = useInput("");
+    const major = useInput("");
+
+        /*name.onChange({ target: { value: meQuery.data.me.Name }});
+        email.onChange({ target: { value: meQuery.data.me.email }});
+        phoneNumber.onChange({ target: { value: meQuery.data.me.phoneNumber }});
+        studentNumber.onChange({ target: { value: meQuery.data.me.studentNumber }});
+        uni.onChange({ target: { value: meQuery.data.me.uni }});
+        major.onChange({ target: { value: meQuery.data.me.major }});*/
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -26,6 +30,8 @@ export default () => {
                     Name: name.value,
                     phoneNumber: phoneNumber.value,
                     studentNumber: studentNumber.value,
+                    uni: uni.value,
+                    major: major.value
                 }
             });
             if(!data.id) {
@@ -45,7 +51,9 @@ export default () => {
         phoneNumber={phoneNumber}
         studentNumber={studentNumber}
         uni={uni}
+        major={major}
         onSubmit={onSubmit}
+        loading={meQuery.loading}
     />
     );
 };
