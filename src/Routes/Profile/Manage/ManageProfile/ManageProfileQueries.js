@@ -3,15 +3,13 @@ import { gql } from "apollo-boost";
 export const ME = gql`
   query me {
     me {
-      id
-    }
-  }
-`;
-
-export const GET_PROFILE = gql`
-  query userById ($id: ID!) {
-    userById (id: $id) {
-        email
+      Name
+      email
+      phoneNumber
+      studentNumber
+      sex
+      university
+      major
     }
   }
 `;
@@ -21,8 +19,10 @@ export const EDIT_PROFILE = gql`
       $Name: String
       $phoneNumber: Int
       $studentNumber: Int
+      $university: String
+      $major: String
   ) {
-      editUser(phoneNumber: $phoneNumber, studentNumber: $studentNumber, Name: $Name) {
+      editUser(phoneNumber: $phoneNumber, studentNumber: $studentNumber, Name: $Name, university: $university, major: $major) {
         id
       }
   }

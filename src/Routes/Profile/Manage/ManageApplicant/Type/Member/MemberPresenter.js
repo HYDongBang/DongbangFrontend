@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Loading from "../../../../../../Components/Loading";
 
 const Wrapper = styled.div`
     margin: 20px 0px;
@@ -46,22 +47,25 @@ const Button = styled.button`
     }
 `;
 
-export default ({ members, onSubmit }) => (
+export default ({ members, onSubmit, loading }) => (
     <Wrapper>
-        <Members>
-            {members.map(({ name, studentNumber }) => {
-                return (
-                    <form onSubmit={onSubmit}>
-                        <Member>
-                            <Contents>
-                                <Name>{name}</Name>
-                                <Number>{studentNumber}</Number>
-                            </Contents>
-                            <Button onClick={() => alert("탈퇴 시키겠습니까?")}>탈퇴</Button>
-                        </Member>
-                    </form>
-                );
-            })}
-        </Members>
+        {loading && <Loading></Loading>}
+        {!loading && (
+            <Members>
+                {members.map(({ name, studentNumber }) => {
+                    return (
+                        <form onSubmit={onSubmit}>
+                            <Member>
+                                <Contents>
+                                    <Name>{name}</Name>
+                                    <Number>{studentNumber}</Number>
+                                </Contents>
+                                <Button onClick={() => alert("탈퇴 시키겠습니까?")}>탈퇴</Button>
+                            </Member>
+                        </form>
+                    );
+                })}
+            </Members>
+        )}
     </Wrapper>
 )

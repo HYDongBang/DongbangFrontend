@@ -5,13 +5,9 @@ import { toast } from "react-toastify";
 import { GET_CLUB_MEMBERS, EDIT_CLUB_MEMBERS } from "./MemberQueries";
 
 export default () => {
-    /*
-    const { members } = useQuery(GET_CLUB_MEMBERS, {
-        variables: {
-            id: 
-        }
-    });
-    const editClubMembersMutation = useMutation(EDIT_CLUB_MEMBERs, {
+    const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
+    if(!getClubMemebersQuery.loading) console.log(getClubMemebersQuery);
+    /*const editClubMembersMutation = useMutation(EDIT_CLUB_MEMBERs, {
         variables: {
             Users:
         }
@@ -28,8 +24,7 @@ export default () => {
         } else {
             toast.success("탈퇴하였습니다.");
         }
-    }
-    */
+    }*/
     const members = [
         {name: "1name", studentNumber: "2017232323"},
         {name: "2name", studentNumber: "2017232323"},
@@ -55,6 +50,7 @@ export default () => {
 
     return (
         <MemberPresenter 
+            loading={getClubMemebersQuery.loading}
             members={members}
             onSubmit={onSubmit}
         />

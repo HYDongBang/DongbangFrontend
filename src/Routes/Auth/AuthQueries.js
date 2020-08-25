@@ -6,11 +6,27 @@ export const LOG_IN = gql`
   }
 `;
 
+export const REQUEST_SECRET = gql`
+  mutation requestSecret($email: String!) {
+    requestSecret(email: $email)
+  }
+`;
+
+export const CONFIRM_SECRET = gql`
+  mutation confirmSecret($email: String!, $getSecret: String!) {
+    confirmSecret(email: $email, getSecret: $getSecret)
+  }
+`;
+
 export const CREATE_ACCOUNT = gql`
-  mutation createAccount($auth: Boolean!, $email: String!, $password: String!) {
-    createAccount(auth: $auth, email: $email, password: $password) {
-      id
-    }
+  mutation createAccount($auth: Boolean!, $email: String!, $password: String!, $Name: String!, $studentNumber: String!, $phoneNumber: Stinrg!, $university: String!, $major: String!) {
+    createAccount(auth: $auth, email: $email, password: $password, Name: $Name, studentNumber: $studentNumber, phoneNumber: $phoneNumber, university: $university, major: $major,)
+  }
+`;
+
+export const DELETE_SECRET = gql`
+  mutation deleteSecret($email: String!) {
+    deleteSecret(email: $email)
   }
 `;
 
