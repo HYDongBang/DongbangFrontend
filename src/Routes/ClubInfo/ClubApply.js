@@ -61,29 +61,17 @@ const Button = styled.button`
   margin-left: 20px;
 `;
 
-export default ({
-  club,
-  myanswers,
-  setAnswer,
-  answer,
-  setMyAnswers,
-  onSubmit,
-}) => {
+export default ({ club, myanswers, onSubmit }) => {
   const questions = club.questions;
-  let tmpList = [];
-  let num = 0;
 
   const questionList = questions.map((question, idx) => {
     const optionList = question.options.map((option) => (
       <option value={option}>{option}</option>
     ));
-    let oldAns = [];
 
     const handleInput = (e) => {
-      setAnswer(e);
+      myanswers[idx] = e;
       if (e !== "") {
-        oldAns = oldAns.concat({ answers: answer });
-        setMyAnswers(myanswers.concat(oldAns));
         console.log(myanswers);
       }
     };
@@ -94,11 +82,9 @@ export default ({
           <QuestionContainer key={question.id}>
             {question.subject}
             <Answer>
-              주관식
               <input
                 placeholder={"내 답변"}
                 type="text"
-                // value={answer[idx]}
                 key={question.id}
                 onChange={(e) => handleInput(e.target.value)}
               ></input>
@@ -108,12 +94,13 @@ export default ({
           <QuestionContainer key={question.id}>
             {question.subject}
             <Answer>
-              객관식
               <select
-                id={question.id}
-                // value={answer[idx]}
+                placeholder={"선택해주세요"}
                 onChange={(e) => handleInput(e.target.value)}
               >
+                <option value="" disabled selected>
+                  옵션을 선택해주세요
+                </option>
                 {optionList}{" "}
               </select>
             </Answer>

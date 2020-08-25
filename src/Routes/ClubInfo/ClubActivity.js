@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import ClubActivityInput from "../../Components/ClubActivityInput";
+import ClubActivityInputTitle from "../../Components/ClubActivityInputTitle";
 
 const NoScroll = styled.div`
   width: 90%;
@@ -9,7 +11,7 @@ const NoScroll = styled.div`
 
 const Container = styled.div`
   height: 700px;
-  width: 102%;
+  width: 103%;
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -17,34 +19,42 @@ const Container = styled.div`
 `;
 
 const ClubContainer = styled.div`
-  height: 280px;
-  width: 48%;
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
   overflow: hidden;
   padding: 10px;
-  margin: 5px;
+  margin-bottom: 10px;
   border: 1px solid ${(props) => props.theme.lightGrayColor};
   box-shadow: ${(props) => props.theme.lightGrayShadow};
 `;
+const PostContainer = styled.div`
+  height: 620px;
+`;
 
 const ClubImg = styled.div`
-  height: 150px;
+  height: 27%;
+  width: 32%;
+  margin: 0.5%;
+  border: 1px solid black;
+`;
+
+const ClubImgMain = styled.div`
+  height: 40%;
   width: 100%;
   border: 1px solid black;
 `;
 
 const Title = styled.div`
-  font-size: 1.3em;
-  text-align: center;
+  font-size: 1.2em;
   margin-top: 10px;
+  margin-bottom: 5px;
   font-weight: 600;
 `;
 
 const Context = styled.div`
   line-height: 1.4em;
-  font-size: 0.8em;
-  padding: 10px;
   height: 60px;
-  text-align: center;
   border-radius: 0px 0px 10px 10px;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -53,56 +63,151 @@ const Context = styled.div`
   -webkit-box-orient: vertical;
 `;
 
-const Answer = styled.div`
+const Comment = styled.div`
+  line-height: 1.4em;
   width: 100%;
-  height: 25%;
-  padding: 10px 0px;
+  margin-bottom: 2px;
+  display: flex;
+`;
+const SubComment = styled.div`
+  margin-left: 15px;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  width: 100%;
+  margin-bottom: 2px;
+  display: flex;
+`;
+const CommentName = styled.div`
+  font-weight: 600;
+  margin-right: 10px;
 `;
 
-const QuestionContainer = styled.div`
-  padding: 10px;
-  margin-top: 25px;
-  border: 1px solid ${(props) => props.theme.lightGrayColor};
-  box-shadow: ${(props) => props.theme.lightGrayShadow};
-  border-radius: 0px 0px 10px 10px;
+const Button = styled.div`
+  width: 100px;
+  height: 40px;
+  float: right;
+  background: black;
 `;
 
-export default ({}) => (
-  <NoScroll>
-    <Container>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>
-          활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용
-          활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용활동내용
-        </Context>
-      </ClubContainer>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>활동내용</Context>
-      </ClubContainer>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>활동내용</Context>
-      </ClubContainer>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>활동내용</Context>
-      </ClubContainer>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>활동내용</Context>
-      </ClubContainer>
-      <ClubContainer>
-        <ClubImg />
-        <Title> 활동이름</Title>
-        <Context>활동내용</Context>
-      </ClubContainer>
-    </Container>
-  </NoScroll>
-);
+const Question = styled.div`
+  margin: 30px 0px;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+  padding: 20px 0px;
+  display: flex;
+  align-items: center;
+`;
+
+const About = styled.div`
+  width: 100px;
+  font-weight: 600;
+`;
+
+const PostTitle = styled.div`
+  padding-top: 30px;
+  font-size: 1.7em;
+  text-align: center;
+`;
+
+const Line = styled.div`
+  height: 1px;
+  width: 80px;
+  background-color: black;
+  margin: 15px auto;
+`;
+
+export default ({
+  club,
+  action,
+  setAction,
+  title,
+  content,
+  comment,
+  onSubmit,
+  onCommentSubmit,
+}) => {
+  const posts = club.posts;
+
+  const myPost = posts.map((post) => (
+    <>
+      {action === "" && <ClubImg onClick={() => setAction(post.id)}></ClubImg>}
+      {action === `${post.id}` && (
+        <>
+          <ClubContainer>
+            <PostContainer>
+              <ClubImgMain />
+              <Title>{post.title}</Title>
+              <Context>{post.content}</Context>
+              {post.comments !== [] &&
+                post.comments.map((comment) => (
+                  <>
+                    <Comment>
+                      <CommentName>{comment.user.Name}</CommentName>
+                      {comment.content}
+                    </Comment>
+                    {comment.subComments !== [] &&
+                      comment.subComments.map((subComment) => (
+                        <SubComment>
+                          <CommentName>{subComment.user.Name}</CommentName>
+                          {subComment.content}
+                        </SubComment>
+                      ))}
+                  </>
+                ))}
+            </PostContainer>
+            <form onSubmit={onCommentSubmit}>
+              <ClubActivityInput
+                placeholder="내용"
+                cols="5"
+                rows="1"
+                {...comment}
+                type="text"
+              ></ClubActivityInput>
+              <button type="submit">보내기</button>
+            </form>
+          </ClubContainer>
+        </>
+      )}
+    </>
+  ));
+
+  return (
+    <>
+      <NoScroll>
+        <Container>
+          {myPost}
+          {action === "newPost" && (
+            <ClubContainer>
+              <form onSubmit={onSubmit}>
+                <PostTitle>
+                  포스트 작성
+                  <Line />
+                </PostTitle>
+                <Question>
+                  <About>제목</About>
+                  <ClubActivityInputTitle
+                    placeholder="제목"
+                    {...title}
+                    type="text"
+                  ></ClubActivityInputTitle>
+                </Question>
+                <Question>
+                  <About>내용</About>
+                  <ClubActivityInput
+                    placeholder="내용"
+                    cols="20"
+                    rows="14"
+                    {...content}
+                    type="text"
+                  ></ClubActivityInput>
+                </Question>
+                <button type="submit">보내기</button>
+              </form>
+            </ClubContainer>
+          )}
+        </Container>
+      </NoScroll>
+      {action !== "" && <Button onClick={() => setAction("")}></Button>}
+      {action === "" && <Button onClick={() => setAction("newPost")}></Button>}
+    </>
+  );
+};
