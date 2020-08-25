@@ -33,11 +33,9 @@ export default ({ club }) => {
               message: message.value,
             },
           });
-          console.log(id);
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
-            console.log(e);
             toast.info("보내짐");
           }
         } catch (err) {
@@ -60,7 +58,6 @@ export default ({ club }) => {
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
-            console.log(e);
             toast.info("보내짐");
           }
         } catch (err) {
@@ -69,6 +66,7 @@ export default ({ club }) => {
         }
       }
     }
+    message.setValue("");
   };
 
   return (

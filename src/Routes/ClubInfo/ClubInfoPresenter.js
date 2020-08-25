@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ClubApplyContainer from "./ClubApplyContainer";
-import ClubActivity from "./ClubActivity";
+import ClubActivityContainer from "./ClubActivityContainer";
 import ClubTalkContainer from "./ClubTalkContainer";
 import { useQuery } from "react-apollo-hooks";
 import { CLUB_BY_ID } from "./ClubInfoQueries";
@@ -136,7 +136,9 @@ export default ({ action, setAction, club }) => {
               </ClubContainer>
             </>
           )}
-          {action === "activity" && <ClubActivity />}
+          {action === "activity" && (
+            <ClubActivityContainer club={data.clubById} />
+          )}
           {action === "talk" && <ClubTalkContainer club={data.clubById} />}
           {action === "apply" && <ClubApplyContainer club={data.clubById} />}
         </>

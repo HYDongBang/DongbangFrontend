@@ -17,6 +17,28 @@ export const CLUB_BY_ID = gql`
         type
         options
       }
+      posts {
+        id
+        title
+        content
+        created
+        comments {
+          content
+          status
+          created
+          user {
+            Name
+          }
+          subComments {
+            content
+            created
+            status
+            user {
+              Name
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -70,6 +92,47 @@ export const NEW_MESSAGE = gql`
       to {
         id
       }
+    }
+  }
+`;
+
+export const CREATE_POST = gql`
+  mutation createPost(
+    $cid: ID!
+    $content: String!
+    $title: String!
+    $type: String
+  ) {
+    createPost(cid: $cid, content: $content, title: $title, type: $type) {
+      id
+    }
+  }
+`;
+
+export const EDIT_POST = gql`
+  mutation editPost(
+    $cid: ID!
+    $action: String!
+    $content: String!
+    $title: String!
+    $type: String
+  ) {
+    editPost(
+      cid: $cid
+      action: $action
+      content: $content
+      title: $title
+      type: $type
+    ) {
+      id
+    }
+  }
+`;
+
+export const CREATE_COMMENT = gql`
+  mutation createComment($pid: ID!, $content: String!) {
+    createComment(pid: $pid, content: $content) {
+      id
     }
   }
 `;
