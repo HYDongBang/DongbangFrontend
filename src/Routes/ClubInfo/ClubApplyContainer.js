@@ -6,7 +6,7 @@ import useInput from "../../Hooks/useInput";
 
 import { CREATE_APPLICATION } from "./ClubInfoQueries";
 
-export default ({ club }) => {
+export default ({ club, setAction }) => {
   const [myanswers, setMyAnswers] = useState([""]);
 
   const [createApplicationMutation] = useMutation(CREATE_APPLICATION);
@@ -27,7 +27,7 @@ export default ({ club }) => {
         if (!id || id === "") {
           toast.error("전송 오류");
         } else {
-          window.location.assign((window.location.replace = "/"));
+          setAction("clubInfo");
           toast.info("전송 완료");
         }
       } catch (err) {

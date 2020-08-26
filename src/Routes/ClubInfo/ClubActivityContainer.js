@@ -8,12 +8,16 @@ import { CREATE_POST, CREATE_COMMENT } from "./ClubInfoQueries";
 
 export default ({ club }) => {
   const [action, setAction] = useState("");
+  const [commentAction, setCommentAction] = useState("");
 
+  const comment = useInput("");
+  const [createCommentMutation] = useMutation(CREATE_COMMENT);
+
+  // 이부분 가져가면 돼!
   const title = useInput("");
   const content = useInput("");
-  const comment = useInput("");
+
   const [createPostMutation] = useMutation(CREATE_POST);
-  const [createCommentMutation] = useMutation(CREATE_COMMENT);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +47,7 @@ export default ({ club }) => {
       toast.error("모든 입력창을 채워주세요.");
     }
   };
+  //여기까지
 
   const onCommentSubmit = async (e) => {
     e.preventDefault();
@@ -81,6 +86,8 @@ export default ({ club }) => {
       comment={comment}
       onSubmit={onSubmit}
       onCommentSubmit={onCommentSubmit}
+      commentAction={commentAction}
+      setCommentAction={setCommentAction}
     />
   );
 };

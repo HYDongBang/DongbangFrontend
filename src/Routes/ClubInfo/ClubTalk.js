@@ -3,6 +3,7 @@ import styled from "styled-components";
 import styles from "../../Styles/ClubTalk.css";
 import { useSubscription, useQuery } from "react-apollo-hooks";
 import { NEW_MESSAGE, SEE_ROOM } from "./ClubInfoQueries";
+import TalkButton from "../../Components/TalkButton";
 
 const Container = styled.div`
   height: 700px;
@@ -174,9 +175,7 @@ export default ({
       <Answer>
         <form onSubmit={onSubmit}>
           <Input className="form__field" {...message} />
-          <Button type="submit" className="mybtn mybtn--primary mybtn--inside">
-            보내기
-          </Button>
+          <TalkButton type="submit" text="보내기"></TalkButton>
         </form>
       </Answer>
     </Container>

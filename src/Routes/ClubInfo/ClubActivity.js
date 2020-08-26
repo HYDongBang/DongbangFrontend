@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ClubActivityInput from "../../Components/ClubActivityInput";
 import ClubActivityInputTitle from "../../Components/ClubActivityInputTitle";
+import InfoButton from "../../Components/InfoButton";
 
 const NoScroll = styled.div`
   width: 90%;
@@ -40,7 +41,7 @@ const ClubImg = styled.div`
 `;
 
 const ClubImgMain = styled.div`
-  height: 40%;
+  height: 50%;
   width: 100%;
   border: 1px solid black;
 `;
@@ -53,40 +54,10 @@ const Title = styled.div`
 `;
 
 const Context = styled.div`
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  margin-left: 5px;
   line-height: 1.4em;
-  height: 60px;
-  border-radius: 0px 0px 10px 10px;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-`;
-
-const Comment = styled.div`
-  line-height: 1.4em;
-  width: 100%;
-  margin-bottom: 2px;
-  display: flex;
-`;
-const SubComment = styled.div`
-  margin-left: 15px;
-  font-size: 0.9em;
-  line-height: 1.4em;
-  width: 100%;
-  margin-bottom: 2px;
-  display: flex;
-`;
-const CommentName = styled.div`
-  font-weight: 600;
-  margin-right: 10px;
-`;
-
-const Button = styled.div`
-  width: 100px;
-  height: 40px;
-  float: right;
-  background: black;
 `;
 
 const Question = styled.div`
@@ -110,9 +81,9 @@ const PostTitle = styled.div`
 
 const Line = styled.div`
   height: 1px;
-  width: 80px;
-  background-color: black;
-  margin: 15px auto;
+  width: 80%;
+  background-color: ${(props) => props.theme.grayColor};
+  margin: 5px auto 15px auto;
 `;
 
 export default ({
@@ -124,9 +95,11 @@ export default ({
   comment,
   onSubmit,
   onCommentSubmit,
+  commentAction,
+  setCommentAction,
 }) => {
   const posts = club.posts;
-
+  console.log(commentAction);
   const myPost = posts.map((post) => (
     <>
       {action === "" && <ClubImg onClick={() => setAction(post.id)}></ClubImg>}
@@ -137,33 +110,8 @@ export default ({
               <ClubImgMain />
               <Title>{post.title}</Title>
               <Context>{post.content}</Context>
-              {post.comments !== [] &&
-                post.comments.map((comment) => (
-                  <>
-                    <Comment>
-                      <CommentName>{comment.user.Name}</CommentName>
-                      {comment.content}
-                    </Comment>
-                    {comment.subComments !== [] &&
-                      comment.subComments.map((subComment) => (
-                        <SubComment>
-                          <CommentName>{subComment.user.Name}</CommentName>
-                          {subComment.content}
-                        </SubComment>
-                      ))}
-                  </>
-                ))}
+              <Line />
             </PostContainer>
-            <form onSubmit={onCommentSubmit}>
-              <ClubActivityInput
-                placeholder="내용"
-                cols="5"
-                rows="1"
-                {...comment}
-                type="text"
-              ></ClubActivityInput>
-              <button type="submit">보내기</button>
-            </form>
           </ClubContainer>
         </>
       )}
@@ -175,6 +123,8 @@ export default ({
       <NoScroll>
         <Container>
           {myPost}
+
+          {/* 이부분 가져가면 돼! */}
           {action === "newPost" && (
             <ClubContainer>
               <form onSubmit={onSubmit}>
@@ -200,14 +150,22 @@ export default ({
                     type="text"
                   ></ClubActivityInput>
                 </Question>
-                <button type="submit">보내기</button>
+                <InfoButton type="submit" text="보내기"></InfoButton>
               </form>
             </ClubContainer>
           )}
+          {/* 여기까지 */}
         </Container>
       </NoScroll>
-      {action !== "" && <Button onClick={() => setAction("")}></Button>}
-      {action === "" && <Button onClick={() => setAction("newPost")}></Button>}
+      {action === "" && (
+        <InfoButton
+          onClick={() => setAction("newPost")}
+          text="포스트 생성"
+        ></InfoButton>
+      )}
+      {action !== "" && (
+        <InfoButton onClick={() => setAction("")} text="돌아가기"></InfoButton>
+      )}
     </>
   );
 };
