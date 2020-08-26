@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.textarea`
-  width: 90%;
-
+  width: 80%;
   border: none;
   padding: 5px 10px;
 `;

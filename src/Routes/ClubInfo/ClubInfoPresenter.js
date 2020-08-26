@@ -90,7 +90,7 @@ const Line = styled.div`
   height: 1px;
   width: 80px;
   background-color: black;
-  margin: 10px auto;
+  margin: 0px auto 10px auto;
 `;
 
 export default ({ action, setAction, club }) => {
@@ -140,7 +140,9 @@ export default ({ action, setAction, club }) => {
             <ClubActivityContainer club={data.clubById} />
           )}
           {action === "talk" && <ClubTalkContainer club={data.clubById} />}
-          {action === "apply" && <ClubApplyContainer club={data.clubById} />}
+          {action === "apply" && (
+            <ClubApplyContainer club={data.clubById} setAction={setAction} />
+          )}
         </>
       )}
     </Wrapper>

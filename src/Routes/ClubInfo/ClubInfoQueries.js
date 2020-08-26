@@ -96,6 +96,7 @@ export const NEW_MESSAGE = gql`
   }
 `;
 
+// 이거 가져가면 돼!
 export const CREATE_POST = gql`
   mutation createPost(
     $cid: ID!
