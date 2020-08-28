@@ -17,6 +17,7 @@ const LOG_OUT = gql`
 `;
 
 const Header = styled.header`
+    z-index: 100;
     background-color: ${(props) => props.theme.darkBlueColor};
     display: flex;
     justify-content: space-between;

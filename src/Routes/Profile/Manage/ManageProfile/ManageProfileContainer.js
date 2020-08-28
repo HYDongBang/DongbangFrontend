@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ManageProfilePresenter from "./ManageProfilePresenter";
 import useInput from "../../../../Hooks/useInput";
 import { useMutation, useQuery } from "react-apollo-hooks";
@@ -15,12 +15,14 @@ export default () => {
     const uni = useInput("");
     const major = useInput("");
 
-        /*name.onChange({ target: { value: meQuery.data.me.Name }});
+    if(!meQuery.loading && name.value === "" && email.value === "" && phoneNumber.value === "" && studentNumber.value === "" && uni.value === "" && major.value === "") {
+        name.onChange({ target: { value: meQuery.data.me.Name }});
         email.onChange({ target: { value: meQuery.data.me.email }});
         phoneNumber.onChange({ target: { value: meQuery.data.me.phoneNumber }});
         studentNumber.onChange({ target: { value: meQuery.data.me.studentNumber }});
-        uni.onChange({ target: { value: meQuery.data.me.uni }});
-        major.onChange({ target: { value: meQuery.data.me.major }});*/
+        uni.onChange({ target: { value: meQuery.data.me.university }});
+        major.onChange({ target: { value: meQuery.data.me.major }});
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -30,11 +32,11 @@ export default () => {
                     Name: name.value,
                     phoneNumber: phoneNumber.value,
                     studentNumber: studentNumber.value,
-                    uni: uni.value,
+                    university: uni.value,
                     major: major.value
                 }
             });
-            if(!data.id) {
+            if(!data) {
                 console.error("fail to edit profile");
             } else {
                 toast.info("프로필을 수정하였습니다.");
