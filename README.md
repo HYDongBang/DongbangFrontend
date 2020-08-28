@@ -1,5 +1,7 @@
 # Dongbang Frontend
-
+## 기술스택
+* React, hook, apollo, graphql
+## 기능
 * 로그인/ 회원가입
 * 메인
 * 마이페이지
