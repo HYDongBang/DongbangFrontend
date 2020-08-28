@@ -5,7 +5,6 @@ import styles from "../Styles/Loading.css";
 const Container = styled.div`
   width: 100%;
   height: 500px;
-  background-color: white;
 `;
 const Loader = styled.div``;
 

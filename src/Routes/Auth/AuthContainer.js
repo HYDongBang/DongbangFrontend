@@ -75,22 +75,24 @@ export default () => {
         try {
           const { data: { createAccount } } = await createAccountMutation({
             variables: {
-              auth: isChecked,
               email: email.value,
               studentNumber: studentNumber.value,
               phoneNumber: phoneNumber.value,
               university: university.value,
               major: major.value,
               password: password.value,
-              Name: name.value,
-              sex: "여자" // 임시
+              Name: name.value
           }});
-          if (!createAccount) {
+          if (!createAccount.id) {
             toast.error("계정 생성에 실패했습니다. 다시 시도해 주세요.");
           } else {
             toast.info(
               "계정이 생성되었습니다. 잠시후 로그인 페이지로 이동합니다."
             );
+            const { data: { deleteSecret }} = await deleteSecretMutation({
+              variables: {
+                email: email.value
+            }});
             setTimeout(() => setAction("logIn"), 2000);
           }
         } catch (err) {
@@ -114,14 +116,11 @@ export default () => {
           } else {
             toast.info("인증에 성공하였습니다. 정보를 입력해주세요.");
             setAction("signUp");
-            const { data: { deleteSecret }} = await deleteSecretMutation({
-              variables: {
-                email: email.value
-            }});
           }
         } catch (err) {
           console.log(err.message);
           toast.error("인증에 실패했습니다. 다시 시도해주세요.");
+          console.log("email: " + email.value);
         }
       }
     }

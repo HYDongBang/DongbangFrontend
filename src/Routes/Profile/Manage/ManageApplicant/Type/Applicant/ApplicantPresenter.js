@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Loading from "../../../../../../Components/Loading";
 
 const Wrapper = styled.div`
     margin: 20px 0px;
@@ -105,10 +106,9 @@ const Questions = styled.div`
 `;
 
 const Question = styled.div`
-    border: 1px solid ${props => props.theme.darkGrayColor};
-    border-radius: 10px;
+    border-top: 1px solid ${props => props.theme.grayColor};
     margin: 5px;
-    padding: 10px;
+    padding: 20px 0px 10px 0px;
 `;
 
 const About = styled.div`
@@ -121,44 +121,49 @@ const Answer = styled.div`
     padding-bottom: 5px;
 `;
 
-export default ({ applicants, onAccept, onReject, id, setId }) => (
-    <Wrapper>
-        <Applicants>
-            <Title>지원자</Title>
-            {applicants.map(({ id, name, studentNumber }) => {
-                return (
-                    <Member onClick={() => { setId(id) }}>
-                        <Name>{name}</Name>
-                        <Number>{studentNumber}</Number>
-                    </Member>
-                )
-            })}
-        </Applicants>
-        <Application>
-            {id === 0 ? (
-                <None>지원자를 선택하세요.</None>
-            ) :
-            (
-                <>
-                <Content>
-                    <Name>지원자 이름: {applicants.filter(applicant => applicant.id === id)[0].name}</Name>
-                    <ButtonContainer>
-                        <Accept onClick={onAccept}>수락</Accept>
-                        <Reject onClick={onReject}>거절</Reject>
-                    </ButtonContainer>
-                </Content>
-                <Questions>
-                    {applicants.filter(applicant => applicant.id === id)[0].application.map(({ question, answer }) => {
-                        return (
-                            <Question>
-                                <About>{question}</About>
-                                <Answer>{answer}</Answer>
-                            </Question>
-                        )
-                    })}
-                </Questions>
-                </>
-            )}
-        </Application>
-    </Wrapper>
+export default ({ loading, applicants, onCheck, onAccept, onReject, id}) => (
+    <>
+    {loading && <Loading></Loading>}
+    {!loading && (
+        <Wrapper>
+            <Applicants>
+                <Title>지원자</Title>
+                {applicants.map(({ id, name, studentNumber }) => {
+                    return (
+                        <Member onClick={() => onCheck(id)}>
+                            <Name>{name}</Name>
+                            <Number>{studentNumber}</Number>
+                        </Member>
+                    )
+                })}
+            </Applicants>
+            <Application>
+                {id === 0 ? (
+                    <None>지원자를 선택하세요.</None>
+                ) :
+                (
+                    <>
+                    <Content>
+                        <Name>지원자 이름: {applicants.filter(applicant => applicant.id === id)[0].name}</Name>
+                        <ButtonContainer>
+                            <Accept onClick={onAccept}>수락</Accept>
+                            <Reject onClick={onReject}>거절</Reject>
+                        </ButtonContainer>
+                    </Content>
+                    <Questions>
+                        {applicants.filter(applicants => applicants.id === id)[0].form.map(({ question, answer }) => {
+                            return (
+                                <Question>
+                                    <About>{question}</About>
+                                    <Answer>{answer}</Answer>
+                                </Question>
+                            )
+                        })}
+                    </Questions>
+                    </>
+                )}
+            </Application>
+        </Wrapper>
+    )}
+    </>
 )

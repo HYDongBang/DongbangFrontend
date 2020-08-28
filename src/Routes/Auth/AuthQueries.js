@@ -19,8 +19,10 @@ export const CONFIRM_SECRET = gql`
 `;
 
 export const CREATE_ACCOUNT = gql`
-  mutation createAccount($auth: Boolean!, $email: String!, $password: String!, $Name: String!, $studentNumber: String!, $phoneNumber: Stinrg!, $university: String!, $major: String!) {
-    createAccount(auth: $auth, email: $email, password: $password, Name: $Name, studentNumber: $studentNumber, phoneNumber: $phoneNumber, university: $university, major: $major,)
+  mutation createAccount($email: String!, $password: String!, $Name: String!, $studentNumber: String!, $phoneNumber: String!, $university: String!, $major: String!) {
+    createAccount(email: $email, password: $password, Name: $Name, studentNumber: $studentNumber, phoneNumber: $phoneNumber, university: $university, major: $major) {
+      id
+    }
   }
 `;
 
