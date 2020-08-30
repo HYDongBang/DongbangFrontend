@@ -9,3 +9,15 @@ export const GET_CLUBS = gql`
     }
   }
 `;
+
+export const ME = gql`
+  query {
+    me {
+      notifications {
+        created
+        content
+        checked
+      }
+    }
+  }
+`;

@@ -85,27 +85,14 @@ export const NEW_MESSAGE = gql`
     newMessage(roomId: $roomId) {
       text
       created
-
       from {
+        Name
         id
       }
       to {
+        Name
         id
       }
-    }
-  }
-`;
-
-// 이거 가져가면 돼!
-export const CREATE_POST = gql`
-  mutation createPost(
-    $cid: ID!
-    $content: String!
-    $title: String!
-    $type: String
-  ) {
-    createPost(cid: $cid, content: $content, title: $title, type: $type) {
-      id
     }
   }
 `;
@@ -125,14 +112,6 @@ export const EDIT_POST = gql`
       title: $title
       type: $type
     ) {
-      id
-    }
-  }
-`;
-
-export const CREATE_COMMENT = gql`
-  mutation createComment($pid: ID!, $content: String!) {
-    createComment(pid: $pid, content: $content) {
       id
     }
   }

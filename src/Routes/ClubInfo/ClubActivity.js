@@ -47,14 +47,13 @@ const ClubImgMain = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 1.2em;
+  font-size: 1.4em;
   margin-top: 10px;
   margin-bottom: 5px;
   font-weight: 600;
 `;
 
 const Context = styled.div`
-  font-size: 1.1em;
   margin-bottom: 10px;
   margin-left: 5px;
   line-height: 1.4em;
@@ -80,26 +79,20 @@ const PostTitle = styled.div`
 `;
 
 const Line = styled.div`
-  height: 1px;
-  width: 80%;
+  height: 3px;
+  width: 15%;
   background-color: ${(props) => props.theme.grayColor};
-  margin: 5px auto 15px auto;
+  margin: 9px auto 15px 0;
+`;
+const NoPost = styled.div`
+  font-size: 1.5em;
+  font-weight: bold;
+  color: ${(props) => props.theme.grayColor};
+  margin: auto;
 `;
 
-export default ({
-  club,
-  action,
-  setAction,
-  title,
-  content,
-  comment,
-  onSubmit,
-  onCommentSubmit,
-  commentAction,
-  setCommentAction,
-}) => {
+export default ({ club, action, setAction }) => {
   const posts = club.posts;
-  console.log(commentAction);
   const myPost = posts.map((post) => (
     <>
       {action === "" && <ClubImg onClick={() => setAction(post.id)}></ClubImg>}
@@ -109,62 +102,29 @@ export default ({
             <PostContainer>
               <ClubImgMain />
               <Title>{post.title}</Title>
-              <Context>{post.content}</Context>
               <Line />
+              <Context>{post.content}</Context>
             </PostContainer>
           </ClubContainer>
         </>
       )}
     </>
   ));
-
+  console.log(myPost);
   return (
     <>
       <NoScroll>
         <Container>
-          {myPost}
-
-          {/* 이부분 가져가면 돼! */}
-          {action === "newPost" && (
-            <ClubContainer>
-              <form onSubmit={onSubmit}>
-                <PostTitle>
-                  포스트 작성
-                  <Line />
-                </PostTitle>
-                <Question>
-                  <About>제목</About>
-                  <ClubActivityInputTitle
-                    placeholder="제목"
-                    {...title}
-                    type="text"
-                  ></ClubActivityInputTitle>
-                </Question>
-                <Question>
-                  <About>내용</About>
-                  <ClubActivityInput
-                    placeholder="내용"
-                    cols="20"
-                    rows="14"
-                    {...content}
-                    type="text"
-                  ></ClubActivityInput>
-                </Question>
-                <InfoButton type="submit" text="보내기"></InfoButton>
-              </form>
-            </ClubContainer>
+          {myPost.length !== 0 ? (
+            <> {myPost} </>
+          ) : (
+            <NoPost> 포스트가 없습니다</NoPost>
           )}
-          {/* 여기까지 */}
         </Container>
       </NoScroll>
-      {action === "" && (
-        <InfoButton
-          onClick={() => setAction("newPost")}
-          text="포스트 생성"
-        ></InfoButton>
-      )}
+
       {action !== "" && (
-        <InfoButton onClick={() => setAction("")} text="돌아가기"></InfoButton>
+        <InfoButton onClick={() => setAction("")} text="돌아가기" />
       )}
     </>
   );

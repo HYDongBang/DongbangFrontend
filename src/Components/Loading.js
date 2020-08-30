@@ -4,13 +4,22 @@ import styles from "../Styles/Loading.css";
 
 const Container = styled.div`
   width: 100%;
-  height: 500px;
+  background-color: transparent;
 `;
 const Loader = styled.div``;
 
 const Loading = () => (
   <Container>
-    <Loader className="loader"></Loader>
+    <div className="wrapper">
+      <span className="circle circle-1"></span>
+      <span className="circle circle-2"></span>
+      <span className="circle circle-3"></span>
+      <span className="circle circle-4"></span>
+      <span className="circle circle-5"></span>
+      <span className="circle circle-6"></span>
+      <span className="circle circle-7"></span>
+      <span className="circle circle-8"></span>
+    </div>
   </Container>
 );
 

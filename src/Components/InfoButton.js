@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 
 const Container = styled.button`
   display: inline-block;
-  background: #8cb0ff;
-  color: #fff;
+  background-color: ${(props) => props.theme.whiteColor};
+  color: ${(props) => props.theme.darkGrayColor};
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  padding: 10px 33px;
+  border-radius: 5px;
+  padding: 12px 30px;
   border: 0;
   outline: 0;
   float: right;
@@ -16,7 +16,10 @@ const Container = styled.button`
   transition: all 200ms ease-in;
   cursor: pointer;
   &:hover {
-    background: darken(black, 10%);
+    border: 1px solid ${(props) => props.theme.blueColor};
+    background-color: ${(props) => props.theme.blueColor};
+    color: ${(props) => props.theme.whiteColor};
+    transition: 0.3s;
   }
   &:active {
     background: #8cb0ff;
@@ -24,7 +27,7 @@ const Container = styled.button`
   }
 `;
 
-const InfoButton = ({ text, type, onClick }) => (
+const InfoButton = ({ text, type, onClick, style }) => (
   <Container type={type} onClick={onClick}>
     {text}
   </Container>

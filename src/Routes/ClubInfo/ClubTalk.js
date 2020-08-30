@@ -4,6 +4,15 @@ import styles from "../../Styles/ClubTalk.css";
 import { useSubscription, useQuery } from "react-apollo-hooks";
 import { NEW_MESSAGE, SEE_ROOM } from "./ClubInfoQueries";
 import TalkButton from "../../Components/TalkButton";
+import Loading from "../../Components/Loading";
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll";
 
 const Container = styled.div`
   height: 700px;
@@ -39,7 +48,6 @@ const ClubImg = styled.div`
 `;
 
 const Name = styled.div`
-  padding-bottom: 5px;
   text-align: center;
   margin: auto 0;
 `;
@@ -105,16 +113,19 @@ export default ({
   myChats,
   chatloading,
 }) => {
+  const { data } = useSubscription(NEW_MESSAGE, {
+    variables: { roomId: myRoomId },
+    shouldResubscribe: true,
+  });
+  console.log(data);
+
+  function scrollposition() {
+    let elHeight = document.getElementById("talk").clientHeight;
+    if (elHeight != 0) {
+      document.getElementById("talk").scrollTop = elHeight;
+    }
+  }
   // subscription 하다 만 거..
-
-  // const { loading, data: oldChats } = useQuery(SEE_ROOM, {
-  //   variables: { clubId: club.master.id },
-  //   suspend:true
-  // });
-
-  // const { data } = useSubscription(NEW_MESSAGE, {
-  //   variables: { roomId: myRoomId },
-  // });
 
   // const [myChats, setMyChats] = useState(oldChats||);
 
@@ -144,18 +155,21 @@ export default ({
       <Top>{club.name}님과의 대화</Top>
       <Line />
       <TalkContainerNoScroll>
-        <TalkContainer>
-          {chatloading && <p>loading</p>}
-
+        <TalkContainer id="talk">
+          {chatloading && <Loading />}
           {!chatloading &&
             myChats &&
             myChats.map((chat) => {
+              scrollposition();
+              let time = chat.created;
+              time = time.toString();
+              time = time.substring(11, 16);
               return chat.from.id === club.master.id ? (
                 <MyBubble className="talk other">
                   <TopContainer>
                     <ClubImg />
                     <Name>{club.name}</Name>
-                    <Time>00:00</Time>
+                    <Time>{time}</Time>
                   </TopContainer>
                   <Context>{chat.text}</Context>
                 </MyBubble>
@@ -164,7 +178,7 @@ export default ({
                   <TopContainer>
                     <ClubImg />
                     <Name>{chat.from.Name}</Name>
-                    <Time>00:00</Time>
+                    <Time>{time}</Time>
                   </TopContainer>
                   <Context>{chat.text}</Context>
                 </OtherBubble>

@@ -1,7 +1,8 @@
 import React from "react";
-import Input from "../../Components/Input";
 import styled from "styled-components";
 import styles from "../../Styles/ClubTalk.css";
+import ClubApplyInput from "../../Components/ClubApplyInput";
+import InfoButton from "../../Components/InfoButton";
 
 const ClubContainer = styled.div`
   height: 700px;
@@ -61,12 +62,30 @@ const Button = styled.button`
   margin-left: 20px;
 `;
 
+const NoApply = styled.div`
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+  margin-top: 25%;
+  font-weight: bold;
+  color: ${(props) => props.theme.grayColor};
+`;
+
 export default ({ club, myanswers, onSubmit }) => {
   const questions = club.questions;
 
   const questionList = questions.map((question, idx) => {
     const optionList = question.options.map((option) => (
-      <option value={option}>{option}</option>
+      <label style={{ marginRight: "10px" }}>
+        <input
+          style={{ marginRight: "3px" }}
+          type="radio"
+          name="options"
+          value={option}
+          onChange={(e) => handleInput(e.target.value)}
+        ></input>
+        {option}
+      </label>
     ));
 
     const handleInput = (e) => {
@@ -82,28 +101,18 @@ export default ({ club, myanswers, onSubmit }) => {
           <QuestionContainer key={question.id}>
             {question.subject}
             <Answer>
-              <input
+              <ClubApplyInput
                 placeholder={"내 답변"}
                 type="text"
                 key={question.id}
                 onChange={(e) => handleInput(e.target.value)}
-              ></input>
+              ></ClubApplyInput>
             </Answer>
           </QuestionContainer>
         ) : (
           <QuestionContainer key={question.id}>
             {question.subject}
-            <Answer>
-              <select
-                placeholder={"선택해주세요"}
-                onChange={(e) => handleInput(e.target.value)}
-              >
-                <option value="" disabled selected>
-                  옵션을 선택해주세요
-                </option>
-                {optionList}{" "}
-              </select>
-            </Answer>
+            <Answer>{optionList}</Answer>
           </QuestionContainer>
         )}
       </>
@@ -120,11 +129,17 @@ export default ({ club, myanswers, onSubmit }) => {
             <ClubName>{club.name} 동아리 지원서 </ClubName>
             <ClubText>{club.bio}</ClubText>
           </Context>
-          {questionList}
+          {questions.length === 0 ? (
+            <NoApply> 지원서가 없습니다</NoApply>
+          ) : (
+            <>
+              {questionList}
+              <div style={{ margin: "20px 10px 0 0 " }}>
+                <InfoButton tpye="submit" text="보내기" />
+              </div>
+            </>
+          )}
         </ClubContainer>
-        <Button tpye="submit" className="mybtn mybtn--primary mybtn--inside">
-          보내기
-        </Button>
       </form>
     </NoScroll>
   );
