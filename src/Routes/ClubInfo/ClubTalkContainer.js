@@ -12,9 +12,11 @@ export default ({ club }) => {
   let chats;
   let myRoomId;
   const [sendMessageMutation] = useMutation(SEND_MESSAGE);
+
   const { loading, data } = useQuery(SEE_ROOM, {
     variables: { clubId: club.master.id },
   });
+
   if (!loading) {
     chats = data.seeRoom[0].messages;
     myRoomId = data.seeRoom[0].id;

@@ -23,7 +23,6 @@
   border: 1px solid #575756;
   transition: all 250ms ease-in-out;
   backface-visibility: hidden;
-  transform-style: preserve-3d;
 }
 
 .search::placeholder {

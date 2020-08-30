@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-apollo-hooks";
-import { GET_CLUBS } from "./MainQueries";
+import { GET_CLUBS, ME } from "./MainQueries";
 import { ClubFilter } from "./ClubFilter";
 import Loading from "../../Components/Loading";
 import styles from "../../Styles/Searchbox.css";
+import NotificationSystem from "react-notification-system";
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -75,6 +76,18 @@ export default ({
   filterDisplay,
   setFilterDisplay,
 }) => {
+  // const notificationSystem = React.createRef();
+
+  // const addNotification = (event) => {
+  //   event.preventDefault();
+  //   const notification = notificationSystem.current;
+  //   notification.addNotification({
+  //     message: "Notification message",
+  //     level: "success",
+  //   });
+  // };
+  // const { loading: notificationLoading, data: notificationData } = useQuery(ME);
+
   const { loading, data } = useQuery(GET_CLUBS);
 
   const handleChange = (e) => {
@@ -116,7 +129,6 @@ export default ({
           onChange={(e) => handleChange(e.target.value)}
         />
       </Top>
-
       <Categories>
         {myType === "Art" ? (
           <Category onClick={() => setType("")}>
