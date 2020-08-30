@@ -102,7 +102,7 @@ export default({
                                             <Option value="주관식">주관식</Option>
                                             <Option value="객관식">객관식</Option>
                                         </Select>
-                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={onDelete}/>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
                             )}
@@ -114,7 +114,7 @@ export default({
                                             <Option value="주관식">주관식</Option>
                                             <Option value="객관식">객관식</Option>
                                         </Select>
-                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={onDelete}/>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
                             )}
