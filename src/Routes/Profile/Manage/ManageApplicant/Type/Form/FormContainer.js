@@ -15,9 +15,9 @@ export default () => {
     const about = useInput("");
     const question = useInput("");
     const data = [
-            {subject: "질문1", type: "multiple", options: ["가", "나", "다"]},
-            {subject: "질문2", type: "single", options: []},
-            {subject: "질문3", type: "single", options: []}
+            {id: "123", subject: "질문1", type: "multiple", options: ["가", "나", "다"]},
+            {id: "234", subject: "질문2", type: "single", options: []},
+            {id: "345", subject: "질문3", type: "single", options: []}
         ]
     if(!getQuestionQuery.loading && isFirst === false) {
         
@@ -28,10 +28,10 @@ export default () => {
     const onSubmit = async (e) => {
         e.preventDefault();
     }
-    const onDelete = (e) => {
-        
+    const onDelete = async (id) => {
+        console.log(id);
     }
-    const onPlus = () => {
+    const onPlus = async () => {
         setNumber(number + 1);
     }
     return (
