@@ -8,8 +8,6 @@ export const GET_CLUB = gql`
           type
           bio
           description
-          logo
-          clubImage
         }
     }
   }
@@ -17,13 +15,13 @@ export const GET_CLUB = gql`
 
 export const EDIT_CLUB = gql`
   mutation editClub (
-      $name: String!
-      $type: String!
-      $bio: String!
+      $action: ACTIONS!
+      $name: String
+      $bio: String
       $description: String
-      $logo: String
-      $clubImg: String
   ) {
-      editUser(name: $name, type: $type, bio: $bio, description: $description, logo: $logo, clubImg: $clubImg)
+      editClub(action: $action, name: $name, bio: $bio, description: $description) {
+        name
+      }
   }
 `;

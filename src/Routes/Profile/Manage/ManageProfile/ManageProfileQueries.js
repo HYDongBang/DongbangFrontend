@@ -17,8 +17,8 @@ export const ME = gql`
 export const EDIT_PROFILE = gql`
   mutation editUser(
       $Name: String
-      $phoneNumber: Int
-      $studentNumber: Int
+      $phoneNumber: String
+      $studentNumber: String
       $university: String
       $major: String
   ) {

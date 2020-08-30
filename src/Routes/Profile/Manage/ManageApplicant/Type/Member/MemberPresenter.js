@@ -26,7 +26,7 @@ const Contents = styled.div`
     padding-right: 70px;
 `;
 
-const Name = styled.div`
+const StudentName = styled.div`
     font-weight: 600;
     padding-bottom: 6px;
 `;
@@ -47,20 +47,20 @@ const Button = styled.button`
     }
 `;
 
-export default ({ members, onSubmit, loading }) => (
+export default ({ members, onDelete, loading }) => (
     <Wrapper>
         {loading && <Loading></Loading>}
         {!loading && (
             <Members>
-                {members.map(({ name, studentNumber }) => {
+                {members.map(({ Name, studentNumber }) => {
                     return (
-                        <form onSubmit={onSubmit}>
+                        <form onSubmit={onDelete}>
                             <Member>
                                 <Contents>
-                                    <Name>{name}</Name>
+                                    <StudentName>{Name}</StudentName>
                                     <Number>{studentNumber}</Number>
                                 </Contents>
-                                <Button onClick={() => alert("탈퇴 시키겠습니까?")}>탈퇴</Button>
+                                <Button>탈퇴</Button>
                             </Member>
                         </form>
                     );

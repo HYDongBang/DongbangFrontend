@@ -5,8 +5,15 @@ import { toast } from "react-toastify";
 import { GET_CLUB_MEMBERS, EDIT_CLUB_MEMBERS } from "./MemberQueries";
 
 export default () => {
+    let members = [
+        {Name: "홍길동", studentNumber: "2019021234"},
+        {Name: "가나다", studentNumber: "2019021234"}
+    ];
     const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
-    if(!getClubMemebersQuery.loading) console.log(getClubMemebersQuery);
+    if(!getClubMemebersQuery.loading) {
+        console.log(getClubMemebersQuery.data.me.isMaster.members);
+        members.concat(getClubMemebersQuery.data.me.isMaster.members);
+    }
     /*const editClubMembersMutation = useMutation(EDIT_CLUB_MEMBERs, {
         variables: {
             Users:
@@ -25,34 +32,18 @@ export default () => {
             toast.success("탈퇴하였습니다.");
         }
     }*/
-    const members = [
-        {name: "1name", studentNumber: "2017232323"},
-        {name: "2name", studentNumber: "2017232323"},
-        {name: "3name", studentNumber: "2017232323"},
-        {name: "4name", studentNumber: "2017232323"},
-        {name: "5name", studentNumber: "2017232323"},
-        {name: "1name", studentNumber: "2017232323"},
-        {name: "2name", studentNumber: "2017232323"},
-        {name: "3name", studentNumber: "2017232323"},
-        {name: "4name", studentNumber: "2017232323"},
-        {name: "5name", studentNumber: "2017232323"},
-        {name: "1name", studentNumber: "2017232323"},
-        {name: "2name", studentNumber: "2017232323"},
-        {name: "3name", studentNumber: "2017232323"},
-        {name: "4name", studentNumber: "2017232323"},
-        {name: "5name", studentNumber: "2017232323"}
-    ];
 
-    const onSubmit = async (e) => {
+    const onDelete = async (e) => {
         e.preventDefault();
-        toast.success("test: 삭제 완료");
+        alert("탈퇴 시키겠습니까?");
+        toast.success("탈퇴 성공");
     }
 
     return (
         <MemberPresenter 
             loading={getClubMemebersQuery.loading}
             members={members}
-            onSubmit={onSubmit}
+            onDelte={onDelete}
         />
     )
 }
