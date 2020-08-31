@@ -25,6 +25,7 @@ const Title = styled.div`
 const Questions = styled.div`
     padding: 0px 55px;
 `;
+const Container = styled.div``;
 const Line = styled.div`
     background:${props => props.theme.grayColor};
     width: 750px;
@@ -39,6 +40,8 @@ const Question = styled.div`
 `;
 const Selector = styled.div`
     padding-left: 330px;
+    display: flex;
+    align-items: center;
 `;
 const Select = styled.select`
     padding: 3px 7px;
@@ -47,8 +50,6 @@ const Select = styled.select`
     color: ${props => props.theme.blueColor};
     cursor: pointer;
     margin-right: 10px;
-`;
-const Option = styled.option`
 `;
 const Button = styled.button`
     border: 1px solid ${props => props.theme.darkGrayColor};
@@ -71,9 +72,17 @@ const ButtonContainer = styled.div`
 const Add = styled.div`
     padding: 30px 0px;
 `;
+const Text = styled.div`
+    padding: 0px 31px 0px 20px;
+    font-size: 0.8em;
+    color: ${props => props.theme.blueColor};
+`;
+const Options = styled.div``;
+const Option = styled.div``;
 const styles = {"cursor": "pointer"};
 
 export default({
+    number,
     loading,
     title,
     about,
@@ -81,7 +90,8 @@ export default({
     question,
     onSubmit,
     onDelete,
-    onPlus
+    onPlus,
+    onSelect
 }) => (
     <form onSubmit={onSubmit}>
         {loading && <Loading></Loading>}
@@ -93,33 +103,59 @@ export default({
                 <Questions>
                     {data.map(({ id, subject, type, options }) => {
                         return (
-                            <>
+                            <Container>
                             {type === "multiple" && (
-                                <Question key={id}>
+                                <Question key={id} id={id} className="saved">
                                     <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
                                     <Selector>
-                                        <Select name="type">
-                                            <Option value="주관식">주관식</Option>
-                                            <Option value="객관식">객관식</Option>
-                                        </Select>
+                                        <Text>객관식</Text>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
+                                    <Options>
+                                        <Option>
+
+                                        </Option>
+                                    </Options>
                                 </Question>
                             )}
                             {type === "single" && (
-                                <Question key={id}>
+                                <Question key={id} id={id} className="saved">
                                     <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
                                     <Selector>
-                                        <Select name="type">
-                                            <Option value="주관식">주관식</Option>
-                                            <Option value="객관식">객관식</Option>
-                                        </Select>
+                                        <Text>주관식</Text>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
                             )}
                             <Line></Line>
-                            </>
+                            </Container>
+                        )
+                    })}
+                    {[...Array(number)].map((n, index) => {
+                        return (
+                            <Container>
+                                <Question key={index} id={index} className="new">
+                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                                    <Selector>
+                                        <Select name="type" id={index} onChange={onSelect}>
+                                            <option value="주관식" selected>주관식</option>
+                                            <option value="객관식">객관식</option>
+                                        </Select>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(index)}/>
+                                    </Selector>
+                                </Question>
+                                <Question key={index} id={index} className="new" style={{"display" : "none"}}>
+                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                                    <Selector>
+                                        <Select name="type" id={index} onChange={onSelect}>
+                                            <option value="주관식">주관식</option>
+                                            <option value="객관식" selected>객관식</option>
+                                        </Select>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(index)}/>
+                                    </Selector>
+                                </Question>
+                                <Line></Line>
+                            </Container>
                         )
                     })}
                 </Questions>
