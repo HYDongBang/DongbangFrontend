@@ -15,12 +15,25 @@ export const GET_APPLICANTS = gql`
                 id
                 Name
                 studentNumber
+                email
+                phoneNumber
+                sex
+                university
+                major
             }
             answer
             status
             created
         }
       }
+    }
+  }
+`;
+
+export const EDIT_APPLICANTS = gql`
+  mutation editApplication ($id: ID!, $action: ACTIONS!) {
+    editApplication (id: $id, action: $action) {
+      id
     }
   }
 `;
