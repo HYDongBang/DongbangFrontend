@@ -11,7 +11,6 @@ export default () => {
     const getQuestionQuery = useQuery(GET_QUESTION);
     const [ editQuestionMutaion ] = useMutation(EDIT_QUESTION);
     const [ createQuestionMutation ] = useMutation(CREATE_QUESTION);
-    const title = useInput("");
     const about = useInput("");
     const question = useInput("");
     const option = useInput("");
@@ -58,7 +57,6 @@ export default () => {
         <FormPresenter
             number={number}
             loading={getQuestionQuery.loading}
-            title={title}
             about={about}
             question={question}
             option={option}

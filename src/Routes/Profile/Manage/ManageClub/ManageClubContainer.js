@@ -67,8 +67,6 @@ export default () => {
                 if(!data) {
                     console.log("fail to upload files");
                     toast.error("파일 업로드에 실패하였습니다.");
-                } else {
-                    toast.info("파일 업로드에 성공하였습니다.");
                 }
             } catch (e) {
                 console.log(e.message);
@@ -85,8 +83,6 @@ export default () => {
                 if(!data) {
                     console.log("fail to upload files");
                     toast.error("파일 업로드에 실패하였습니다.");
-                } else {
-                    toast.info("파일 업로드에 성공하였습니다.");
                 }
             } catch (e) {
                 console.log(e.message);

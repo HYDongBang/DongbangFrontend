@@ -52,9 +52,9 @@ export default ({ members, onDelete, loading }) => (
         {loading && <Loading></Loading>}
         {!loading && (
             <Members>
-                {members.map(({ Name, studentNumber }) => {
+                {members.map(({ id, Name, studentNumber }) => {
                     return (
-                        <form onSubmit={onDelete}>
+                        <form onSubmit={onDelete} key={id}>
                             <Member>
                                 <Contents>
                                     <StudentName>{Name}</StudentName>

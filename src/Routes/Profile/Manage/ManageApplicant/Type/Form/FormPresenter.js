@@ -84,7 +84,6 @@ const styles = {"cursor": "pointer"};
 export default({
     number,
     loading,
-    title,
     about,
     data,
     question,
@@ -98,7 +97,6 @@ export default({
         {!loading && (
             <>
             <Wrapper>
-                <Title><FormTitle placeholder="지원서 제목을 입력하세요." {...title}></FormTitle></Title>
                 <Textarea placeholder="지원서 내용을 입력하세요." {...about}></Textarea>
                 <Questions>
                     {data.map(({ id, subject, type, options }) => {
@@ -153,6 +151,11 @@ export default({
                                         </Select>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(index)}/>
                                     </Selector>
+                                    <Options>
+                                        <Option>
+                                            
+                                        </Option>
+                                    </Options>
                                 </Question>
                                 <Line></Line>
                             </Container>

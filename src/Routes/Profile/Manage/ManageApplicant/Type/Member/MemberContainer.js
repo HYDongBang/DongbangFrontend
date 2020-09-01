@@ -5,14 +5,12 @@ import { toast } from "react-toastify";
 import { GET_CLUB_MEMBERS, EDIT_CLUB_MEMBERS } from "./MemberQueries";
 
 export default () => {
-    let members = [
-        {Name: "홍길동", studentNumber: "2019021234"},
-        {Name: "가나다", studentNumber: "2019021234"}
-    ];
+    let members = [];
     const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
     if(!getClubMemebersQuery.loading) {
-        console.log(getClubMemebersQuery.data.me.isMaster.members);
-        members.concat(getClubMemebersQuery.data.me.isMaster.members);
+        getClubMemebersQuery.data.me.isMaster.members.forEach((element, index) => {
+            members.push({Name: element.Name, studentNumber: element.studentNumber, id: element.id})
+        })
     }
     /*const editClubMembersMutation = useMutation(EDIT_CLUB_MEMBERs, {
         variables: {
