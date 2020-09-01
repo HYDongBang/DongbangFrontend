@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import ManageClubPresenter from "./ManageClubPresenter";
 import useInput from "../../../../Hooks/useInput";
 import { useMutation, useQuery } from "react-apollo-hooks";
@@ -46,6 +47,36 @@ export default () => {
             } catch (e) {
                 console.log(e.message);
                 toast.error("다시 시도해 주세요");
+            }
+        }
+        if (logo !== "" && clubImg !== "") {
+            const formData = new FormData();
+            const logo = document.getElementById("logo").files[0];
+            const clubImg = document.getElementById("clubImg").files[0];
+            formData.append("file", logo);
+            //formData.append("clubImg", clubImg);
+            /*formData.append("file", {
+                name: logo.name,
+                type: logo.type.toLowerCase(),
+                uri: logo.value
+            })*/
+            try {
+                console.log("file upload start");
+                const { data } = await axios.post("http://localhost:4000/api/upload", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log("file upload end");
+                if(!data) {
+                    console.log("fail to upload files");
+                    toast.error("파일 업로드에 실패하였습니다.");
+                } else {
+                    toast.info("파일 업로드에 성공하였습니다.");
+                }
+            } catch (e) {
+                console.log(e.message);
+                toast.error("파일 업로드에 실패하였습니다.");
             }
         }
     }

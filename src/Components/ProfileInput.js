@@ -16,6 +16,7 @@ const ProfileInput = ({
   onChange,
   name = "",
   type = "text",
+  id = ""
 }) => (
   <Container
     placeholder={placeholder}
@@ -24,6 +25,7 @@ const ProfileInput = ({
     onChange={onChange}
     name={name}
     type={type}
+    id={id}
   />
 );
 
