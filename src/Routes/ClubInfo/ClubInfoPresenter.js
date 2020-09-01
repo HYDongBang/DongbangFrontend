@@ -105,7 +105,7 @@ export default ({ action, setAction, club }) => {
             동아리 활동
           </Link>
           <Link className="menu__link" onClick={() => setAction("talk")}>
-            실시간 톡
+            쪽지
           </Link>
           <Link className="menu__link" onClick={() => setAction("apply")}>
             지원하기
@@ -142,7 +142,9 @@ export default ({ action, setAction, club }) => {
           {action === "activity" && (
             <ClubActivityContainer club={data.clubById} />
           )}
-          {action === "talk" && <ClubTalkContainer club={data.clubById} />}
+          {action === "talk" && (
+            <ClubTalkContainer club={data.clubById} setAction={setAction} />
+          )}
           {action === "apply" && (
             <ClubApplyContainer club={data.clubById} setAction={setAction} />
           )}

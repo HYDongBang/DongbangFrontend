@@ -121,9 +121,11 @@ export default ({
   console.log(data);
 
   function scrollposition() {
-    let elHeight = document.getElementById("talk").clientHeight;
-    if (elHeight != 0) {
-      document.getElementById("talk").scrollTop = elHeight;
+    if (document.getElementById("talk") !== null) {
+      let elHeight = document.getElementById("talk").clientHeight;
+      if (elHeight != 0) {
+        document.getElementById("talk").scrollTop = elHeight;
+      }
     }
   }
   // subscription 하다 만 거..
