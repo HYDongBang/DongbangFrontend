@@ -6,8 +6,9 @@ import { SEND_MESSAGE } from "./ClubInfoQueries";
 import { toast } from "react-toastify";
 import { useQuery } from "react-apollo-hooks";
 import { SEE_ROOM } from "./ClubInfoQueries";
+import ClubInfoContainer from "../ClubInfo/ClubInfoContainer";
 
-export default ({ club }) => {
+export default ({ club, setAction }) => {
   const message = useInput("");
   let chats;
   let myRoomId;
@@ -42,6 +43,7 @@ export default ({ club }) => {
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
+            window.location.reload();
             toast.info("보내짐");
           }
         } catch (err) {
@@ -64,6 +66,7 @@ export default ({ club }) => {
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
+            window.location.reload();
             toast.info("보내짐");
           }
         } catch (err) {
