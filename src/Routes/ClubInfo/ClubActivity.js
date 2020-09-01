@@ -20,12 +20,11 @@ const Container = styled.div`
 `;
 
 const ClubContainer = styled.div`
-  height: 100%;
+  height: 620px;
   width: 90%;
   margin: 0 auto;
   overflow: hidden;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid ${(props) => props.theme.lightGrayColor};
   box-shadow: ${(props) => props.theme.lightGrayShadow};
 `;
@@ -34,9 +33,9 @@ const PostContainer = styled.div`
 `;
 
 const ClubImg = styled.div`
-  height: 27%;
-  width: 32%;
-  margin: 0.5%;
+  height: 90%;
+  width: 95%;
+  margin: auto;
   border: 1px solid black;
 `;
 
@@ -53,29 +52,21 @@ const Title = styled.div`
   font-weight: 600;
 `;
 
+const SmallTitle = styled.div`
+  margin-top: 5px;
+  font-size: 0.9em;
+`;
+
+const Preview = styled.div`
+  height: 33%;
+  width: 32%;
+  text-align: center;
+`;
+
 const Context = styled.div`
   margin-bottom: 10px;
   margin-left: 5px;
   line-height: 1.4em;
-`;
-
-const Question = styled.div`
-  margin: 30px 0px;
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
-  padding: 20px 0px;
-  display: flex;
-  align-items: center;
-`;
-
-const About = styled.div`
-  width: 100px;
-  font-weight: 600;
-`;
-
-const PostTitle = styled.div`
-  padding-top: 30px;
-  font-size: 1.7em;
-  text-align: center;
 `;
 
 const Line = styled.div`
@@ -95,7 +86,12 @@ export default ({ club, action, setAction }) => {
   const posts = club.posts;
   const myPost = posts.map((post) => (
     <>
-      {action === "" && <ClubImg onClick={() => setAction(post.id)}></ClubImg>}
+      {action === "" && (
+        <Preview>
+          <ClubImg onClick={() => setAction(post.id)}></ClubImg>{" "}
+          <SmallTitle>{post.title}</SmallTitle>
+        </Preview>
+      )}
       {action === `${post.id}` && (
         <>
           <ClubContainer>
@@ -120,12 +116,11 @@ export default ({ club, action, setAction }) => {
           ) : (
             <NoPost> 포스트가 없습니다</NoPost>
           )}
+          {action !== "" && (
+            <InfoButton onClick={() => setAction("")} text="돌아가기" />
+          )}
         </Container>
       </NoScroll>
-
-      {action !== "" && (
-        <InfoButton onClick={() => setAction("")} text="돌아가기" />
-      )}
     </>
   );
 };

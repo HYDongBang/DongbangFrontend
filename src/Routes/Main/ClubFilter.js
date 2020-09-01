@@ -39,10 +39,6 @@ export const ClubFilter = ({ clubs, myType }) => {
     if (!clubs) {
       clubs = [];
     }
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-      setOpen(true);
-    };
 
     return clubs.map((club) => {
       return (

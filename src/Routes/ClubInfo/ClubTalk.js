@@ -5,14 +5,6 @@ import { useSubscription, useQuery } from "react-apollo-hooks";
 import { NEW_MESSAGE, SEE_ROOM } from "./ClubInfoQueries";
 import TalkButton from "../../Components/TalkButton";
 import Loading from "../../Components/Loading";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
 
 const Container = styled.div`
   height: 700px;
@@ -36,7 +28,7 @@ const TalkContainer = styled.div`
 `;
 const TalkContainerNoScroll = styled.div`
   width: 100%;
-  height: 500px;
+  height: 74%;
   overflow-x: hidden;
 `;
 const ClubImg = styled.div`
@@ -89,15 +81,15 @@ const OtherBubble = styled.div`
 
 const Answer = styled.div`
   width: 100%;
-  height: 25%;
+  height: 20%;
   padding: 10px 0px;
   flex-direction: row;
 `;
 
 const Button = styled.button``;
 
-const Input = styled.input`
-  width: "80%";
+const Input = styled.textarea`
+  width: 88%;
 `;
 const Line = styled.div`
   height: 1px;
@@ -190,7 +182,7 @@ export default ({
         </TalkContainer>
       </TalkContainerNoScroll>
       <Answer>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} style={{ display: "flex" }}>
           <Input className="form__field" {...message} />
           <TalkButton type="submit" text="보내기"></TalkButton>
         </form>

@@ -7,7 +7,8 @@ export const CLUB_BY_ID = gql`
       name
       bio
       description
-      logo
+      type
+      application_description
       master {
         id
       }

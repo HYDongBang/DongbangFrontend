@@ -12,11 +12,11 @@ const Container = styled.button`
   border: 0;
   outline: 0;
   float: right;
+  margin-left: auto;
 
   transition: all 200ms ease-in;
   cursor: pointer;
   &:hover {
-    border: 1px solid ${(props) => props.theme.blueColor};
     background-color: ${(props) => props.theme.blueColor};
     color: ${(props) => props.theme.whiteColor};
     transition: 0.3s;
