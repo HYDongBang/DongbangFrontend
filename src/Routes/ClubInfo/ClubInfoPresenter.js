@@ -93,6 +93,9 @@ export default ({ action, setAction, club }) => {
   const { loading, data } = useQuery(CLUB_BY_ID, {
     variables: { id: club.id },
   });
+  if (!loading) {
+    console.log(data);
+  }
 
   return (
     <Wrapper>
