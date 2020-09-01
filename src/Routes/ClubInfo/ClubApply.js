@@ -6,7 +6,8 @@ import InfoButton from "../../Components/InfoButton";
 
 const ClubContainer = styled.div`
   height: 700px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   overflow-y: auto;
 `;
 const NoScroll = styled.div`
@@ -47,6 +48,8 @@ const Answer = styled.div`
   width: 100%;
   height: 25%;
   padding: 10px 0px;
+  display: flex;
+  flex-flow: column;
 `;
 
 const QuestionContainer = styled.div`
@@ -76,9 +79,9 @@ export default ({ club, myanswers, onSubmit }) => {
 
   const questionList = questions.map((question, idx) => {
     const optionList = question.options.map((option) => (
-      <label style={{ marginRight: "10px" }}>
+      <label style={{ marginBottom: "5px" }}>
         <input
-          style={{ marginRight: "3px" }}
+          style={{ marginBottom: "5px" }}
           type="radio"
           name="options"
           value={option}

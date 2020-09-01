@@ -20,32 +20,30 @@ const ClubContainer = styled.div`
 `;
 
 const ClubImg = styled.div`
-  height: 50px;
-  width: 50px;
-  margin: auto 0;
+  height: 75px;
+  width: 75px;
   border: 1px solid black;
   border-radius: 100%;
 `;
 
 const ClubName = styled.div`
-  text-align: center;
   font-weight: 600;
   word-break: keep-all;
   font-size: 2em;
-  padding-top: 5px;
-  padding-left: 10px;
-  min-width: 100px;
-  max-width: 300px;
+  margin-bottom: 6px;
+`;
+const ClubNameBio = styled.div`
+  margin-left: 34px;
+  padding-top: 6px;
 `;
 
 const TopContainer = styled.div`
-  max-width: 200px;
-  overflow: visible;
-  margin: 0 auto;
   display: flex;
   flex-direction: row;
   padding-bottom: 10px;
   padding-top: 10px;
+  width: 350px;
+  margin: auto;
 `;
 
 const ClubText = styled.div`
@@ -53,8 +51,6 @@ const ClubText = styled.div`
   line-height: 1.3em;
   width: 80%;
   min-height: 30px;
-  margin: 0 auto;
-  text-align: center;
 `;
 
 const Context = styled.div`
@@ -87,10 +83,10 @@ const Menu = styled.li`
 const Link = styled.a``;
 
 const Line = styled.div`
-  height: 1px;
-  width: 80px;
-  background-color: black;
-  margin: 0px auto 10px auto;
+  height: 70px;
+  width: 2px;
+  background-color: ${(props) => props.theme.darkGrayColor};
+  margin-left: 20px;
 `;
 
 export default ({ action, setAction, club }) => {
@@ -116,7 +112,11 @@ export default ({ action, setAction, club }) => {
           </Link>
         </Menu>
       </Header>
-      {loading && <Loading />}
+      {loading && (
+        <div style={{ height: "450px" }}>
+          <Loading />
+        </div>
+      )}
       {!loading && data.clubById && (
         <>
           {action === "clubInfo" && (
@@ -124,10 +124,13 @@ export default ({ action, setAction, club }) => {
               <ClubContainer>
                 <TopContainer>
                   <ClubImg />
-                  <ClubName>{data.clubById.name}</ClubName>
+                  <Line />
+
+                  <ClubNameBio>
+                    <ClubName>{data.clubById.name}</ClubName>
+                    <ClubText>{data.clubById.bio}</ClubText>
+                  </ClubNameBio>
                 </TopContainer>
-                <ClubText>{data.clubById.bio}</ClubText>
-                <Line />
 
                 <Context>
                   <ContextClubImg />

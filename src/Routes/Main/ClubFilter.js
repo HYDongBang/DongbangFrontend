@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Popup from "reactjs-popup";
 import ClubInfoContainer from "../ClubInfo/ClubInfoContainer";
@@ -39,6 +39,11 @@ export const ClubFilter = ({ clubs, myType }) => {
     if (!clubs) {
       clubs = [];
     }
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+
     return clubs.map((club) => {
       return (
         <>
@@ -48,7 +53,6 @@ export const ClubFilter = ({ clubs, myType }) => {
               trigger={
                 <Club>
                   <ClubImg></ClubImg>
-
                   <Context>
                     <ClubName>{club.name}</ClubName>
                     <ClubText>{club.type}</ClubText>
@@ -67,7 +71,6 @@ export const ClubFilter = ({ clubs, myType }) => {
               trigger={
                 <Club>
                   <ClubImg></ClubImg>
-
                   <Context>
                     <ClubName>{club.name}</ClubName>
                     <ClubText>{club.type}</ClubText>

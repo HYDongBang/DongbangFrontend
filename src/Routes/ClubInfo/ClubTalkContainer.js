@@ -17,9 +17,12 @@ export default ({ club }) => {
     variables: { clubId: club.master.id },
   });
 
-  if (!loading) {
+  if (!loading && data.seeRoom) {
     chats = data.seeRoom[0].messages;
     myRoomId = data.seeRoom[0].id;
+  }
+  if (!loading) {
+    console.log(data.seeRoom);
   }
 
   const onSubmit = async (e) => {
@@ -32,6 +35,7 @@ export default ({ club }) => {
             data: { sendMessage: id },
           } = await sendMessageMutation({
             variables: {
+              toId: club.master.id,
               message: message.value,
             },
           });
@@ -42,7 +46,7 @@ export default ({ club }) => {
           }
         } catch (err) {
           console.log(err.message);
-          toast.error("계정을 생성할 수 없습니다. 다시 시도해주세요.");
+          toast.error("메시지를 보낼 수 없습니다. 다시 시도해주세요.");
         }
       } else if (message.value !== "") {
         console.log("second");
@@ -64,7 +68,7 @@ export default ({ club }) => {
           }
         } catch (err) {
           console.log(err.message);
-          toast.error("계정을 생성할 수 없습니다. 다시 시도해주세요.");
+          toast.error("메시지를 보낼 수 없습니다. 다시 시도해주세요.");
         }
       }
     }
