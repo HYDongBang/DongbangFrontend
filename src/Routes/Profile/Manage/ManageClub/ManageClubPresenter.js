@@ -74,7 +74,7 @@ export default ({
         </Title>
         {loading && <Loading></Loading>}
         {!loading && (
-            <form onSubmit={onSubmit}>
+            <form enctype="multipart/form-data" onSubmit={onSubmit}>
                 <Questions>
                     <Question>
                         <About>동아리 이름</About>

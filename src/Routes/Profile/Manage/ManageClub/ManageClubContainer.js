@@ -50,19 +50,33 @@ export default () => {
             }
         }
         if (logo !== "" && clubImg !== "") {
-            const formData = new FormData();
-            const logo = document.getElementById("logo").files[0];
+            const logo = new FormData();
+            const club = new FormData();
+            const logoImg = document.getElementById("logo").files[0];
             const clubImg = document.getElementById("clubImg").files[0];
-            formData.append("file", logo);
-            //formData.append("clubImg", clubImg);
-            /*formData.append("file", {
-                name: logo.name,
-                type: logo.type.toLowerCase(),
-                uri: logo.value
-            })*/
+            logo.append("file", logoImg);
+            club.append("file", clubImg);
             try {
                 console.log("file upload start");
-                const { data } = await axios.post("http://localhost:4000/api/upload", formData, {
+                const { data } = await axios.post("http://localhost:4000/api/upload", logo, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log("file upload end");
+                if(!data) {
+                    console.log("fail to upload files");
+                    toast.error("파일 업로드에 실패하였습니다.");
+                } else {
+                    toast.info("파일 업로드에 성공하였습니다.");
+                }
+            } catch (e) {
+                console.log(e.message);
+                toast.error("파일 업로드에 실패하였습니다.");
+            }
+            try {
+                console.log("file upload start");
+                const { data } = await axios.post("http://localhost:4000/api/upload", club, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
