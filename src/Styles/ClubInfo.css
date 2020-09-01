@@ -46,7 +46,7 @@
 .menu__link {
   position: relative;
   overflow: hidden;
-
+  cursor: pointer;
   will-change: color;
   transition: color 0.25s ease-out;
 }

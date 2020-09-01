@@ -16,7 +16,8 @@ import {
 
 const Container = styled.div`
   height: 700px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 `;
 
 const Top = styled.div`

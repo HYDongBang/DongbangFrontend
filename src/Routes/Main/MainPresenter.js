@@ -130,65 +130,58 @@ export default ({
         />
       </Top>
       <Categories>
-        {myType === "Art" ? (
+        {myType === "1" ? (
           <Category onClick={() => setType("")}>
             <Img></Img>
-            <Text>예체능</Text>
+            <Text>교양/종교</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("Art")}>
+          <Category onClick={() => setType("1")}>
             <Img></Img>
-            <Text>예체능</Text>
+            <Text>교양/종교</Text>
           </Category>
         )}
 
-        {myType === "Academic" ? (
+        {myType === "2" ? (
+          <Category onClick={() => setType("")}>
+            <Img></Img>
+            <Text>전시/공예</Text>
+          </Category>
+        ) : (
+          <Category onClick={() => setType("2")}>
+            <Img></Img>
+            <Text>전시/공예</Text>
+          </Category>
+        )}
+
+        {myType === "3" ? (
           <Category onClick={() => setType("")}>
             <Img></Img>
             <Text>학술</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("Academic")}>
+          <Category onClick={() => setType("3")}>
             <Img></Img>
             <Text>학술</Text>
           </Category>
         )}
 
-        {myType === "Friendship" ? (
+        {myType === "4" ? (
           <Category onClick={() => setType("")}>
             <Img></Img>
-            <Text>친목</Text>
+            <Text>체육</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("Friendship")}>
+          <Category onClick={() => setType("4")}>
             <Img></Img>
-            <Text>친목</Text>
+            <Text>체육</Text>
           </Category>
         )}
 
-        {myType === "Unite" ? (
-          <Category onClick={() => setType("")}>
-            <Img></Img>
-            <Text>연합</Text>
-          </Category>
-        ) : (
-          <Category onClick={() => setType("Unite")}>
-            <Img></Img>
-            <Text>연합</Text>
-          </Category>
-        )}
-
-        {myType === "Etc" ? (
-          <Category onClick={() => setType("")}>
-            <Img></Img>
-            <Text>기타</Text>
-          </Category>
-        ) : (
-          <Category onClick={() => setType("Etc")}>
-            <Img></Img>
-            <Text>기타</Text>
-          </Category>
-        )}
+        <Category onClick={() => setType("")}>
+          <Img></Img>
+          <Text>모두보기</Text>
+        </Category>
       </Categories>
 
       {loading && <Loading />}
