@@ -8,10 +8,14 @@ export const CLUB_BY_ID = gql`
       bio
       description
       type
+      logoImage
+      clubImage
       application_description
+
       master {
         id
       }
+
       questions {
         id
         subject
@@ -23,22 +27,6 @@ export const CLUB_BY_ID = gql`
         title
         content
         created
-        comments {
-          content
-          status
-          created
-          user {
-            Name
-          }
-          subComments {
-            content
-            created
-            status
-            user {
-              Name
-            }
-          }
-        }
       }
     }
   }
@@ -48,11 +36,9 @@ export const SEE_ROOM = gql`
   query SeeRoom($clubId: String!) {
     seeRoom(clubId: $clubId) {
       id
-
       messages {
         text
         created
-
         from {
           id
           Name
@@ -61,6 +47,33 @@ export const SEE_ROOM = gql`
           id
         }
       }
+    }
+  }
+`;
+
+export const SEE_ROOMS = gql`
+  query SeeRooms {
+    seeRooms {
+      id
+      messages {
+        text
+        created
+        from {
+          id
+          Name
+        }
+        to {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const ME = gql`
+  query me {
+    me {
+      id
     }
   }
 `;

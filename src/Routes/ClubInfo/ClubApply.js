@@ -21,6 +21,7 @@ const ClubImg = styled.div`
   width: 100%;
   border: 1px solid black;
   border-radius: 10px 10px 0px 0px;
+  overflow: hidden;
 `;
 
 const ClubName = styled.div`
@@ -126,7 +127,15 @@ export default ({ club, myanswers, onSubmit }) => {
     <NoScroll>
       <form onSubmit={onSubmit}>
         <ClubContainer>
-          <ClubImg />
+          <ClubImg>
+            <img
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              src={club.logoImage}
+            ></img>
+          </ClubImg>
 
           <Context>
             <ClubName>{club.name} 동아리 지원서 </ClubName>
