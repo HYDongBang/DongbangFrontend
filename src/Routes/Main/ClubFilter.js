@@ -39,7 +39,6 @@ export const ClubFilter = ({ clubs, myType }) => {
     if (!clubs) {
       clubs = [];
     }
-
     return clubs.map((club) => {
       return (
         <>
@@ -51,7 +50,7 @@ export const ClubFilter = ({ clubs, myType }) => {
                   <ClubImg></ClubImg>
                   <Context>
                     <ClubName>{club.name}</ClubName>
-                    <ClubText>{club.type}</ClubText>
+                    <ClubText>{club.bio}</ClubText>
                   </Context>
                 </Club>
               }
@@ -61,7 +60,7 @@ export const ClubFilter = ({ clubs, myType }) => {
             </Popup>
           )}
 
-          {myType === `${club.type}` && (
+          {myType.indexOf(`${club.type}`) !== -1 && (
             <Popup
               key={club.id}
               trigger={
@@ -69,7 +68,7 @@ export const ClubFilter = ({ clubs, myType }) => {
                   <ClubImg></ClubImg>
                   <Context>
                     <ClubName>{club.name}</ClubName>
-                    <ClubText>{club.type}</ClubText>
+                    <ClubText>{club.bio}</ClubText>
                   </Context>
                 </Club>
               }

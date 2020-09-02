@@ -6,6 +6,7 @@ export const GET_CLUBS = gql`
       id
       name
       type
+      bio
     }
   }
 `;
