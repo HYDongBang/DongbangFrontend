@@ -130,7 +130,13 @@ export default ({ club, myanswers, onSubmit }) => {
 
           <Context>
             <ClubName>{club.name} 동아리 지원서 </ClubName>
-            <ClubText>{club.bio}</ClubText>
+            <ClubText>
+              {club.application_description == null ? (
+                " "
+              ) : (
+                <>{club.application_description}</>
+              )}
+            </ClubText>
           </Context>
           {questions.length === 0 ? (
             <NoApply> 지원서가 없습니다</NoApply>

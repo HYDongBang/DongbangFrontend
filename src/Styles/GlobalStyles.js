@@ -23,6 +23,7 @@ export default createGlobalStyle`
  body {
         background-color:${(props) => props.theme.bgColor};
         color:${(props) => props.theme.blackColor};
+        font-family:'NanumGothic';
     }
     a {
         text-decoration:none;

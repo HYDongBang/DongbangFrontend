@@ -126,13 +126,8 @@ export default () => {
     const onSelect = async (e) => {
         if(e.currentTarget.value === "객관식") {
             console.log(e.currentTarget.getAttribute("id"))
-            // saved 인경우
-            
-
             // new 인경우
         } else if(e.currentTarget.value === "주관식") {
-            // saved 인경우
-
             // new 인경우
         }
     }
