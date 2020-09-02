@@ -188,49 +188,49 @@ export default ({
         />
       </Top>
       <Categories>
-        {myType === "1" ? (
+        {myType === "교양종교" ? (
           <Category onClick={() => setType("")}>
             <Img1 />
             <Text>교양/종교</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("1")}>
+          <Category onClick={() => setType("교양종교")}>
             <Img1 />
             <Text>교양/종교</Text>
           </Category>
         )}
 
-        {myType === "2" ? (
+        {myType === "공연예술/전시창작" ? (
           <Category onClick={() => setType("")}>
             <Img2 />
             <Text>전시/공예</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("2")}>
+          <Category onClick={() => setType("공연예술/전시창작")}>
             <Img2 />
             <Text>전시/공예</Text>
           </Category>
         )}
 
-        {myType === "3" ? (
+        {myType === "학술" ? (
           <Category onClick={() => setType("")}>
             <Img3 />
             <Text>학술</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("3")}>
+          <Category onClick={() => setType("학술")}>
             <Img3 />
             <Text>학술</Text>
           </Category>
         )}
 
-        {myType === "4" ? (
+        {myType === "체육" ? (
           <Category onClick={() => setType("")}>
             <Img4 />
             <Text>체육</Text>
           </Category>
         ) : (
-          <Category onClick={() => setType("4")}>
+          <Category onClick={() => setType("체육")}>
             <Img4 />
             <Text>체육</Text>
           </Category>
