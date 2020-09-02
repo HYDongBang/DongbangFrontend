@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import FormTitle from "./FormTitle";
 import Textarea from "../../../../../../Components/Textarea";
-import ProfileInput from "../../../../../../Components/ProfileInput";
 import Loading from "../../../../../../Components/Loading";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -78,20 +76,48 @@ const Text = styled.div`
     color: ${props => props.theme.blueColor};
 `;
 const Options = styled.div``;
-const Option = styled.div``;
+const Option = styled.input`
+    
+`;
 const styles = {"cursor": "pointer"};
+const inputStyle = {
+    "width": "300px",
+    "border": "none",
+    "backgroundColor": "#FAFAFA",
+    "padding": "5px 10px"}
 
 export default({
-    number,
     loading,
     about,
-    data,
-    question,
+    dataset,
+    setDataset,
+    newdataset,
+    setNewdataset,
     onSubmit,
     onDelete,
     onPlus,
     onSelect
-}) => (
+}) => {
+    const handleInput = (e) => {
+        const key = e.target.getAttribute("data-key");
+        const value = e.target.value;
+        const index = dataset.indexOf(dataset.filter(element => element.id === key)[0]);
+        setDataset((prev) => {
+            prev[index].subject = value;
+            return prev;
+        });
+        console.log(dataset);
+    }
+    const handleNewInput = (e) => {
+        const key = e.target.getAttribute("data-key");
+        const value = e.target.value;
+        setNewdataset(prev => {
+            prev[key.toString()].subject = value;
+            return prev;
+        });
+        console.log(newdataset);
+    }
+    return (
     <form onSubmit={onSubmit}>
         {loading && <Loading></Loading>}
         {!loading && (
@@ -99,26 +125,38 @@ export default({
             <Wrapper>
                 <Textarea placeholder="지원서 내용을 입력하세요." {...about}></Textarea>
                 <Questions>
-                    {data.map(({ id, subject, type, options }) => {
+                    {dataset.map(({ id, subject, type, options }) => {
                         return (
-                            <Container>
-                            {type === "multiple" && (
-                                <Question key={id} id={id} className="saved">
-                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                            <Container key={id} id={id}>
+                            {type === "SELECT" && (
+                                <Question id={id} className="saved">
+                                    <input 
+                                    placeholder="질문을 입력해주세요." 
+                                    name="question" 
+                                    value={subject}
+                                    onChange={handleInput}
+                                    style={inputStyle}
+                                    data-key={id}></input>
                                     <Selector>
                                         <Text>객관식</Text>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                     <Options>
                                         <Option>
-
+                            
                                         </Option>
                                     </Options>
                                 </Question>
                             )}
-                            {type === "single" && (
-                                <Question key={id} id={id} className="saved">
-                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                            {type === "ESSAY" && (
+                                <Question id={id} className="saved">
+                                    <input 
+                                    placeholder="질문을 입력해주세요." 
+                                    name="question" 
+                                    value={subject}
+                                    onChange={handleInput}
+                                    style={inputStyle}
+                                    data-key={id}></input>
                                     <Selector>
                                         <Text>주관식</Text>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
@@ -129,31 +167,41 @@ export default({
                             </Container>
                         )
                     })}
-                    {[...Array(number)].map((n, index) => {
+                    {newdataset.filter(element => element.state !== "IGNORE").map(({ id, subject, type, options}) => {
                         return (
-                            <Container>
-                                <Question key={index} id={index} className="new">
-                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                            <Container key={id} id={id} className="new">
+                                <Question>
+                                    <input 
+                                    placeholder="질문을 입력해주세요." 
+                                    name="question" 
+                                    onChange={handleNewInput}
+                                    style={inputStyle}
+                                    data-key={id}></input>
                                     <Selector>
-                                        <Select name="type" id={index} onChange={onSelect}>
-                                            <option value="주관식" selected>주관식</option>
+                                        <Select name="type" id={id} onChange={onSelect}>
+                                            <option value="주관식" defaultChecked>주관식</option>
                                             <option value="객관식">객관식</option>
                                         </Select>
-                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(index)}/>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
-                                <Question key={index} id={index} className="new" style={{"display" : "none"}}>
-                                    <ProfileInput placeholder="질문을 입력해주세요." name="question" {...question}></ProfileInput>
+                                <Question style={{"display" : "none"}}>
+                                    <input 
+                                    placeholder="질문을 입력해주세요." 
+                                    name="question" 
+                                    onChange={handleNewInput}
+                                    style={inputStyle}
+                                    data-key={id}></input>
                                     <Selector>
-                                        <Select name="type" id={index} onChange={onSelect}>
+                                        <Select name="type" id={id} onChange={onSelect}>
                                             <option value="주관식">주관식</option>
-                                            <option value="객관식" selected>객관식</option>
+                                            <option value="객관식" defaultChecked>객관식</option>
                                         </Select>
-                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(index)}/>
+                                        <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                     <Options>
                                         <Option>
-                                            
+
                                         </Option>
                                     </Options>
                                 </Question>
@@ -172,4 +220,5 @@ export default({
             </>
         )}
     </form>
-)
+    )
+}

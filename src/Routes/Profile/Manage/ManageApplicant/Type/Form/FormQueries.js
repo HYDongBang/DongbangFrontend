@@ -4,6 +4,7 @@ export const GET_QUESTION = gql`
   query {
     me {
         isMaster {
+            application_description
             questions {
                 id
                 subject
@@ -37,6 +38,17 @@ export const CREATE_QUESTION = gql`
   ) {
       createQuestion (subject: $subject, type: $type, options: $options) {
           id
+      }
+  }
+`;
+
+export const EDIT_CLUB = gql`
+  mutation editClub (
+      $action: ACTIONS!
+      $application_description: String
+  ) {
+      editClub(action: $action, application_description: $application_description) {
+        name
       }
   }
 `;

@@ -23,8 +23,6 @@ export default () => {
         type.onChange({ target: { value: data.type }});
         bio.onChange({ target: { value: data.bio }});
         description.onChange({ target: { value: data.description }});
-        //logo.onChange({ target: { value: data.logo }});
-        //clubImg.onChange({ target: { value: data.clubImg }});
     }
 
     const onSubmit = async (e) => {

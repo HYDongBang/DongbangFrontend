@@ -54,7 +54,7 @@ export default ({ members, onDelete, loading }) => (
             <Members>
                 {members.map(({ id, Name, studentNumber }) => {
                     return (
-                        <form onSubmit={onDelete} key={id}>
+                        <form onSubmit={onDelete} key={id} data-key={id}>
                             <Member>
                                 <Contents>
                                     <StudentName>{Name}</StudentName>

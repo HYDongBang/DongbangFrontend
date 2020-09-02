@@ -14,3 +14,11 @@ export const GET_CLUB_MEMBERS = gql`
         }
     }
 `;
+
+export const DELETE_CLUB_MEMBER = gql`
+    mutation deleteMember ($uid: ID!) {
+      deleteMember (uid: $uid) {
+        id
+      }
+    }
+`;
