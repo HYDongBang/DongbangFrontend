@@ -7,6 +7,7 @@ export const GET_CLUBS = gql`
       name
       type
       bio
+      logoImage
     }
   }
 `;

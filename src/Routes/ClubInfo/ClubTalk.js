@@ -98,20 +98,7 @@ const Line = styled.div`
   margin: 5px auto 15px auto;
 `;
 
-export default ({
-  club,
-  message,
-  onSubmit,
-  myRoomId,
-  myChats,
-  chatloading,
-}) => {
-  const { data } = useSubscription(NEW_MESSAGE, {
-    variables: { roomId: myRoomId },
-    shouldResubscribe: true,
-  });
-  console.log(data);
-
+export default ({ club, message, onSubmit, myChats, chatloading }) => {
   function scrollposition() {
     if (document.getElementById("talk") !== null) {
       let elHeight = document.getElementById("talk").clientHeight;
@@ -120,30 +107,6 @@ export default ({
       }
     }
   }
-  // subscription 하다 만 거..
-
-  // const [myChats, setMyChats] = useState(oldChats||);
-
-  // const handleNewChats = () => {
-  //   if (data !== undefined) {
-  //     const { newChats } = data;
-  //     setMyChats((previous) => [...previous, newChats]);
-  //     console.log("lalala");
-  //     console.log(myChats);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleNewChats();
-  // }, [data]);
-
-  // if (!loading) {
-  //   console.log("11");
-
-  //   console.log(chats);
-  //   console.log(myChats);
-  //   console.log(data);
-  // }
 
   return (
     <Container>
@@ -190,3 +153,33 @@ export default ({
     </Container>
   );
 };
+
+// const { data } = useSubscription(NEW_MESSAGE, {
+//   variables: { roomId: myRoomId },
+//   shouldResubscribe: true,
+// });
+// console.log(data);
+// subscription 하다 만 거..
+
+// const [myChats, setMyChats] = useState(oldChats||);
+
+// const handleNewChats = () => {
+//   if (data !== undefined) {
+//     const { newChats } = data;
+//     setMyChats((previous) => [...previous, newChats]);
+//     console.log("lalala");
+//     console.log(myChats);
+//   }
+// };
+
+// useEffect(() => {
+//   handleNewChats();
+// }, [data]);
+
+// if (!loading) {
+//   console.log("11");
+
+//   console.log(chats);
+//   console.log(myChats);
+//   console.log(data);
+// }

@@ -40,6 +40,9 @@ export const ClubFilter = ({ clubs, myType }) => {
       clubs = [];
     }
     return clubs.map((club) => {
+      if (club.clubImage !== undefined && club.clubImage.url !== null) {
+        console.log(club.clubImage.url);
+      }
       return (
         <>
           {myType === "" && (
@@ -47,7 +50,17 @@ export const ClubFilter = ({ clubs, myType }) => {
               key={club.id}
               trigger={
                 <Club>
-                  <ClubImg></ClubImg>
+                  <ClubImg>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: "7% 25%",
+                      }}
+                      src={club.logoImage}
+                    ></img>
+                  </ClubImg>
+
                   <Context>
                     <ClubName>{club.name}</ClubName>
                     <ClubText>{club.bio}</ClubText>
@@ -65,7 +78,16 @@ export const ClubFilter = ({ clubs, myType }) => {
               key={club.id}
               trigger={
                 <Club>
-                  <ClubImg></ClubImg>
+                  <ClubImg>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: "7% 25%",
+                      }}
+                      src={club.logoImage}
+                    ></img>
+                  </ClubImg>
                   <Context>
                     <ClubName>{club.name}</ClubName>
                     <ClubText>{club.bio}</ClubText>

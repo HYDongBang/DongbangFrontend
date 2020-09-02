@@ -152,7 +152,12 @@ export default ({
     setWord(e);
 
     let oldList = data.allClub.map((club) => {
-      return { id: club.id, name: club.name, type: club.type };
+      return {
+        id: club.id,
+        name: club.name,
+        bio: club.bio,
+        logoImage: club.logoImage,
+      };
     });
 
     if (word !== "") {
