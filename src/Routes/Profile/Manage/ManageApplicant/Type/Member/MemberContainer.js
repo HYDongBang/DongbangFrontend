@@ -8,7 +8,7 @@ export default () => {
     let members = [];
     const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
     const [ deleteClubMemberMutation ] = useMutation(DELETE_CLUB_MEMBER);
-    if(!getClubMemebersQuery.loading) {
+    if(!getClubMemebersQuery.loading && getClubMemebersQuery.data.me !== undefined) {
         getClubMemebersQuery.data.me.isMaster.members.forEach((element, index) => {
             members.push({Name: element.Name, studentNumber: element.studentNumber, id: element.id})
         })

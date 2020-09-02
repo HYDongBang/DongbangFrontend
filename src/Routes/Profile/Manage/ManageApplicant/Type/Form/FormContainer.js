@@ -18,7 +18,7 @@ export default () => {
         const questions = getQuestionQuery.data.me.isMaster.questions;
         about.onChange({ target: { value: getQuestionQuery.data.me.isMaster.application_description}});
         questions.forEach(question => {
-            setDataset(dataset.concat({
+            setDataset(prev => prev.concat({
             id: question.id,
             subject: question.subject,
             type: question.type,
@@ -26,6 +26,7 @@ export default () => {
             state: "EDIT"
             }));
         });
+        console.log(dataset);
     }
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -41,6 +42,7 @@ export default () => {
                 console.log("fail to edit club");
             }
             dataset.forEach(async (question) => {
+                console.log(dataset)
                 // 동아리 지원서 질문 수정
                 if(question.state === "EDIT") {
                     const { data } = await editQuestionMutaion({
@@ -72,6 +74,7 @@ export default () => {
                 }
             });
             newdataset.forEach(async (question) => { 
+                console.log(newdataset)
                 // 동아리 지원서 질문 생성
                 if(question.state === "CREATE") {
                     const { data } = await createQuestionMutation({
@@ -98,37 +101,58 @@ export default () => {
             parent.removeChild(parent.childNodes[1]);
             newdataset[id].state = "IGNORE";
         } else if(document.getElementById(id).classList.contains("saved")) {
+            console.log(document.getElementById(id).parentElement)
             document.getElementById(id).parentElement.style.display = "none";
-            dataset[id].state = "DELETE";
-        }
+            const key = id;
+            const index = dataset.indexOf(dataset.filter(element => element.id === key)[0]);
+            setDataset((prev) => {
+                prev[index].state = "DELETE";
+                return prev;
+            });
+            }
     }
-    const onPlus = async () => {
-        let id = "0";
-        if(newdataset.length !== 0) id = newdataset.length.toString();
-        setNewdataset(prev => {
-            console.log(prev.concat([{
-                id: id,
-                subject: "",
-                type: "ESSAY",
-                options: [],
-                state: "CREATE"
-            }]))
-             return prev.concat([{
-                id: id,
-                subject: "",
-                type: "ESSAY",
-                options: [],
-                state: "CREATE"
-            }]);
-        });
-        
+    const onPlus = async (e) => {
+        const currId = e.currentTarget.id;
+        if(e.currentTarget.classList.contains("Option")){
+            setNewdataset(prev => {
+                const tmp = prev;
+                const options = tmp[currId].options.concat([""]);
+                tmp[currId].options = options;
+                return tmp;
+            })
+        }else if(e.currentTarget.classList.contains("Question")) {
+            let id = "0";
+            if(newdataset.length !== 0) id = newdataset.length.toString();
+            setNewdataset(prev => {
+                 return prev.concat([{
+                    id: id,
+                    subject: "",
+                    type: "ESSAY",
+                    options: [],
+                    state: "CREATE"
+                }]);
+            });
+        }
     }
     const onSelect = async (e) => {
         if(e.currentTarget.value === "객관식") {
-            console.log(e.currentTarget.getAttribute("id"))
-            // new 인경우
+            document.getElementById(e.currentTarget.id).getElementsByClassName("ESSAY")[0].style.display = "none";
+            document.getElementById(e.currentTarget.id).getElementsByClassName("SELECT")[0].style.display = "flex";
+            document.getElementById(e.currentTarget.id).getElementsByClassName("SELECT")[1].style.display = "block";
+            const id = e.currentTarget.id;
+            setNewdataset(prev => {
+                prev[id].type = "SELECT";
+                return prev
+            });
         } else if(e.currentTarget.value === "주관식") {
-            // new 인경우
+            document.getElementById(e.currentTarget.id).getElementsByClassName("ESSAY")[0].style.display = "flex";
+            document.getElementById(e.currentTarget.id).getElementsByClassName("SELECT")[0].style.display = "none";
+            document.getElementById(e.currentTarget.id).getElementsByClassName("SELECT")[1].style.display = "none";
+            const id = e.currentTarget.id;
+            setNewdataset(prev => {
+                prev[id].type = "ESSAY";
+                return prev
+            });
         }
     }
     return (

@@ -68,8 +68,10 @@ const Content = styled.div`
 `;
 
 const Info = styled.div`
-    padding: 20px 0px 0px 5px;
+    margin: 20px 0px 0px 5px;
+    padding-left: 5px;
     font-size: 1.1em;
+    border-left: 3px solid ${props => props.theme.blueColor};
 `;
 
 const ButtonContainer = styled.div`

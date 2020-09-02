@@ -20,14 +20,19 @@ export default () => {
      if(!getApplicantsQuery.loading) {
           const applications = getApplicantsQuery.data.me.isMaster.applications;
           const questions = getApplicantsQuery.data.me.isMaster.questions;
-          const form = questions.map((question, index) => {
-               return { question: question, answer: applications.answer[index]}
-          })
           applications.forEach(application => applicants.push({
                id: application.id, 
                name: application.user.Name, 
                studentNumber: application.user.studentNumber,
-               form: form,
+               email: application.user.email,
+               phoneNumber: application.user.phoneNumber,
+               sex: application.user.sex,
+               university: application.user.university,
+               major: application.user.major,
+               form: questions.map((question, index) => {
+                    console.log(question)
+                    return { id: index, question: question.subject, type: question.type, options: question.options, answer: application.answer[index]}
+               }),
                status: application.status
           }));
      }

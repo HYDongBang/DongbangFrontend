@@ -70,21 +70,36 @@ const ButtonContainer = styled.div`
 const Add = styled.div`
     padding: 30px 0px;
 `;
+const AddOption = styled.div`
+    padding: 10px 0px 0px 15px;
+    text-align: left;
+    font-size: 0.8em;
+    display: flex;
+`;
 const Text = styled.div`
     padding: 0px 31px 0px 20px;
     font-size: 0.8em;
     color: ${props => props.theme.blueColor};
 `;
 const Options = styled.div``;
-const Option = styled.input`
-    
+const OptionSelector = styled.div`
+`;
+const InputOption = styled.div`
+    text-align: left;
 `;
 const styles = {"cursor": "pointer"};
 const inputStyle = {
     "width": "300px",
     "border": "none",
     "backgroundColor": "#FAFAFA",
-    "padding": "5px 10px"}
+    "padding": "5px 10px"};
+const inputOptionStyle = {
+    "width": "300px",
+    "border": "none",
+    "backgroundColor": "#FAFAFA",
+    "padding": "5px 20px",
+    "fontSize" : "0.8em"
+};
 
 export default({
     loading,
@@ -116,6 +131,17 @@ export default({
             return prev;
         });
         console.log(newdataset);
+        console.log(dataset);
+    }
+    const handleOption = (e) => {
+        const id = e.currentTarget.id;
+        const key = e.target.getAttribute("data-key");
+        const value = e.target.value;
+        setNewdataset(prev => {
+            prev[key.toString()].options[id] = value;
+            return prev;
+        });
+        console.log(newdataset);
     }
     return (
     <form onSubmit={onSubmit}>
@@ -127,8 +153,8 @@ export default({
                 <Questions>
                     {dataset.map(({ id, subject, type, options }) => {
                         return (
-                            <Container key={id} id={id}>
-                            {type === "SELECT" && (
+                            <Container key={id}>
+                            {/*type === "SELECT" && (
                                 <Question id={id} className="saved">
                                     <input 
                                     placeholder="질문을 입력해주세요." 
@@ -142,12 +168,15 @@ export default({
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                     <Options>
-                                        <Option>
-                            
-                                        </Option>
+                                        {options.map(({option}, index) => {
+                                            return <input
+                                            id={index}
+                                            value={option}
+                                            ></input>
+                                        })}
                                     </Options>
                                 </Question>
-                            )}
+                            )*/}
                             {type === "ESSAY" && (
                                 <Question id={id} className="saved">
                                     <input 
@@ -158,7 +187,7 @@ export default({
                                     style={inputStyle}
                                     data-key={id}></input>
                                     <Selector>
-                                        <Text>주관식</Text>
+                                        <Text></Text>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
@@ -170,7 +199,7 @@ export default({
                     {newdataset.filter(element => element.state !== "IGNORE").map(({ id, subject, type, options}) => {
                         return (
                             <Container key={id} id={id} className="new">
-                                <Question>
+                                <Question className="ESSAY">
                                     <input 
                                     placeholder="질문을 입력해주세요." 
                                     name="question" 
@@ -178,14 +207,15 @@ export default({
                                     style={inputStyle}
                                     data-key={id}></input>
                                     <Selector>
-                                        <Select name="type" id={id} onChange={onSelect}>
+                                        {/*<Select name="type" id={id} onChange={onSelect}>
                                             <option value="주관식" defaultChecked>주관식</option>
                                             <option value="객관식">객관식</option>
-                                        </Select>
+                        </Select>*/}
+                        <div style={{"paddingLeft": "50px"}}></div>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
                                 </Question>
-                                <Question style={{"display" : "none"}}>
+                                {/*<Question style={{"display" : "none"}} className="SELECT">
                                     <input 
                                     placeholder="질문을 입력해주세요." 
                                     name="question" 
@@ -194,24 +224,39 @@ export default({
                                     data-key={id}></input>
                                     <Selector>
                                         <Select name="type" id={id} onChange={onSelect}>
-                                            <option value="주관식">주관식</option>
                                             <option value="객관식" defaultChecked>객관식</option>
+                                            <option value="주관식">주관식</option>
                                         </Select>
                                         <FontAwesomeIcon icon={faTimes} style={styles} onClick={() => onDelete(id)}/>
                                     </Selector>
-                                    <Options>
-                                        <Option>
-
-                                        </Option>
-                                    </Options>
                                 </Question>
+                                <OptionSelector style={{"display" : "none"}} className="SELECT">
+                                    <Options>
+                                        {options.map((option, index) => {
+                                            return (
+                                            <InputOption>
+                                                <input
+                                                style={inputOptionStyle}
+                                                placeholder="옵션을 입력해주세요."
+                                                id={index}
+                                                data-key={id}
+                                                onChange={handleOption}
+                                                ></input>
+                                            </InputOption>
+                                        )})}
+                                    </Options>
+                                    <AddOption>
+                                        <FontAwesomeIcon icon={faPlus} style={styles} className="Option" id={id} onClick={onPlus}/>
+                                        <div style={{"color" : "gray", "paddingLeft": "5px"}}>옵션 추가</div>
+                                    </AddOption>
+                                            </OptionSelector>*/}
                                 <Line></Line>
                             </Container>
                         )
                     })}
                 </Questions>
                 <Add>
-                    <FontAwesomeIcon icon={faPlus} style={styles} onClick={onPlus}/>
+                    <FontAwesomeIcon icon={faPlus} style={styles} className="Question" onClick={onPlus}/>
                 </Add>
             </Wrapper>
             <ButtonContainer>
