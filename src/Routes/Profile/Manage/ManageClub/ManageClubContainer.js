@@ -38,7 +38,7 @@ export default () => {
             clubFile.append("file", clubImg);
             try {
                 console.log("file upload start");
-                const { data } = await axios.post("http://localhost:4000/api/upload", logoFile, {
+                const { data } = await axios.post("http://18.210.10.66:4000/api/upload", logoFile, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -57,7 +57,7 @@ export default () => {
             }
             try {
                 console.log("file upload start");
-                const { data } = await axios.post("http://localhost:4000/api/upload", clubFile, {
+                const { data } = await axios.post("http://18.210.10.66:4000/api/upload", clubFile, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
