@@ -1,19 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import MemberPresenter from "./MemberPresenter";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { toast } from "react-toastify";
 import { GET_CLUB_MEMBERS, DELETE_CLUB_MEMBER } from "./MemberQueries";
 
 export default () => {
-    let members = [];
+    const [ members, useMembers ] = useState([]);
     const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
     const [ deleteClubMemberMutation ] = useMutation(DELETE_CLUB_MEMBER);
-    if(!getClubMemebersQuery.loading && getClubMemebersQuery.data.me !== undefined) {
+    if(!getClubMemebersQuery.loading && members.length === 0) {
         getClubMemebersQuery.data.me.isMaster.members.forEach((element, index) => {
-            members.push({Name: element.Name, studentNumber: element.studentNumber, id: element.id})
+            useMembers(prev => prev.concat({Name: element.Name, studentNumber: element.studentNumber, id: element.id}));
         })
     }
-    const onDelete = async (e) => {
+    const Delete = async (e) => {
         e.preventDefault();
         try {
             const { data: { deleteMember} } = await deleteClubMemberMutation({
@@ -29,13 +29,14 @@ export default () => {
         } catch (e) {
             console.log(e.message);
         }
-        
+        const id = e.currentTarget.getAttribute("data-key");
+        useMembers(prev => prev.filter(user => user.id !== id));
     }
     return (
         <MemberPresenter 
             loading={getClubMemebersQuery.loading}
             members={members}
-            onDelete={onDelete}
+            onDelete={Delete}
         />
     )
 }

@@ -94,11 +94,11 @@ export default ({
                     </Question>
                     <Question>
                         <About>동아리 로고</About>
-                        <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...logo} type={"file"} id={"logo"} required={false}></ProfileInput>
+                        <ProfileInput placeholder={"파일을 선택해주세요."} {...logo} type={"file"} id={"logo"} required={false}></ProfileInput>
                     </Question>
                     <Question>
                         <About>동아리 대표 이미지</About>
-                        <ProfileInput placeholder={"100X100.. png, jpg 형태의 파일을 선택해주세요."} {...clubImg} type={"file"} id={"clubImg"} required={false}></ProfileInput>
+                        <ProfileInput placeholder={"파일을 선택해주세요."} {...clubImg} type={"file"} id={"clubImg"} required={false}></ProfileInput>
                     </Question>
                 </Questions>
                 <ButtonContainer>

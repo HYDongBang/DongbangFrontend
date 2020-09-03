@@ -3,12 +3,14 @@ import { gql } from "apollo-boost";
 export const GET_CLUB = gql`
   query me {
     me {
-        isMaster {
-          name
-          type
-          bio
-          description
-        }
+      id
+      isMaster {
+        id
+        name
+        type
+        bio
+        description
+      }
     }
   }
 `;

@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import { Route, Link } from "react-router-dom";
+import { useQuery } from "react-apollo-hooks";
 import styled from "styled-components";
 import ManageProfile from "./Manage/ManageProfile";
 import ManageClub from "./Manage/ManageClub";
 import ManageApplicant from "./Manage/ManageApplicant";
+import { gql } from "apollo-boost";
+import Loading from "../../Components/Loading";
+
+export const ME = gql`
+    query {
+        me {
+            isMaster {
+                id
+            }
+        }
+    }
+`;
 
 const Wrapper = styled.div`
     min-height: 90vh;
@@ -92,6 +105,7 @@ export default ({ match }) => {
     if(!href[5]) {
         href[5] = "profile";
     }
+    const meQuery = useQuery(ME);
     const [menu, setMenu] = useState(href[5]);
     const styles = {"color": "#999999", "padding": "7px"};
     const clickStyle = {"color": "#1D2475", "padding": "11px 7px"};
@@ -102,40 +116,58 @@ export default ({ match }) => {
                 <Text>MY PAGE</Text>
                 <Line></Line>
             </Title>
-            { true ? (
-            <List>
-                { menu === "profile" && (
-                    <>
-                    <Link style={clickStyle} onClick={() => setMenu("profile")} to={`${match.url}`}>프로필 관리</Link>
-                    <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
-                    <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
-                    </>
-                )} 
-                { menu === "club" && (
-                    <>
-                    <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
-                    <Link style={clickStyle} onClick={() => setMenu("club")} to={`${match.url}/club`}>동아리 정보 관리</Link>
-                    <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
-                    </>
-                )} 
-                { menu === "member" && (
-                    <>
-                    <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
-                    <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
-                    <Link style={clickStyle} onClick={() => setMenu("member")} to={`${match.url}/member`}>지원자 관리</Link>
-                    </>
+            { meQuery.loading && <Loading></Loading>}
+            { !meQuery.loading && (
+                <>
+                {meQuery.data.me.isMaster && (
+                    <List>
+                        { menu === "profile" && (
+                            <>
+                            <Link style={clickStyle} onClick={() => setMenu("profile")} to={`${match.url}`}>프로필 관리</Link>
+                            <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
+                            <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
+                            </>
+                        )} 
+                        { menu === "club" && (
+                            <>
+                            <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
+                            <Link style={clickStyle} onClick={() => setMenu("club")} to={`${match.url}/club`}>동아리 정보 관리</Link>
+                            <Link style={styles} onClick={() => setMenu("member")} to={`${match.url}/member`}><Tag>지원자 관리</Tag></Link>
+                            </>
+                        )} 
+                        { menu === "member" && (
+                            <>
+                            <Link style={styles} onClick={() => setMenu("profile")} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
+                            <Link style={styles} onClick={() => setMenu("club")} to={`${match.url}/club`}><Tag>동아리 정보 관리</Tag></Link>
+                            <Link style={clickStyle} onClick={() => setMenu("member")} to={`${match.url}/member`}>지원자 관리</Link>
+                            </>
+                        )}
+                    </List>
                 )}
-            </List>
-            ) : ( 
-            <List>
-                <Link style={styles} to={`${match.url}`}><Tag>프로필 관리</Tag></Link>
-            </List> )}
+                {!meQuery.data.me.isMaster && (
+                    <List>
+                        <Link style={clickStyle} onClick={() => setMenu("profile")} to={`${match.url}`}>프로필 관리</Link>
+                    </List>
+                )}
+                </>
+                )}
         </Menu>
         <Contents>
-            <Route exact path={match.path} component={ManageProfile}/>
-            <Route path={`${match.path}/club`} component={ManageClub} />
-            <Route path={`${match.path}/member`} component={ManageApplicant} />
+        { !meQuery.loading && (
+            <>
+                { meQuery.data.me.isMaster && (
+                    <>
+                    <Route exact path={match.path} component={ManageProfile}/>
+                    <Route path={`${match.path}/club`} component={ManageClub} />
+                    <Route path={`${match.path}/member`} component={ManageApplicant} />
+                    </>
+                )}
+                { !meQuery.data.me.isMaster && (
+                    <Route exact path={match.path} component={ManageProfile}/>
+                )}
+            </>
+        )}
         </Contents>
-    </Wrapper>
+        </Wrapper>
     );
 }

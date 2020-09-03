@@ -20,10 +20,11 @@ const Member = styled.div`
     margin: 10px 30px;
     padding: 12px 20px;
     border-radius: 10px;
+    min-width: 230px;
 `;
 
 const Contents = styled.div`
-    padding-right: 70px;
+    width: 150px;
 `;
 
 const StudentName = styled.div`
@@ -47,6 +48,12 @@ const Button = styled.button`
     }
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+`;
+
 export default ({ members, onDelete, loading }) => (
     <Wrapper>
         {loading && <Loading></Loading>}
@@ -60,7 +67,9 @@ export default ({ members, onDelete, loading }) => (
                                     <StudentName>{Name}</StudentName>
                                     <Number>{studentNumber}</Number>
                                 </Contents>
-                                <Button>탈퇴</Button>
+                                <ButtonContainer>
+                                    <Button>탈퇴</Button>
+                                </ButtonContainer>
                             </Member>
                         </form>
                     );

@@ -37,18 +37,15 @@ export default () => {
             logoFile.append("file", logoImg);
             clubFile.append("file", clubImg);
             try {
-                console.log("file upload start");
                 const { data } = await axios.post("http://localhost:4000/api/upload", logoFile, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                console.log("file upload end");
                 if(!data) {
                     console.log("fail to upload files");
                     toast.error("파일 업로드에 실패하였습니다.");
                 } else {
-                    console.log(data)
                     logoUrl = data.location
                 }
             } catch (e) {

@@ -3,15 +3,17 @@ import { gql } from "apollo-boost";
 export const GET_QUESTION = gql`
   query {
     me {
-        isMaster {
-            application_description
-            questions {
-                id
-                subject
-                type
-                options
-            }
+      id
+      isMaster {
+        id
+        application_description
+        questions {
+            id
+            subject
+            type
+            options
         }
+      }
     }
   }
 `;

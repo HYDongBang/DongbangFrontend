@@ -7,7 +7,6 @@ export const ME = gql`
       email
       phoneNumber
       studentNumber
-      sex
       university
       major
     }

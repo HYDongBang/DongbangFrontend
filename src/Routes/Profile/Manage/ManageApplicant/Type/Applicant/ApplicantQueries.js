@@ -3,8 +3,11 @@ import { gql } from "apollo-boost";
 export const GET_APPLICANTS = gql`
   query me {
     me {
+      id
       isMaster {
+        id
         questions {
+            id
             subject
             type
             options
@@ -17,7 +20,6 @@ export const GET_APPLICANTS = gql`
                 studentNumber
                 email
                 phoneNumber
-                sex
                 university
                 major
             }

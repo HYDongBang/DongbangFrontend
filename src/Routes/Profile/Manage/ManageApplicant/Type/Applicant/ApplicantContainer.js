@@ -18,6 +18,7 @@ export default () => {
      }, [id]);
 
      if(!getApplicantsQuery.loading) {
+          console.log(getApplicantsQuery)
           const applications = getApplicantsQuery.data.me.isMaster.applications;
           const questions = getApplicantsQuery.data.me.isMaster.questions;
           applications.forEach(application => applicants.push({
@@ -30,7 +31,6 @@ export default () => {
                university: application.user.university,
                major: application.user.major,
                form: questions.map((question, index) => {
-                    console.log(question)
                     return { id: index, question: question.subject, type: question.type, options: question.options, answer: application.answer[index]}
                }),
                status: application.status
