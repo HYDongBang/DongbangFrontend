@@ -5,12 +5,12 @@ import useInput from "../../Hooks/useInput";
 import { SEND_MESSAGE } from "./ClubInfoQueries";
 import { toast } from "react-toastify";
 import { useQuery } from "react-apollo-hooks";
-import { SEE_ROOM } from "./ClubInfoQueries";
+import { SEE_ROOM, ME, SEE_ROOMS } from "./ClubInfoQueries";
+import ClubInfoContainer from "../ClubInfo/ClubInfoContainer";
 
-export default ({ club }) => {
+export default ({ club, setAction }) => {
   const message = useInput("");
   let chats;
-  let myRoomId;
   const [sendMessageMutation] = useMutation(SEND_MESSAGE);
 
   const { loading, data } = useQuery(SEE_ROOM, {
@@ -19,7 +19,6 @@ export default ({ club }) => {
 
   if (!loading && data.seeRoom) {
     chats = data.seeRoom[0].messages;
-    myRoomId = data.seeRoom[0].id;
   }
   if (!loading) {
     console.log(data.seeRoom);
@@ -42,6 +41,7 @@ export default ({ club }) => {
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
+            window.location.reload();
             toast.info("보내짐");
           }
         } catch (err) {
@@ -64,6 +64,7 @@ export default ({ club }) => {
           if (!id || id === "") {
             toast.error("전송 오류");
           } else {
+            window.location.reload();
             toast.info("보내짐");
           }
         } catch (err) {
@@ -80,7 +81,6 @@ export default ({ club }) => {
       club={club}
       message={message}
       onSubmit={onSubmit}
-      myRoomId={myRoomId}
       myChats={chats}
       chatloading={loading}
     />

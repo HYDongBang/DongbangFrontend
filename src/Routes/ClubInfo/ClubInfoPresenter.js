@@ -17,12 +17,14 @@ const ClubContainer = styled.div`
   height: 700px;
   width: 90%;
   margin: 0 auto;
+  overflow-y: auto;
 `;
 
 const ClubImg = styled.div`
   height: 75px;
   width: 75px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.darkGrayShadow};
+
   border-radius: 100%;
 `;
 
@@ -62,7 +64,6 @@ const Context = styled.div`
 const ContextClubImg = styled.div`
   height: 250px;
   width: 100%;
-  border: 1px solid black;
   margin-bottom: 10px;
 `;
 
@@ -89,10 +90,30 @@ const Line = styled.div`
   margin-left: 20px;
 `;
 
+const Description = styled.div`
+  white-space: pre-wrap;
+`;
+
 export default ({ action, setAction, club }) => {
   const { loading, data } = useQuery(CLUB_BY_ID, {
     variables: { id: club.id },
   });
+  let clubDes;
+
+  if (!loading) {
+    const des = data.clubById.description;
+    console.log(des);
+
+    clubDes = des.split("\n").map(function (item, idx) {
+      console.log(item);
+      return (
+        <span key={idx}>
+          {item}
+          <br />
+        </span>
+      );
+    });
+  }
 
   return (
     <Wrapper>
@@ -105,7 +126,7 @@ export default ({ action, setAction, club }) => {
             동아리 활동
           </Link>
           <Link className="menu__link" onClick={() => setAction("talk")}>
-            실시간 톡
+            쪽지
           </Link>
           <Link className="menu__link" onClick={() => setAction("apply")}>
             지원하기
@@ -123,7 +144,16 @@ export default ({ action, setAction, club }) => {
             <>
               <ClubContainer>
                 <TopContainer>
-                  <ClubImg />
+                  <ClubImg>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "100%",
+                      }}
+                      src={data.clubById.logoImage}
+                    />
+                  </ClubImg>
                   <Line />
 
                   <ClubNameBio>
@@ -133,8 +163,16 @@ export default ({ action, setAction, club }) => {
                 </TopContainer>
 
                 <Context>
-                  <ContextClubImg />
-                  {data.clubById.description}
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      marginBottom: "15px",
+                    }}
+                    src={data.clubById.clubImage}
+                  />
+
+                  {clubDes}
                 </Context>
               </ClubContainer>
             </>
@@ -142,7 +180,9 @@ export default ({ action, setAction, club }) => {
           {action === "activity" && (
             <ClubActivityContainer club={data.clubById} />
           )}
-          {action === "talk" && <ClubTalkContainer club={data.clubById} />}
+          {action === "talk" && (
+            <ClubTalkContainer club={data.clubById} setAction={setAction} />
+          )}
           {action === "apply" && (
             <ClubApplyContainer club={data.clubById} setAction={setAction} />
           )}

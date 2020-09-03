@@ -68,8 +68,10 @@ const Content = styled.div`
 `;
 
 const Info = styled.div`
-    padding: 20px 0px 0px 5px;
+    margin: 20px 0px 0px 5px;
+    padding-left: 5px;
     font-size: 1.1em;
+    border-left: 3px solid ${props => props.theme.blueColor};
 `;
 
 const ButtonContainer = styled.div`
@@ -146,16 +148,16 @@ export default ({ loading, applicants, onCheck, onAccept, onReject, onDelete, id
             <Applicants>
                 <Title>지원자</Title>
                 {applicants.map(({ id, name, studentNumber, status }) => {
-                    if(status === "UNCHECK") {
+                    if(status === "UNCHECKED") {
                         return (
-                            <Member key={id} data-key={id} onClick={onCheck} className="member" style={unchecked}>
+                            <Member key={id} data-key={id} id={id} onClick={onCheck} className="member" style={unchecked}>
                                 <Name>{name}</Name>
                                 <Number>{studentNumber}</Number>
                             </Member>
                         )
                     }
                     else return (
-                        <Member key={id} data-key={id} onClick={onCheck} className="member" >
+                        <Member key={id} data-key={id} id={id} onClick={onCheck} className="member" >
                             <Name>{name}</Name>
                             <Number>{studentNumber}</Number>
                         </Member>
@@ -183,7 +185,7 @@ export default ({ loading, applicants, onCheck, onAccept, onReject, onDelete, id
                                 <Reject onClick={onDelete}>삭제</Reject>
                             </ButtonContainer>
                         )}
-                        {applicants.filter(applicant => applicant.id === id)[0].status === "UNCHECK" && (
+                        {applicants.filter(applicant => applicant.id === id)[0].status === "UNCHECKED" && (
                             <ButtonContainer>
                                 <Accept onClick={onAccept}>수락</Accept>
                                 <Reject onClick={onReject}>거절</Reject>

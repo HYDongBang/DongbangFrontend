@@ -2,48 +2,40 @@ import React from "react";
 import MemberPresenter from "./MemberPresenter";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { toast } from "react-toastify";
-import { GET_CLUB_MEMBERS, EDIT_CLUB_MEMBERS } from "./MemberQueries";
+import { GET_CLUB_MEMBERS, DELETE_CLUB_MEMBER } from "./MemberQueries";
 
 export default () => {
-    let members = [
-        {Name: "홍길동", studentNumber: "2019021234"},
-        {Name: "가나다", studentNumber: "2019021234"}
-    ];
+    let members = [];
     const getClubMemebersQuery = useQuery(GET_CLUB_MEMBERS);
-    if(!getClubMemebersQuery.loading) {
-        console.log(getClubMemebersQuery.data.me.isMaster.members);
-        members.concat(getClubMemebersQuery.data.me.isMaster.members);
+    const [ deleteClubMemberMutation ] = useMutation(DELETE_CLUB_MEMBER);
+    if(!getClubMemebersQuery.loading && getClubMemebersQuery.data.me !== undefined) {
+        getClubMemebersQuery.data.me.isMaster.members.forEach((element, index) => {
+            members.push({Name: element.Name, studentNumber: element.studentNumber, id: element.id})
+        })
     }
-    /*const editClubMembersMutation = useMutation(EDIT_CLUB_MEMBERs, {
-        variables: {
-            Users:
-        }
-    });
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const {
-                data: { editClubMembers: result}
-            } = await editClubMembersMutation();
-        }
-        if(!result) {
-            console.log("faile to delete")
-        } else {
-            toast.success("탈퇴하였습니다.");
-        }
-    }*/
-
     const onDelete = async (e) => {
         e.preventDefault();
-        alert("탈퇴 시키겠습니까?");
-        toast.success("탈퇴 성공");
+        try {
+            const { data: { deleteMember} } = await deleteClubMemberMutation({
+                variables: {
+                    uid: e.target.getAttribute("data-key")
+                }
+            });
+            if(!deleteMember) {
+            console.log("fail to delete")
+            } else {
+                toast.info("탈퇴하였습니다.");
+            }
+        } catch (e) {
+            console.log(e.message);
+        }
+        
     }
-
     return (
         <MemberPresenter 
             loading={getClubMemebersQuery.loading}
             members={members}
-            onDelte={onDelete}
+            onDelete={onDelete}
         />
     )
 }

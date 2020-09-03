@@ -5,14 +5,6 @@ import { useSubscription, useQuery } from "react-apollo-hooks";
 import { NEW_MESSAGE, SEE_ROOM } from "./ClubInfoQueries";
 import TalkButton from "../../Components/TalkButton";
 import Loading from "../../Components/Loading";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
 
 const Container = styled.div`
   height: 700px;
@@ -36,7 +28,7 @@ const TalkContainer = styled.div`
 `;
 const TalkContainerNoScroll = styled.div`
   width: 100%;
-  height: 500px;
+  height: 74%;
   overflow-x: hidden;
 `;
 const ClubImg = styled.div`
@@ -89,15 +81,15 @@ const OtherBubble = styled.div`
 
 const Answer = styled.div`
   width: 100%;
-  height: 25%;
+  height: 20%;
   padding: 10px 0px;
   flex-direction: row;
 `;
 
 const Button = styled.button``;
 
-const Input = styled.input`
-  width: "80%";
+const Input = styled.textarea`
+  width: 88%;
 `;
 const Line = styled.div`
   height: 1px;
@@ -106,50 +98,15 @@ const Line = styled.div`
   margin: 5px auto 15px auto;
 `;
 
-export default ({
-  club,
-  message,
-  onSubmit,
-  myRoomId,
-  myChats,
-  chatloading,
-}) => {
-  const { data } = useSubscription(NEW_MESSAGE, {
-    variables: { roomId: myRoomId },
-    shouldResubscribe: true,
-  });
-  console.log(data);
-
+export default ({ club, message, onSubmit, myChats, chatloading }) => {
   function scrollposition() {
-    let elHeight = document.getElementById("talk").clientHeight;
-    if (elHeight != 0) {
-      document.getElementById("talk").scrollTop = elHeight;
+    if (document.getElementById("talk") !== null) {
+      let elHeight = document.getElementById("talk").clientHeight;
+      if (elHeight != 0) {
+        document.getElementById("talk").scrollTop = elHeight;
+      }
     }
   }
-  // subscription 하다 만 거..
-
-  // const [myChats, setMyChats] = useState(oldChats||);
-
-  // const handleNewChats = () => {
-  //   if (data !== undefined) {
-  //     const { newChats } = data;
-  //     setMyChats((previous) => [...previous, newChats]);
-  //     console.log("lalala");
-  //     console.log(myChats);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleNewChats();
-  // }, [data]);
-
-  // if (!loading) {
-  //   console.log("11");
-
-  //   console.log(chats);
-  //   console.log(myChats);
-  //   console.log(data);
-  // }
 
   return (
     <Container>
@@ -188,7 +145,7 @@ export default ({
         </TalkContainer>
       </TalkContainerNoScroll>
       <Answer>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} style={{ display: "flex" }}>
           <Input className="form__field" {...message} />
           <TalkButton type="submit" text="보내기"></TalkButton>
         </form>
@@ -196,3 +153,33 @@ export default ({
     </Container>
   );
 };
+
+// const { data } = useSubscription(NEW_MESSAGE, {
+//   variables: { roomId: myRoomId },
+//   shouldResubscribe: true,
+// });
+// console.log(data);
+// subscription 하다 만 거..
+
+// const [myChats, setMyChats] = useState(oldChats||);
+
+// const handleNewChats = () => {
+//   if (data !== undefined) {
+//     const { newChats } = data;
+//     setMyChats((previous) => [...previous, newChats]);
+//     console.log("lalala");
+//     console.log(myChats);
+//   }
+// };
+
+// useEffect(() => {
+//   handleNewChats();
+// }, [data]);
+
+// if (!loading) {
+//   console.log("11");
+
+//   console.log(chats);
+//   console.log(myChats);
+//   console.log(data);
+// }

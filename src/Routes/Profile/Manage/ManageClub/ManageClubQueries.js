@@ -19,8 +19,10 @@ export const EDIT_CLUB = gql`
       $name: String
       $bio: String
       $description: String
+      $clubImage: String
+      $logoImage: String
   ) {
-      editClub(action: $action, name: $name, bio: $bio, description: $description) {
+      editClub(action: $action, name: $name, bio: $bio, description: $description, clubImage: $clubImage, logoImage: $logoImage) {
         name
       }
   }

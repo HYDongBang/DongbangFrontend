@@ -14,8 +14,9 @@ export default () => {
     const studentNumber = useInput("");
     const uni = useInput("");
     const major = useInput("");
+    let isFirst = false;
 
-    if(!meQuery.loading && name.value === "" && email.value === "" && phoneNumber.value === "" && studentNumber.value === "" && uni.value === "" && major.value === "") {
+    if(!meQuery.loading && isFirst === false && name.value === "" && email.value === "" && phoneNumber.value === "" && studentNumber.value === "" && uni.value === "" && major.value === "") {
         name.onChange({ target: { value: meQuery.data.me.Name }});
         email.onChange({ target: { value: meQuery.data.me.email }});
         phoneNumber.onChange({ target: { value: meQuery.data.me.phoneNumber }});
@@ -23,6 +24,7 @@ export default () => {
         uni.onChange({ target: { value: meQuery.data.me.university }});
         major.onChange({ target: { value: meQuery.data.me.major }});
     }
+    isFirst = true;
 
     const onSubmit = async (e) => {
         e.preventDefault();

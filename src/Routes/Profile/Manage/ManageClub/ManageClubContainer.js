@@ -23,46 +23,22 @@ export default () => {
         type.onChange({ target: { value: data.type }});
         bio.onChange({ target: { value: data.bio }});
         description.onChange({ target: { value: data.description }});
-        //logo.onChange({ target: { value: data.logo }});
-        //clubImg.onChange({ target: { value: data.clubImg }});
     }
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (name.value !== "" && type.value !== "" && description.value !== "") {
-            try {
-                const {data} = await editClubMutation({
-                    variables: {
-                        action: "EDIT",
-                        name: name.value,
-                        bio: bio.value,
-                        description: description.value
-                    }
-                });
-                if(!data) {
-                    console.log("fail to edit club");
-                } else {
-                    toast.info("동아리 정보를 수정하였습니다.");
-                }
-            } catch (e) {
-                console.log(e.message);
-                toast.error("다시 시도해 주세요");
-            }
-        }
-        if (logo !== "" && clubImg !== "") {
-            const formData = new FormData();
-            const logo = document.getElementById("logo").files[0];
+        let logoUrl = "";
+        let clubUrl = "";
+        if (logo.value !== "" && clubImg.value !== "") {
+            const logoFile = new FormData();
+            const clubFile = new FormData();
+            const logoImg = document.getElementById("logo").files[0];
             const clubImg = document.getElementById("clubImg").files[0];
-            formData.append("file", logo);
-            //formData.append("clubImg", clubImg);
-            /*formData.append("file", {
-                name: logo.name,
-                type: logo.type.toLowerCase(),
-                uri: logo.value
-            })*/
+            logoFile.append("file", logoImg);
+            clubFile.append("file", clubImg);
             try {
                 console.log("file upload start");
-                const { data } = await axios.post("http://localhost:4000/api/upload", formData, {
+                const { data } = await axios.post("http://localhost:4000/api/upload", logoFile, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -72,11 +48,68 @@ export default () => {
                     console.log("fail to upload files");
                     toast.error("파일 업로드에 실패하였습니다.");
                 } else {
-                    toast.info("파일 업로드에 성공하였습니다.");
+                    console.log(data)
+                    logoUrl = data.location
                 }
             } catch (e) {
                 console.log(e.message);
                 toast.error("파일 업로드에 실패하였습니다.");
+            }
+            try {
+                console.log("file upload start");
+                const { data } = await axios.post("http://localhost:4000/api/upload", clubFile, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log("file upload end");
+                if(!data) {
+                    console.log("fail to upload files");
+                    toast.error("파일 업로드에 실패하였습니다.");
+                } else {
+                    clubUrl = data.location;
+                }
+            } catch (e) {
+                console.log(e.message);
+                toast.error("파일 업로드에 실패하였습니다.");
+            }
+        }
+        if (name.value !== "" && type.value !== "" && description.value !== "") {
+            try {
+                if(clubUrl !== "" && logoUrl !== "") {
+                    const {data} = await editClubMutation({
+                        variables: {
+                            action: "EDIT",
+                            name: name.value,
+                            bio: bio.value,
+                            description: description.value,
+                            clubImage: clubUrl,
+                            logoImage: logoUrl
+                        }
+                    });
+                    if(!data) {
+                        console.log("fail to edit club");
+                    } else {
+                        toast.info("동아리 정보를 수정하였습니다.");
+                    }
+                } else {
+                    const {data} = await editClubMutation({
+                        variables: {
+                            action: "EDIT",
+                            name: name.value,
+                            bio: bio.value,
+                            description: description.value,
+                        }
+                    });
+                    if(!data) {
+                        console.log("fail to edit club");
+                    } else {
+                        toast.info("동아리 정보를 수정하였습니다.");
+                    }
+                }
+            } catch (e) {
+                console.log(e.message);
+                toast.error("다시 시도해 주세요");
             }
         }
     }
