@@ -3,8 +3,9 @@ import styled from "styled-components";
 import ClubApplyContainer from "./ClubApplyContainer";
 import ClubActivityContainer from "./ClubActivityContainer";
 import ClubTalkContainer from "./ClubTalkContainer";
+import MasterTalk from "./MasterRooms";
 import { useQuery } from "react-apollo-hooks";
-import { CLUB_BY_ID } from "./ClubInfoQueries";
+import { CLUB_BY_ID, ME } from "./ClubInfoQueries";
 import Loading from "../../Components/Loading";
 import styles from "../../Styles/ClubInfo.css";
 
@@ -90,22 +91,31 @@ const Line = styled.div`
   margin-left: 20px;
 `;
 
-const Description = styled.div`
-  white-space: pre-wrap;
+const NoPost = styled.div`
+  font-size: 1.5em;
+  font-weight: bold;
+  color: ${(props) => props.theme.grayColor};
+  margin-top: 55%;
+  text-align: center;
 `;
 
 export default ({ action, setAction, club }) => {
   const { loading, data } = useQuery(CLUB_BY_ID, {
     variables: { id: club.id },
   });
+
+  const { loading: meLoading, data: meData } = useQuery(ME);
+  if (!loading && !meLoading) {
+    console.log(meData.me.id);
+    console.log(data.clubById.master.id);
+  }
+
   let clubDes;
 
   if (!loading) {
     const des = data.clubById.description;
-    console.log(des);
 
     clubDes = des.split("\n").map(function (item, idx) {
-      console.log(item);
       return (
         <span key={idx}>
           {item}
@@ -138,7 +148,7 @@ export default ({ action, setAction, club }) => {
           <Loading />
         </div>
       )}
-      {!loading && data.clubById && (
+      {!loading && data.clubById && !meLoading && (
         <>
           {action === "clubInfo" && (
             <>
@@ -180,9 +190,25 @@ export default ({ action, setAction, club }) => {
           {action === "activity" && (
             <ClubActivityContainer club={data.clubById} />
           )}
-          {action === "talk" && (
+
+          {action === "talk" && meData.me.isMaster === null && (
             <ClubTalkContainer club={data.clubById} setAction={setAction} />
           )}
+
+          {action === "talk" &&
+            meData.me.isMaster !== null &&
+            meData.me.id !== data.clubById.master.id && (
+              <ClubContainer>
+                <NoPost>동아리 계정으로는 쪽지를 보낼 수 없습니다.</NoPost>
+              </ClubContainer>
+            )}
+
+          {action === "talk" &&
+            meData.me.isMaster !== null &&
+            meData.me.id === data.clubById.master.id && (
+              <MasterTalk club={data.clubById} setAction={setAction} />
+            )}
+
           {action === "apply" && (
             <ClubApplyContainer club={data.clubById} setAction={setAction} />
           )}
