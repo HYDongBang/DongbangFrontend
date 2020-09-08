@@ -10,16 +10,11 @@ const Title = styled.div`
     font-family:'NanumGothic';
 `;
 
-const Text = styled.div``;
-
 const Line = styled.div`
     height: 1px;
     width: 80px;
     background-color: black;
     margin: 15px auto;
-`;
-
-const Questions = styled.div`
 `;
 
 const Question = styled.div`
@@ -67,13 +62,13 @@ export default ({
     return ( 
     <>
         <Title>
-            <Text>프로필 관리</Text>
+            <div>프로필 관리</div>
             <Line></Line>
         </Title>
         { loading && <Loading></Loading>}
         { !loading && (
             <form onSubmit={onSubmit}>
-                <Questions>
+                <div>
                         <Question>
                             <About>이름</About>
                             <ProfileInput placeholder="ex) 홍길동" {...name} type="text"></ProfileInput>
@@ -98,7 +93,7 @@ export default ({
                             <About>학과</About>
                             <ProfileInput placeholder="ex) 컴퓨터소프트웨어학부" {...major} type="text"></ProfileInput>
                         </Question>
-                </Questions>
+                </div>
                 <ButtonContainer>
                     <Button>저장하기</Button>
                 </ButtonContainer>
