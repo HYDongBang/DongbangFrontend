@@ -12,7 +12,7 @@ const Applicants = styled.div`
     width: 180px;
     overflow-y: auto;
     height: 560px;
-    border-right: 1px solid ${props=>props.theme.grayColor};
+    border-right: 1px solid ${props => props.theme.grayColor};
 `;
 
 const Title = styled.div`
@@ -30,14 +30,14 @@ const Application = styled.div`
 `;
 
 const Member = styled.div`
-    border-left: 3px solid ${props=>props.theme.darkGrayColor};
+    border-left: 3px solid ${props => props.theme.darkGrayColor};
     margin: 10px 0px 10px 10px;
     padding: 5px 5px 5px 7px;
     display: flex;
     align-items: center;
     cursor: pointer;
     &:hover {
-        border-left: 3px solid ${props=>props.theme.blueColor};
+        border-left: 3px solid ${props => props.theme.blueColor};
     }
 `;
 
@@ -52,6 +52,13 @@ const Name = styled.div`
     padding-right: 3px;
 `;
 
+const StudentName = styled.div`
+    font-size: 0.9em;
+    font-weight: 600;
+    padding-right: 3px;
+    padding-bottom: 3px;
+`;
+
 const StudentInfo = styled.div`
     padding: 5px 0px;
     font-size: 0.8em;
@@ -64,8 +71,7 @@ const None = styled.div`
     text-align: center;
 `;
 
-const Content = styled.div`
-`;
+const Content = styled.div``;
 
 const Info = styled.div`
     margin: 20px 0px 0px 5px;
@@ -74,20 +80,19 @@ const Info = styled.div`
     border-left: 3px solid ${props => props.theme.blueColor};
 `;
 
-const ButtonContainer = styled.div`
-`;
+const ButtonContainer = styled.div``;
 
 const Accept = styled.button`
     cursor: pointer;
     margin-left: 5px;
-    border:1px solid ${props => props.theme.darkGrayColor};
+    border: 1px solid ${props => props.theme.darkGrayColor};
     padding: 3px 10px;
     border-radius: 10px;
     background-color: ${props => props.theme.whiteColor};
     &:hover {
         color: ${props => props.theme.blueColor};
         border: 1px solid ${props => props.theme.blueColor};
-        transition: all .3s;
+        transition: all 0.3s;
     }
     $:focus {
         border: none;
@@ -96,7 +101,7 @@ const Accept = styled.button`
 
 const Reject = styled.button`
     cursor: pointer;
-    border:1px solid ${props => props.theme.darkGrayColor};
+    border: 1px solid ${props => props.theme.darkGrayColor};
     padding: 3px 10px;
     border-radius: 10px;
     margin-left: 5px;
@@ -104,7 +109,7 @@ const Reject = styled.button`
     &:hover {
         color: ${props => props.theme.blueColor};
         border: 1px solid ${props => props.theme.blueColor};
-        transition: all .3s;
+        transition: all 0.3s;
     }
     $:focus {
         border: none;
@@ -137,92 +142,90 @@ const Text = styled.div`
     color: ${props => props.theme.blueColor};
 `;
 
+const unchecked = { borderRight: "2px solid red" };
 
-const unchecked = {"borderRight": "2px solid red"};
-
-export default ({ loading, applicants, onCheck, onAccept, onReject, onDelete, id}) => (
+export default ({ loading, applicants, onCheck, onAccept, onReject, onDelete, id }) => (
     <>
-    {loading && <Loading></Loading>}
-    {!loading && (
-        <Wrapper>
-            <Applicants>
-                <Title>지원자</Title>
-                {applicants.map(({ id, name, studentNumber, status }) => {
-                    if(status === "UNCHECKED") {
-                        return (
-                            <Member key={id} data-key={id} id={id} onClick={onCheck} className="member" style={unchecked}>
-                                <Name>{name}</Name>
-                                <Number>{studentNumber}</Number>
-                            </Member>
-                        )
-                    }
-                    else return (
-                        <Member key={id} data-key={id} id={id} onClick={onCheck} className="member" >
-                            <Name>{name}</Name>
-                            <Number>{studentNumber}</Number>
-                        </Member>
-                    )
-                })}
-            </Applicants>
-            <Application>
-                {id === "0" ? (
-                    <None>지원자를 선택하세요.</None>
-                ) :
-                (
-                    <>
-                    <Content>
-                        {applicants.filter(applicant => applicant.id === id)[0].status === "PASS" && (
-                            <ButtonContainer>
-                                <Text>합격한 지원자 입니다.</Text>
-                                <Reject onClick={onReject}>거절</Reject>
-                                <Reject onClick={onDelete}>삭제</Reject>
-                            </ButtonContainer>
-                        )}
-                        {applicants.filter(applicant => applicant.id === id)[0].status === "FAIL" && (
-                            <ButtonContainer>
-                                <Text>불합격한 지원자 입니다.</Text>
-                                <Accept onClick={onAccept}>수락</Accept>
-                                <Reject onClick={onDelete}>삭제</Reject>
-                            </ButtonContainer>
-                        )}
-                        {applicants.filter(applicant => applicant.id === id)[0].status === "UNCHECKED" && (
-                            <ButtonContainer>
-                                <Accept onClick={onAccept}>수락</Accept>
-                                <Reject onClick={onReject}>거절</Reject>
-                                <Reject onClick={onDelete}>삭제</Reject>
-                            </ButtonContainer>
-                        )}
-                        {applicants.filter(applicant => applicant.id === id)[0].status === "CHECK" && (
-                            <ButtonContainer>
-                                <Accept onClick={onAccept}>수락</Accept>
-                                <Reject onClick={onReject}>거절</Reject>
-                                <Reject onClick={onDelete}>삭제</Reject>
-                            </ButtonContainer>
-                        )}
-                        <Info>
-                            <Name>이름: {applicants.filter(applicant => applicant.id === id)[0].name}</Name>
-                            <StudentInfo>학번: {applicants.filter(applicant => applicant.id === id)[0].studentNumber}</StudentInfo>
-                            <StudentInfo>이메일: {applicants.filter(applicant => applicant.id === id)[0].email}</StudentInfo>
-                            <StudentInfo>연락처: {applicants.filter(applicant => applicant.id === id)[0].phoneNumber}</StudentInfo>
-                            <StudentInfo>성별: {applicants.filter(applicant => applicant.id === id)[0].sex}</StudentInfo>
-                            <StudentInfo>학교: {applicants.filter(applicant => applicant.id === id)[0].university}</StudentInfo>
-                            <StudentInfo>전공: {applicants.filter(applicant => applicant.id === id)[0].major}</StudentInfo>
-                        </Info>
-                    </Content>
-                    <Questions>
-                        {applicants.filter(applicants => applicants.id === id)[0].form.map(({ id, question, answer }) => {
+        {loading && <Loading></Loading>}
+        {!loading && (
+            <Wrapper>
+                <Applicants>
+                    <Title>지원자</Title>
+                    {applicants.map(({ id, name, studentNumber, status }) => {
+                        if (status === "UNCHECKED") {
                             return (
-                                <Question key={id}>
-                                    <About>{question}</About>
-                                    <Answer>{answer}</Answer>
-                                </Question>
-                            )
-                        })}
-                    </Questions>
-                    </>
-                )}
-            </Application>
-        </Wrapper>
-    )}
+                                <Member key={id} data-key={id} id={id} onClick={onCheck} className="member" style={unchecked}>
+                                    <Name>{name}</Name>
+                                    <Number>{studentNumber}</Number>
+                                </Member>
+                            );
+                        } else
+                            return (
+                                <Member key={id} data-key={id} id={id} onClick={onCheck} className="member">
+                                    <Name>{name}</Name>
+                                    <Number>{studentNumber}</Number>
+                                </Member>
+                            );
+                    })}
+                </Applicants>
+                <Application>
+                    {id === "0" ? (
+                        <None>지원자를 선택하세요.</None>
+                    ) : (
+                        <>
+                            <Content>
+                                {applicants.filter(applicant => applicant.id === id)[0].status === "PASS" && (
+                                    <ButtonContainer>
+                                        <Text>합격한 지원자 입니다.</Text>
+                                        <Reject onClick={onDelete}>삭제</Reject>
+                                    </ButtonContainer>
+                                )}
+                                {applicants.filter(applicant => applicant.id === id)[0].status === "FAIL" && (
+                                    <ButtonContainer>
+                                        <Text>불합격한 지원자 입니다.</Text>
+                                        <Accept onClick={onAccept}>수락</Accept>
+                                        <Reject onClick={onDelete}>삭제</Reject>
+                                    </ButtonContainer>
+                                )}
+                                {applicants.filter(applicant => applicant.id === id)[0].status === "UNCHECKED" && (
+                                    <ButtonContainer>
+                                        <Accept onClick={onAccept}>수락</Accept>
+                                        <Reject onClick={onReject}>거절</Reject>
+                                        <Reject onClick={onDelete}>삭제</Reject>
+                                    </ButtonContainer>
+                                )}
+                                {applicants.filter(applicant => applicant.id === id)[0].status === "CHECK" && (
+                                    <ButtonContainer>
+                                        <Accept onClick={onAccept}>수락</Accept>
+                                        <Reject onClick={onReject}>거절</Reject>
+                                        <Reject onClick={onDelete}>삭제</Reject>
+                                    </ButtonContainer>
+                                )}
+                                <Info>
+                                    <StudentName>이름: {applicants.filter(applicant => applicant.id === id)[0].name}</StudentName>
+                                    <StudentInfo>학번: {applicants.filter(applicant => applicant.id === id)[0].studentNumber}</StudentInfo>
+                                    <StudentInfo>이메일: {applicants.filter(applicant => applicant.id === id)[0].email}</StudentInfo>
+                                    <StudentInfo>연락처: {applicants.filter(applicant => applicant.id === id)[0].phoneNumber}</StudentInfo>
+                                    <StudentInfo>학교: {applicants.filter(applicant => applicant.id === id)[0].university}</StudentInfo>
+                                    <StudentInfo>전공: {applicants.filter(applicant => applicant.id === id)[0].major}</StudentInfo>
+                                </Info>
+                            </Content>
+                            <Questions>
+                                {applicants
+                                    .filter(applicants => applicants.id === id)[0]
+                                    .form.map(({ id, question, answer }) => {
+                                        return (
+                                            <Question key={id}>
+                                                <About>{question}</About>
+                                                <Answer>{answer}</Answer>
+                                            </Question>
+                                        );
+                                    })}
+                            </Questions>
+                        </>
+                    )}
+                </Application>
+            </Wrapper>
+        )}
     </>
-)
+);
