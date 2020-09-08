@@ -14,6 +14,7 @@ export const CLUB_BY_ID = gql`
 
       master {
         id
+        Name
       }
 
       questions {
@@ -74,6 +75,18 @@ export const ME = gql`
   query me {
     me {
       id
+      isMaster {
+        id
+      }
+      rooms {
+        id
+        participants {
+          id
+        }
+        messages {
+          text
+        }
+      }
     }
   }
 `;
