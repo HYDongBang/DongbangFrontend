@@ -1,17 +1,42 @@
-# Dongbang Frontend
-## 기술스택
-* React, hook, apollo, graphql
-## 기능
-* 로그인/ 회원가입
-* 메인
-* 마이페이지
-  - 관리자 X
-    - 프로필 관리 
-  - 관리자 O
-    - 동아리정보 관리 
-    - 지원자 관리 (지원자 관리, 가입신청 양식)
-* 팝업 안으로 들어가는거
-  - 동아리 소개
-  - 동아리 활동
-  - 채팅
-  - 지원하기
+<h1 align="center">Welcome to Dongbang-frontend 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
+</p>
+
+> 한양대학교 중앙동아리 통합 관리 서비스, 동방입니다.
+
+### 🏠 [Homepage]()
+
+제작중에 있습니다.
+
+### ✨ [Demo](http://18.210.10.66:5000/)
+
+## 🐶 사용 기술 스택
+
+- ![title](https://img.shields.io/badge/-Vanila_javascript-77216F?&logo=javascript&logoColor=white)
+- ![title](https://img.shields.io/badge/-React-00CAFF?&logo=React&logoColor=white)
+- ![title](https://img.shields.io/badge/-HTML5-E8E8E8?&logo=html5&logoColor=white)
+
+## Install
+
+```sh
+yarn install
+```
+
+## Usage
+
+```sh
+yarn run start
+```
+
+## Run tests
+
+```sh
+yarn run test
+```
+
+## Author
+
+👤 **동방팀 - 윤승권,심현아, 남민정, 위성원**
+
+- Team Github: [@HYDongBang](https://github.com/HYDongBang)
